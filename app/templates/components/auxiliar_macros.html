@@ -1,0 +1,255 @@
+
+
+
+{% macro mac_frm_label(name, doc, nullable) %}
+<label class="mb-0" for="{{name}}">
+    {{doc}}
+    {% if nullable==False %} <span class="text-danger">*</span>{% endif %}
+</label>
+{% endmacro %}
+
+{% macro mac_frm_input_text(modelfield, value) %}
+<div class="form-group">
+    {{ mac_frm_label(modelfield.name, modelfield.doc, modelfield.nullable) }}
+    <input class="form-control" type="text" id="{{modelfield.name}}" name="{{modelfield.name}}" 
+           maxlength="{{modelfield.type.length}}"
+           {% if modelfield.nullable==False %} required{% endif %}
+           {% if value %} value="{{value}}"{% endif %} 
+           {% if varargs %}{% for item in varargs %} {{item}}{% endfor %}{% endif %}
+    >
+</div>
+{% endmacro %}
+
+{% macro mac_frm_input_email(modelfield, value) %}
+<div class="form-group">
+    {{ mac_frm_label(modelfield.name, modelfield.doc, modelfield.nullable) }}
+    <input class="form-control" type="email" id="{{modelfield.name}}" name="{{modelfield.name}}"
+           maxlength="{{modelfield.type.length}}"
+           {% if modelfield.nullable==False %} required{% endif %}
+           {% if value %} value="{{value}}"{% endif %}
+           {% if varargs %}{% for item in varargs %} {{item}}{% endfor %}{% endif %}
+    >
+</div>
+{% endmacro %}
+
+{% macro mac_lst_row_edit_button(record, edit_url) %}
+<a class="btn btn-primary" role="button" title="Editar registro" alt="Editar registro"
+    href="{{url_for(edit_url, id=record.id)}}">
+    <i class="fas fa-edit"></i>
+</a>
+{% endmacro %}
+
+{% macro mac_frm_button_gotolist(list_url) %}
+<a class="btn btn-primary mt-3" role="button" 
+    title="Volver a la lista de registros" 
+    alt="Volver a la lista de registros"
+    href="{{url_for(list_url)}}">
+    <i class="fas fa-table"></i> Listado
+</a>
+{% endmacro %}
+
+{% macro mac_frm_button_new(edit_url) %}
+<a class="btn btn-primary mt-3" role="button" 
+    title="Crear nuevo registro" 
+    alt="Crear nuevo registro"
+    href="{{url_for(edit_url, id=None)}}">
+    <i class="fas fa-plus-square"></i> Nuevo
+</a>
+{% endmacro %}
+
+{% macro mac_frm_managerPanelSubform(id) %}
+<script>
+    function managerPanelSubform(jsobjname, panelname, url) {
+        $('.tab-content div').removeClass('active');
+        if(jsobjname instanceof PanelSublista){
+            jsobjname.active();
+        } else {
+            jsobjname = new PanelSublista(panelname, url + '{{id}}');
+            jsobjname.showTablistByPage(1);
+            jsobjname.active();
+        }
+        return jsobjname;
+    }
+</script>
+{% endmacro %}
+
+{% macro mac_frm_tab_menu(datadict) %}
+<!-- PANEL MENU DE TABS -->
+<ul class="nav nav-tabs mt-3" role="tablist">
+    {% for panelname, panelconfig in datadict.items() %}
+        {% set label = panelconfig[0] %}
+        {% set jsobjname1 = panelconfig[1] %}
+        {% set url = panelconfig[2] %}
+        <li class="nav-item " >
+            <a class="nav-link {% if loop.first %} active {% endif %}"
+                data-toggle="tab" href="javascript:void(0)"
+
+                onclick="javascript:{{jsobjname1}} = managerPanelSubform({{jsobjname1}}, '{{panelname}}', '{{url}}');">
+
+                <strong>{{label}}</strong>
+            </a>
+        </li>
+
+        {% if loop.first %}
+
+            
+            <script>
+                console.log("Soy el primero");
+                $(document).ready(function () {
+                    {{jsobjname1}} = managerPanelSubform({{jsobjname1}}, '{{panelname}}', '{{url}}');
+                });
+            
+            </script>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endmacro %}
+
+{% macro mac_lst_panel_pagination_bar(recordset, text_search, jsobjname) %}
+<nav class="mt-3">
+
+    <div class="row row-12">
+
+        <!-- ====================== -->
+        <!-- Botonera de paginación -->
+        <!-- ====================== -->
+        <div class="col" {% if not recordset.items %} style="margin-top: 36px;" {% endif %}>
+
+            {% if recordset.items %}
+
+            <ul class="pagination">
+
+                <!-- Pagina anterior -->
+                <li class="page-item">
+                {% if recordset.has_prev %}
+                    <a class="page-link" href="javascript:void(0)" onclick="javascript:{{jsobjname}}.showTablistByPage({{recordset.prev_num}})" title="Página anterior" alt="Página anterior">
+                {% else %}
+                    <a class="page-link" disabled>
+                {% endif %}
+                    <i class="fas fa-caret-left"></i>
+                    </a>
+                </li>
+
+                <!-- Números de página -->
+                {% for page_num in recordset.iter_pages() %}
+                    {% if page_num %}
+                        {% if page_num != recordset.page %}
+                <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);" onclick="javascript:{{jsobjname}}.showTablistByPage({{page_num}})" title="Página {{page_num}}" alt="Página {{page_num}}">
+                        {{page_num}}
+                    </a>
+                </li>
+                        {% else %}
+                <li class="page-item active">
+                    <a class="page-link" title="Página {{page_num}}" alt="Página {{page_num}}">
+                        {{page_num}}
+                    </a>
+                </li>
+                        {% endif %}
+                    {% else %}
+                <li><span class="ellipsis" style="white-space; nowrap; overflow: hidden; text-overflow: ellipsis">&nbsp;...&nbsp;</span></li>
+                    {% endif %}
+                {% endfor %}
+
+                <!-- Pagina siguiente -->
+                <li class="page-item">
+                {% if recordset.has_next %}
+                    <a class="page-link" href="javascript:void(0)" onclick="javascript:{{jsobjname}}.showTablistByPage({{recordset.next_num}})" title="Página siguiente" alt="Página siguiente">
+                {% else %}
+                    <a class="page-link" disabled>
+                {% endif %}
+                        <i class="fas fa-caret-right"></i>
+                    </a>
+                </li>
+
+            </ul>
+
+            {% endif %}
+
+            <!-- ================================ -->
+            <!-- Texto con el número de registros -->
+            <!-- ================================ -->
+        <p id="lst_select_numreg">Número de registros: {{recordset.total}}.</p>
+
+        </div>
+
+        <!-- ============================================ -->
+        <!-- Cuadro de texto y botón para búsqueda rápida -->
+        <!-- ============================================ -->
+        <div class="col col-4">
+
+            <!-- <div class="input-group row">
+                <input type="search" id="select_input_text"  onkeyup="javascript:{{jsobjname}}.showTablistByText(3)" class="form-control" value="{{text_search}}" onfocus="this.setSelectionRange(this.value.length, this.value.length);"
+                 >
+                 <div class="input-group-append">
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal_select_" title="Lanzar consulta" alt="Lanzar consulta" onclick="javascript:{{jsobjname}}.showTablistByPage(1)">
+                   <i class="fas fa-search"></i>
+                </button>
+                </div>
+            </div> -->
+
+        </div>
+
+    </div>
+
+</nav>
+{% endmacro %}
+
+{% macro mac_frm_input_checkbox(name, label,value) %}
+<div class="form-group">
+    {{ mac_frm_label(name, label, value) }}
+    <input class="form-control" type="checkbox" id="{{name}}" name="" 
+        onclick="setBooleanState($(this))"
+        {% if value == 'True' or value == '1' %}checked{% endif %}
+        {% if varargs %}{% for item in varargs %} {{item}}{% endfor %}{% endif %}
+    >
+    <input type="hidden" class="form-control" name="{{name}}" id="" 
+    value={% if value == 'True' or value == '1' %}1{% else %}0{% endif %}>
+</div>
+
+<script>
+
+    // Da el valor adecuado al input hidden asociado a un checkbox
+    // cuando este cambia de estado chequeado/sin chequear
+    function setBooleanState($el) {
+        var newState = $el.is(":checked") ? 1 : 0;
+        $el.next().val(newState);
+    };
+
+</script>
+{% endmacro %}
+
+{% macro mac_modal_confirmacion() %}
+<div class="modal fade" id="id_modal_confirmacion" name="id_modal_confirmacion" role="dialog" tabindex="-1" aria-labelledby="id_modal_confirmacion_Title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span style="color:red;">
+                    <i class="fas fa-exclamation-triangle fa-2x"></i>
+                </span>
+                <h4>¡ATENCIÓN!</h4>
+            </div>
+            <div class="modal-body">
+                <h5 id="id_modal_confirmacion_pregunta"></h5>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-default" id="id_modal_confirmacion_btn_dismiss" type="button" data-dismiss="modal" title="No, cancelar" alt="No, cancelar">
+                    <i class="fas fa-ban"></i> No
+                </button>
+                <a class="btn btn-danger btn-ok" id="id_modal_confirmacion_btn_ok" title="Sí, aceptar" alt="Sí, aceptar">
+                    <i class="fas fa-check"></i> Sí
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function ($) {
+        $('#id_modal_confirmacion').on('show.bs.modal', function (e) {
+
+            $(this).find('#id_modal_confirmacion_pregunta').text($(e.relatedTarget).data('text'));
+            $(this).find('#id_modal_confirmacion_btn_ok').prop('href', $(e.relatedTarget).data('href'));
+        })
+    })
+</script>
+{% endmacro %}

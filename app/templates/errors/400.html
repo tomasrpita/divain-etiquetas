@@ -1,0 +1,26 @@
+{% extends "tpt_base.html" %}
+{% block body %}
+<div class="content-section">
+    <div class="outer">
+        <div class="middle">
+            <div class="inner">
+                <div style="text-align: center">
+                    <h1> Error 400 </h1>
+                    <h3> Solicitud incorrecta (bad request). </h3>
+                    <p>
+                        El servidor ha encontrado un error en la petición y no puede procesar la solicitud.
+                        <br>
+                        Puede deberse a carácteres incorrectos en la url, cookies con errores, archivos demasiado grandes, etc.
+                    </p>
+
+                    <hr class="intro-divider">
+                    <a id="a-return-home" href="javascript:void(0)" onclick="goToURL(); return false;" class="btn btn-default btn-lg">
+                        <i class="fa fa-home"></i>
+                        Inicio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

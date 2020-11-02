@@ -1,0 +1,11 @@
+
+{% macro navbar() %}
+<nav class="navbar navbar-expand-md navbar-light " style="background-color: #E3CA8A;">
+
+    <a class="navbar-brand" href="{{url_for('web.home')}}">
+        <img src="{{ url_for('static', filename='images/D.svg') }}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+        DIVAIN
+      </a>
+
+  </nav>
+  {% endmacro %}

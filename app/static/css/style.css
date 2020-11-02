@@ -1,0 +1,8 @@
+
+
+/* footer de la plantilla tpt_base_errors.html */
+.footer-error {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
