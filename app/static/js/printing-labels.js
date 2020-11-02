@@ -18,8 +18,6 @@ iptEanBotella.addEventListener('keyup', ({key}) => {
 
 iptLoteBotella.addEventListener('keyup', ({key}) => {
     if (key === "Enter") {
-
-        console.log("submit");
         if (!!iptLoteBotella.value && iptLoteBotella.value.replace(/\s/g, '').length)
             formLabels.submit()
     }
