@@ -86,17 +86,17 @@ class PrinterLabels():
 
         # TSC
         if self.tsc_label == 'bottle':
-            # self.print_bottle_label()
+            self.print_bottle_label()
             print("TSC: BOTTLE")
         elif self.tsc_label == 'sample':
-            # self.print_sample_label()
+            self.print_sample_label()
             print("TSC: SAMPLE")
         else:
             print("TSC: NINGUNA")
 
         # ZD
         if self.zd_label == 'box':
-            # self.print_box_label()
+            self.print_box_label()
             print("TSC: BOX")
         else:
             print("TSC: NINGUNA")

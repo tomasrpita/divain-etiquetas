@@ -1,5 +1,4 @@
 import win32print
-import win32com.client
 
 def get_printer_list():
         list=[]
