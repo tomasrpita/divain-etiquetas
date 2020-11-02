@@ -5,7 +5,6 @@ from flask import render_template, flash, request, redirect, url_for
 from flask import current_app
 
 from app.LIB.utils import get_copies_number
-from app.LIB.printers import get_printer_list
 
 from app.web import bp
 
@@ -19,8 +18,8 @@ def home():
 
     if request.method == 'POST':
         formdata = request.form.to_dict(flat=True)
-        printer_label = PrinterLabels(formdata)
-        printer_label.print_sample_label()
+        if formdata['loteBotella']:
+            PrinterLabels(formdata).print()
 
     return render_template("tpt_form_print_labels.html", form_action="web.home", copies_number=copies_number)
 
