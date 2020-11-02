@@ -2,7 +2,7 @@
 {% block body %}
 <h1 class="text-center mt-5">Imprimir Etiquetas</h1>
 <hr>
-<form autocomplete="off" class="mt-5" id="formPicking" action="{{ url_for(form_action) }}" method=post>
+<form autocomplete="off" class="mt-5" onsubmit="return validateForm()" id="myForm" action="{{ url_for(form_action) }}" method=post>
   <div class="form-group row">
     <label class="col-3  col-form-label">Impresiones</label>
     <div class="col-7">
@@ -12,7 +12,7 @@
              placeholder=""
              required
              name="CopiesNumber"
-             min="0"
+             min="1"
              step="1"
              value={{copies_number}}
              >
@@ -54,10 +54,16 @@
                  name="loteBotella"
                  placeholder="Ingrese lote de la botella del proveedor"
                  required
+                 readonly
                  >
         <br>
         </div>
       </div>
+
+    <div id="hiddenInputs">
+
+
+    </div>
 
 </form>
 <script src="{{ url_for('static', filename='js/printing-labels.js') }}"></script>

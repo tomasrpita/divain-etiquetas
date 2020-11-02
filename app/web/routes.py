@@ -9,14 +9,15 @@ from app.web import bp
 
 log = current_app.logger
 
-@bp.route("/")
-@bp.route("/home")
+@bp.route("/", methods=['GET', 'POST'])
+@bp.route("/home", methods=['GET', 'POST'])
 def home():
 
     copies_number = get_copies_number()
 
-
-
+    if request.method == 'POST':
+        print("POST")
+        pass
 
     return render_template("tpt_form_print_labels.html", form_action="web.home", copies_number=copies_number)
 

@@ -3,6 +3,8 @@
 from flask_restful import Resource
 from flask import jsonify
 
+from app.LIB.reference_controller import get_reference_data
+
 class ApiInicio(Resource):
     "WS de bienvenida (ejemplo)"
 
@@ -13,5 +15,9 @@ class ApiInicio(Resource):
 class ApiReference(Resource):
     def get(self, eanBotella):
 
+        resp = {
+            'status': 'ok',
+                    }
+        resp.update(get_reference_data(eanBotella))
 
-        return {"Ean Botella": eanBotella}
+        return resp
