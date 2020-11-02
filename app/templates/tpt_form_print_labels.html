@@ -1,0 +1,64 @@
+{% extends "tpt_base.html" %}
+{% block body %}
+<h1 class="text-center mt-5">Imprimir Etiquetas</h1>
+<hr>
+<form autocomplete="off" class="mt-5" id="formPicking" action="{{ url_for(form_action) }}" method=post>
+  <div class="form-group row">
+    <label class="col-3  col-form-label">Impresiones</label>
+    <div class="col-7">
+
+      <input id="copiesNumber" class="form-control"
+             type="number"
+             placeholder=""
+             required
+             name="CopiesNumber"
+             min="0"
+             step="1"
+             value={{copies_number}}
+             >
+
+
+  </div>
+</div>
+<br>
+<hr>
+    <div class="form-group row">
+        <label class="col-3  col-form-label">EAN Botella</label>
+        <div class="col-7">
+  
+          <input id="eanBotella" class="form-control"
+                 type="text"
+                 placeholder="Leer EAN de la botella del proveedor"
+                 required
+                 autofocus
+                 name="eanBotella"
+                 >
+
+          <small id="smallCodigo"
+            class="form-text text-danger invisible ">Código invalido por favor intente nuevamente
+        </small>
+        </div>
+        <div id="spinnerCodigo" class="col-2 invisible">
+            <div class="spinner-border text-info" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+        </div>
+      </div>
+    
+    <div class="form-group row">
+        <label class="col-3 col-form-label">Lote Botella</label>
+        <div class="col-7">
+  
+          <input id="loteBotella" class="form-control"
+                 type="text"
+                 name="loteBotella"
+                 placeholder="Ingrese lote de la botella del proveedor"
+                 required
+                 >
+        <br>
+        </div>
+      </div>
+
+</form>
+<hr>
+{% endblock %}

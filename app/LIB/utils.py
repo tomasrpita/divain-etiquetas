@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from configparser import ConfigParser
-import urllib.parse 
+
 
 def read_ini():
 	parser = ConfigParser()
@@ -26,4 +26,12 @@ def save_ini(mail_errors, mail_copy_orders, pause_automatic_order):
     		parser.write(configfile)
 
 	return True
+
+def get_copies_number():
+
+	parser = ConfigParser()
+	parser.read('config.ini')
+
+	return int(parser.get("basic", "default_copies_number"))
+
 
