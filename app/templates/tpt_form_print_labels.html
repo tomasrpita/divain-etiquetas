@@ -34,11 +34,11 @@
                  name="eanBotella"
                  >
 
-          <small id="smallCodigo"
+          <small id="smallEanBotella"
             class="form-text text-danger invisible ">Código invalido por favor intente nuevamente
         </small>
         </div>
-        <div id="spinnerCodigo" class="col-2 invisible">
+        <div id="spinnerEanBotella" class="col-2 invisible">
             <div class="spinner-border text-info" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
@@ -60,5 +60,7 @@
       </div>
 
 </form>
+<script src="{{ url_for('static', filename='js/printing-labels.js') }}"></script>
+
 <hr>
 {% endblock %}

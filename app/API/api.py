@@ -8,3 +8,10 @@ class ApiInicio(Resource):
 
     def get(self):
         return jsonify({"Saludo": "Api funcionado"})
+
+
+class ApiReference(Resource):
+    def get(self, eanBotella):
+
+
+        return {"Ean Botella": eanBotella}

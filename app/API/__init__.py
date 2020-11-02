@@ -4,6 +4,7 @@ from flask import Blueprint
 from flask_restful import Api
 from .api import (
     ApiInicio,
+    ApiReference
 )
 
 
@@ -23,3 +24,4 @@ def initialize_routes(api):
     Inicia las rutas de la Api
     """
     api.add_resource(ApiInicio, "/")
+    api.add_resource(ApiReference, "/reference/<string:eanBotella>")
