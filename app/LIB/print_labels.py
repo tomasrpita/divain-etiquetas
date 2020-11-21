@@ -19,7 +19,7 @@ class PrinterLabels():
 
 
     def print_sample_label(self):
-        printer = 'TSC TTP-345'
+        printer = 'Impresora 1'
 
         f=open("./printer_labels/sample_label.prn", "rb")
         s=f.read()
@@ -42,7 +42,8 @@ class PrinterLabels():
 
 
     def print_box_label(self):
-        printer = 'ZDesigner ZD420-203dpi ZPL'
+        printer = 'Impresora 2'
+        # printer = 'ZDesigner ZD420-203dpi ZPL'
 
         f=open("./printer_labels/box_label.prn", "rb")
         s=f.read()
@@ -62,7 +63,7 @@ class PrinterLabels():
 
 
     def print_bottle_label(self):
-        printer = 'TSC TTP-345'
+        printer = 'Impresora 1'
 
         f=open("./printer_labels/bottle_label.prn", "rb")
         s=f.read()

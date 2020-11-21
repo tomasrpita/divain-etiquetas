@@ -20,7 +20,6 @@ def home():
         formdata = request.form.to_dict(flat=True)
         if formdata['loteBotella']:
             PrinterLabels(formdata).print()
-        return redirect(url_for('web.home'))
 
     return render_template("tpt_form_print_labels.html", form_action="web.home", copies_number=copies_number)
 

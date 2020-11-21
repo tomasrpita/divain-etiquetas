@@ -1,1 +1,1 @@
-%CD%\venv\Scripts\flask run
+%CD%/venv/Scripts/flask run
