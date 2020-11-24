@@ -21,7 +21,7 @@ class PrinterLabels():
     def print_sample_label(self):
         printer = 'Impresora 1'
 
-        f=open("./printer_labels/sample_label.prn", "rb")
+        f=open("./printer_labels/new_sample_label.prn", "rb")
         s=f.read()
         f.close()
 
@@ -45,7 +45,7 @@ class PrinterLabels():
         printer = 'Impresora 2'
         # printer = 'ZDesigner ZD420-203dpi ZPL'
 
-        f=open("./printer_labels/box_label.prn", "rb")
+        f=open("./printer_labels/new_box_label.prn", "rb")
         s=f.read()
         f.close()
 
@@ -53,19 +53,23 @@ class PrinterLabels():
         s=s.replace(b'DIVAIN-XXX', bytes(self.sku, 'utf-8'))
     
         #barcode
-        ean_13 = self.ean_13[:-1] + '>6' + self.ean_13[-1:]
-        s=s.replace(b'123456789012>63', bytes(ean_13, 'utf-8'))
-
+        # ean_13 = self.ean_13[:-1] + '>6' + self.ean_13[-1:]
+        ean_13 = self.ean_13[:-1] + '!100' + self.ean_13[-1:]
+        # !105123456789012!1003
+        # s=s.replace(b'123456789012>63', bytes(ean_13, 'utf-8'))
+        s=s.replace(b'123456789012!1003', bytes(ean_13, 'utf-8'))
+        #bar_print_number
+        s=s.replace(b'1234567890123', bytes(self.ean_13, 'utf-8'))
         #copies number
-        s=s.replace(b'^PQ1,0,1,Y', bytes(f'^PQ{self.copies_mumber },0,1,Y', 'utf-8'))
-
+        # s=s.replace(b'^PQ1,0,1,Y', bytes(f'^PQ{self.copies_mumber },0,1,Y', 'utf-8'))
+        s=s.replace(b'PRINT 1,1', bytes(f'PRINT {self.copies_mumber },1', 'utf-8'))
         printer_job(printer, s)
 
 
     def print_bottle_label(self):
         printer = 'Impresora 1'
 
-        f=open("./printer_labels/bottle_label.prn", "rb")
+        f=open("./printer_labels/new_bottle_label.prn", "rb")
         s=f.read()
         f.close()
 
@@ -73,7 +77,7 @@ class PrinterLabels():
         s=s.replace(b'X X X X X', bytes(self.sex, 'utf-8'))
     
         #lote
-        s=s.replace(b'L: XXXX', bytes(f'L: {self.lote}', 'utf-8'))
+        s=s.replace(b'YYYYY', bytes(f'{self.lote}', 'utf-8'))
         
         #numero
         s=s.replace(b'ZZZ', bytes(self.sku.replace('DIVAIN-', ''), 'utf-8'))
