@@ -14,12 +14,17 @@ log = current_app.logger
 @bp.route("/home", methods=['GET', 'POST'])
 def home():
 
+    formdata = None	
+
     copies_number = get_copies_number()
 
     if request.method == 'POST':
         formdata = request.form.to_dict(flat=True)
-        if formdata['loteBotella']:
-            PrinterLabels(formdata).print()
+        # if formdata['loteBotella']:
+        PrinterLabels(formdata).print()
+	
+        copies_number = request.form.get('CopiesNumber')
 
-    return render_template("tpt_form_print_labels.html", form_action="web.home", copies_number=copies_number)
+
+    return render_template("tpt_form_print_labels.html", form_action="web.home", copies_number=copies_number, formdata=formdata)
 

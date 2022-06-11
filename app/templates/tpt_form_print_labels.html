@@ -26,21 +26,45 @@
 
 <div class="col-7">
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="tscLabel" id="tscLabel1" value="bottle" checked>
+  <input class="form-check-input show-bottle" type="radio" name="tscLabel" id="tscLabel1" value="bottle"  
+{% if not formdata or formdata['tscLabel'] == 'bottle'%}
+checked
+{% endif %}
+>
   <label class="form-check-label" for="tscLabel1">
-    Etiqueta Botella
+    DIVAIN 100
   </label>
 </div>
 
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="tscLabel" id="tscLabel2" value="sample">
+  <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel2" value="bottle15ml"
+{% if formdata and formdata['tscLabel'] == 'bottle15ml'%}
+checked
+{% endif %}
+>
   <label class="form-check-label" for="tscLabel2">
-    Etiqueta Muestra
+    DIVAIN 15
   </label>
 </div>
+
+<div class="form-check form-check-inline">
+  <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel2" value="sample"
+{% if formdata and formdata['tscLabel'] == 'sample'%}
+checked
+{% endif %}
+>
+  <label class="form-check-label" for="tscLabel2">
+    SAMPLE
+  </label>
+</div>
+
  
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="tscLabel" id="tscLabel3" value="ninguna">
+  <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel3" value="ninguna"
+{% if formdata and formdata['tscLabel'] == 'ninguna'%}
+checked
+{% endif %}
+>
   <label class="form-check-label" for="tscLabel3">
     Ninguna
   </label>
@@ -52,14 +76,23 @@
   <label class="col-3  col-form-label">Impresora 2</label>
   <div class="col-7">
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="zdLabel" id="zdLabel1" value="box" checked>
+      <input class="form-check-input" type="radio" name="zdLabel" id="zdLabel1" value="box" 
+	  {% if not formdata or formdata['zdLabel'] == 'box'%}
+		checked
+		{% endif %}
+	  
+	  >
       <label class="form-check-label" for="zdLabel1">
-        Etiqueta Caja
+        CODIGO DE BARRAS
       </label>
     </div>
     
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="zdLabel" id="zdLabel2" value="ninguna">
+      <input class="form-check-input" type="radio" name="zdLabel" id="zdLabel2" value="ninguna"
+	  	  {% if formdata and formdata['zdLabel'] == 'ninguna' %}
+		checked
+		{% endif %}
+	  >
       <label class="form-check-label" for="zdLabel2">
         Ninguna
       </label>
@@ -67,11 +100,54 @@
   </div>
 </div>
 
+<div class="form-group row">
+  <label class="col-3  col-form-label">Tipo Etiqueta Sample</label>
+  <div class="col-7">
+{#
+
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="hidden" name="free_sample" id="sample1" value="free" >
+      <label class="form-check-label" for="zdLabel1">
+        Free
+      </label>
+    </div>
+
+
+#}
+
+    
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="free_sample" id="sample2" value="standard" 
+	  	  {% if not formdata or formdata['free_sample'] == 'standard' %}
+		checked
+		{% endif %}
+	  >
+      <label class="form-check-label" for="zdLabel2">
+        Sample
+      </label>
+    </div>
+	
+	    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="free_sample" id="sample3" value="pack"
+	  	  {% if formdata and formdata['free_sample'] == 'pack' %}
+			checked
+		{% endif %}
+	  
+	  >
+      <label class="form-check-label" for="zdLabel2">
+        Pack
+      </label>
+    </div>
+  </div>
+</div>
+
+
+
 <br>
 <hr>
     <div class="form-group row">
         <label class="col-3  col-form-label">EAN Botella</label>
-        <div class="col-7">
+        <div class="col-5">
   
           <input id="eanBotella" class="form-control"
                  type="text"
@@ -85,11 +161,15 @@
             class="form-text text-danger invisible ">Código invalido por favor intente nuevamente
         </small>
         </div>
-        <div id="spinnerEanBotella" class="col-2 invisible">
+        <div id="spinnerEanBotella" class="col-1 invisible">
             <div class="spinner-border text-info" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
         </div>
+		<div class="col-3" id="divBotellas">
+		<span class="text-muted invisible"><i class="fas fa-wine-bottle"></i></span>
+		<span class="text-muted invisible"><i class="fas fa-wine-bottle"></i></span>
+		</div>
       </div>
     
     <div class="form-group row">

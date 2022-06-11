@@ -139,4 +139,5 @@ tmp/
 # Archivos de vscode
 .vscode/
 
+# Archivos de Mac
 .DS_Store

@@ -1,2 +1,1 @@
-venv\Scripts\activate.bat
-python app.py
+.\venv\Scripts\python .\..\..\app.py
