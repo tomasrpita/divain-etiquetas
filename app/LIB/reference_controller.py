@@ -20,7 +20,7 @@ def get_reference_data(idBotella):
 
     df = get_df()
     if (isinstance(df, str)):
-        print("#"*50)	
+        print("#"*50)
         print(df)
         print("#"*50)
 
@@ -30,12 +30,13 @@ def get_reference_data(idBotella):
     }
 
     # TODO: maneja la no conversión
-    try: 
+    try:
         eanBotella = int(idBotella)
-        
-    except: 
+
+    except:
         resp['error'] = "Error: debe ingresar un número valido"
         return resp
+
     print("#"*50)
     print(columns_search)
     # print(df.dtypes)
@@ -43,30 +44,30 @@ def get_reference_data(idBotella):
     if isinstance(df, DataFrame):
         for column in columns_search:
 
-            
+
             if column != "N DIVAIN":
                 row_reference = df.loc[df[column] == eanBotella]
 
             else:
                 row_reference = df.loc[df[column] == idBotella]
-                
+
                 if row_reference.empty:
                     row_reference = df.loc[df[column] == eanBotella]
-                        
+
             if not row_reference.empty:
                 resp['data'] = {
-                    # 'numero_divain': int(row_reference['DIVAIN'].values[0]), 
+                    # 'numero_divain': int(row_reference['DIVAIN'].values[0]),
                     # 'sexo': row_reference['SEXO'].values[0],
                     # 'ean_13': int(row_reference['EAN 13'].values[0]),
                     # 'sku': row_reference['SKU '].values[0]
-                    # 'numero_divain': int(row_reference['N DIVAIN'].values[0]), 
-                    'numero_divain': row_reference['N DIVAIN'].values[0], 
+                    # 'numero_divain': int(row_reference['N DIVAIN'].values[0]),
+                    'numero_divain': row_reference['N DIVAIN'].values[0],
                     'sexo': row_reference['SEXO'].values[0],
                     'ean_botes': int(row_reference['EAN BOTES'].values[0]),
                     'ean_muestras': int(row_reference['EAN MUESTRAS'].values[0]),
                     'sku': row_reference['SKU DIVAIN'].values[0],
                     'categoria': row_reference['CATEGORIA'].values[0]
-			
+
                     }
                 resp['error'] = None
                 break
@@ -75,12 +76,13 @@ def get_reference_data(idBotella):
 
     return resp
 
+
 def get_df():
 
     try:
         df = pd.read_excel(excel_path)
-       
-    
+
+
     except Exception as e:
         return f'Error: {e}'
 
