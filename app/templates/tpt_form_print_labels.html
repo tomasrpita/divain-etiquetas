@@ -2,195 +2,168 @@
 {% block body %}
 <h1 class="text-center mt-5">Imprimir Etiquetas</h1>
 <hr>
-<form autocomplete="off" class="mt-5" onsubmit="return validateForm()" id="myForm" action="{{ url_for(form_action) }}" method=post>
+<form autocomplete="off" class="mt-5" onsubmit="return validateForm()" id="myForm" action="{{ url_for(form_action) }}"
+  method=post>
   <div class="form-group row">
     <label class="col-3  col-form-label">Impresiones</label>
     <div class="col-7">
 
-      <input id="copiesNumber" class="form-control"
-             type="number"
-             placeholder=""
-             required
-             name="CopiesNumber"
-             min="1"
-             step="1"
-             value={{copies_number}}
-             >
+      <input id="copiesNumber" class="form-control" type="number" placeholder="" required name="CopiesNumber" min="1"
+        step="1" value={{copies_number}}>
 
 
-  </div>
-</div>
-
-<div class="form-group row">
-<label class="col-3  col-form-label">Impresora 1</label>
-
-<div class="col-7">
-<div class="form-check form-check-inline">
-  <input class="form-check-input show-bottle" type="radio" name="tscLabel" id="tscLabel1" value="bottle"  
-{% if not formdata or formdata['tscLabel'] == 'bottle'%}
-checked
-{% endif %}
->
-  <label class="form-check-label" for="tscLabel1">
-    DIVAIN 100
-  </label>
-</div>
-
-<div class="form-check form-check-inline">
-  <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel2" value="bottle15ml"
-{% if formdata and formdata['tscLabel'] == 'bottle15ml'%}
-checked
-{% endif %}
->
-  <label class="form-check-label" for="tscLabel2">
-    DIVAIN 15
-  </label>
-</div>
-
-<div class="form-check form-check-inline">
-  <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel2" value="sample"
-{% if formdata and formdata['tscLabel'] == 'sample'%}
-checked
-{% endif %}
->
-  <label class="form-check-label" for="tscLabel2">
-    SAMPLE
-  </label>
-</div>
-
- 
-<div class="form-check form-check-inline">
-  <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel3" value="ninguna"
-{% if formdata and formdata['tscLabel'] == 'ninguna'%}
-checked
-{% endif %}
->
-  <label class="form-check-label" for="tscLabel3">
-    Ninguna
-  </label>
-</div>
-</div>
-</div>
-
-<div class="form-group row">
-  <label class="col-3  col-form-label">Impresora 2</label>
-  <div class="col-7">
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="zdLabel" id="zdLabel1" value="box" 
-	  {% if not formdata or formdata['zdLabel'] == 'box'%}
-		checked
-		{% endif %}
-	  
-	  >
-      <label class="form-check-label" for="zdLabel1">
-        CODIGO DE BARRAS
-      </label>
-    </div>
-    
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="zdLabel" id="zdLabel2" value="ninguna"
-	  	  {% if formdata and formdata['zdLabel'] == 'ninguna' %}
-		checked
-		{% endif %}
-	  >
-      <label class="form-check-label" for="zdLabel2">
-        Ninguna
-      </label>
     </div>
   </div>
-</div>
 
-<div class="form-group row">
-  <label class="col-3  col-form-label">Tipo Etiqueta Sample</label>
-  <div class="col-7">
-{#
+  <div class="form-group row">
+    <label class="col-3  col-form-label">Impresora 1</label>
 
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="hidden" name="free_sample" id="sample1" value="free" >
-      <label class="form-check-label" for="zdLabel1">
-        Free
-      </label>
-    </div>
-
-
-#}
-
-    
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="free_sample" id="sample2" value="standard" 
-	  	  {% if not formdata or formdata['free_sample'] == 'standard' %}
-		checked
-		{% endif %}
-	  >
-      <label class="form-check-label" for="zdLabel2">
-        Sample
-      </label>
-    </div>
-	
-	    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="free_sample" id="sample3" value="pack"
-	  	  {% if formdata and formdata['free_sample'] == 'pack' %}
-			checked
-		{% endif %}
-	  
-	  >
-      <label class="form-check-label" for="zdLabel2">
-        Pack
-      </label>
-    </div>
-  </div>
-</div>
-
-
-
-<br>
-<hr>
-    <div class="form-group row">
-        <label class="col-3  col-form-label">EAN Botella</label>
-        <div class="col-5">
-  
-          <input id="eanBotella" class="form-control"
-                 type="text"
-                 placeholder="Leer EAN de la botella del proveedor"
-                 required
-                 autofocus
-                 name="eanBotella"
-                 >
-
-          <small id="smallEanBotella"
-            class="form-text text-danger invisible ">Código invalido por favor intente nuevamente
-        </small>
-        </div>
-        <div id="spinnerEanBotella" class="col-1 invisible">
-            <div class="spinner-border text-info" role="status">
-                <span class="sr-only">Loading...</span>
-              </div>
-        </div>
-		<div class="col-3" id="divBotellas">
-		<span class="text-muted invisible"><i class="fas fa-wine-bottle"></i></span>
-		<span class="text-muted invisible"><i class="fas fa-wine-bottle"></i></span>
-		</div>
-      </div>
-    
-    <div class="form-group row">
-        <label class="col-3 col-form-label">Lote Botella</label>
-        <div class="col-7">
-  
-          <input id="loteBotella" class="form-control"
-                 type="text"
-                 name="loteBotella"
-                 placeholder="Ingrese lote de la botella del proveedor"
-                 required
-                 readonly
-                 >
-        <br>
-        </div>
+    <div class="col-7">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input show-bottle" type="radio" name="tscLabel" id="tscLabel1" value="bottle" {% if not
+          formdata or formdata['tscLabel']=='bottle' %} checked {% endif %}>
+        <label class="form-check-label" for="tscLabel1">
+          DIVAIN 100
+        </label>
       </div>
 
-    <div class="d-none" id="hiddenInputs">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel2" value="bottle15ml" {%
+          if formdata and formdata['tscLabel']=='bottle15ml' %} checked {% endif %}>
+        <label class="form-check-label" for="tscLabel2">
+          DIVAIN 15
+        </label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel2" value="sample" {% if
+          formdata and formdata['tscLabel']=='sample' %} checked {% endif %}>
+        <label class="form-check-label" for="tscLabel2">
+          SAMPLE
+        </label>
+      </div>
 
 
+      <div class="form-check form-check-inline">
+        <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel3" value="ninguna" {% if
+          formdata and formdata['tscLabel']=='ninguna' %} checked {% endif %}>
+        <label class="form-check-label" for="tscLabel3">
+          Ninguna
+        </label>
+      </div>
     </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-3  col-form-label">Impresora 2</label>
+    <div class="col-7">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="zdLabel" id="zdLabel1" value="box" {% if not formdata or
+          formdata['zdLabel']=='box' %} checked {% endif %}>
+        <label class="form-check-label" for="zdLabel1">
+          CODIGO DE BARRAS
+        </label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="zdLabel" id="zdLabel2" value="ninguna" {% if formdata and
+          formdata['zdLabel']=='ninguna' %} checked {% endif %}>
+        <label class="form-check-label" for="zdLabel2">
+          Ninguna
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-3  col-form-label">Tipo Etiqueta Sample</label>
+    <div class="col-7">
+      {#
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="hidden" name="free_sample" id="sample1" value="free">
+        <label class="form-check-label" for="zdLabel1">
+          Free
+        </label>
+      </div>
+
+
+      #}
+
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="free_sample" id="sample2" value="standard" {% if not formdata
+          or formdata['free_sample']=='standard' %} checked {% endif %}>
+        <label class="form-check-label" for="zdLabel2">
+          Sample
+        </label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="free_sample" id="sample3" value="pack" {% if formdata and
+          formdata['free_sample']=='pack' %} checked {% endif %}>
+        <label class="form-check-label" for="zdLabel2">
+          Pack
+        </label>
+      </div>
+    </div>
+  </div>
+
+
+
+  <br>
+  <hr>
+  <div class="form-group row">
+    <label class="col-3  col-form-label">EAN Botella</label>
+    <div class="col-5">
+
+      <input id="eanBotella" class="form-control" type="text" placeholder="Leer EAN de la botella del proveedor"
+        required autofocus name="eanBotella">
+
+      <small id="smallEanBotella" class="form-text text-danger invisible ">Código invalido por favor intente nuevamente
+      </small>
+    </div>
+    <div id="spinnerEanBotella" class="col-1 invisible">
+      <div class="spinner-border text-info" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="col-3" id="divBotellas">
+      <span class="text-muted invisible"><i class="fas fa-wine-bottle"></i></span>
+      <span class="text-muted invisible"><i class="fas fa-wine-bottle"></i></span>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-3 col-form-label">Lote Botella</label>
+    <div class="col-7">
+
+      <input id="loteBotella" class="form-control" type="text" name="loteBotella"
+        placeholder="Ingrese lote de la botella del proveedor" required readonly>
+      <br>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label class="col-3  col-form-label">CAJA</label>
+    <div class="col-5">
+      <input id="caja" name="caja" class="form-control" type="text" {# required #} readonly>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-3  col-form-label">TAPÓN</label>
+    <div class="col-5">
+      <input id="tapon" name="tapon" class="form-control" type="text" {# required #} readonly>
+    </div>
+  </div>
+
+
+
+  </div>
+
+  <div class="d-none" id="hiddenInputs"></div>
+
 
 </form>
 <script src="{{ url_for('static', filename='js/printing-labels.js') }}"></script>
