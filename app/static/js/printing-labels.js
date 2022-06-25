@@ -19,6 +19,8 @@ const iptEtiqueta = document.getElementById('etiqueta');
 
 const chksImpresora1 = document.querySelectorAll('#impresora-1 input[type="radio"]');
 
+
+
 chksImpresora1.forEach(chk => {
 	chk.addEventListener('change', () => {
 		if (chk.checked && chk.value == 'sample') {
@@ -56,7 +58,6 @@ hiddeBottleImp.forEach(bottle => {
 
 
 showBottleImp.addEventListener('change', function () {
-	console.log("CHANGE")
 	if (this.checked) {
 		divBottles.forEach(bottle => { bottle.classList.remove('invisible') })
 		divain100 = true
@@ -72,10 +73,8 @@ showBottleImp.addEventListener('change', function () {
 iptEanBotella.addEventListener('keyup', ({ key }) => {
 	if (key === "Enter") {
 		if (divain100 && firstBottle) {
-			console.log(1)
 			getReference();
 		} else if (divain100 && !firstBottle) {
-			console.log(2)
 			// getLastBottle()
 			if (iptEanBotella.value == divainId100) {
 				divBottles.forEach((bottle, i) => {
@@ -94,7 +93,6 @@ iptEanBotella.addEventListener('keyup', ({ key }) => {
 
 			}
 		} else {
-			console.log(3)
 			getReference();
 		}
 
@@ -145,14 +143,13 @@ const getReference = () => {
 			console.log('Qué pasa aqui?')
 			console.log(result);
 			if (!!result.data) {
-				//console.log("Data");
 				console.log(result.data);
 				postReferenceData(result.data)
 				selectLabel(result.data)
 				iptEanBotella.classList.remove("is-invalid");
 				iptEanBotella.classList.add("is-valid");
 
-				console.log("divian100", divain100)
+				// console.log("divian100", divain100)
 				if (!divain100)
 					iptEanBotella.readOnly = true;
 				else {
@@ -160,7 +157,6 @@ const getReference = () => {
 					divainId100 = iptEanBotella.value
 					iptEanBotella.value = ''
 					divBottles.forEach((bottle, i) => {
-						console.log("Hola")
 						if (i == 0) {
 							bottle.classList.remove('text-muted')
 							bottle.classList.add('text-success')
@@ -169,8 +165,8 @@ const getReference = () => {
 					})
 				}
 
-				if (result.data.categoria == 'black')
-					iptEanBotella.value += '        =>              !!!!!BLACK!!!!!';
+				// if (result.data.categoria == 'black')
+				// 	iptEanBotella.value += '        =>              !!!!!BLACK!!!!!';
 
 				if (!checkD100.checked)
 					formLabels.submit();
@@ -184,11 +180,10 @@ const getReference = () => {
 		}).catch((err) => {
 			console.error(err);
 			showErrorAlert('Error al obtener la referencia: ' + err);
-	}).finally(() => spinnerEanBotella.classList.add('invisible'))
+		}).finally(() => spinnerEanBotella.classList.add('invisible'))
 }
 
 const postReferenceData = ({ ean_botes, ean_muestras, numero_divain, sexo, sku, categoria, tapon, caja, ingredientes }) => {
-	console.log("post");
 
 	iptTapon.value = tapon || '';
 	iptCaja.value = caja || '';
@@ -222,42 +217,70 @@ const showErrorAlert = (errorMessasge) => {
 	panelmessages.innerHTML += message;
 }
 
-const selectLabel = ({categoria, sexo}) => {
+const selectLabel = ({ categoria, sexo }) => {
+
 	console.log('selectLabel');
+	console.log({ categoria }, { sexo }, { chk: getChkValue(chksImpresora1) })
 
-	if (categoria == 'divain' && getChkValue(chksImpresora1) == 'bottle') {
 
-		// ETIQUETA Standard Femme
-		if (sexo == 'F E M M E') {
-			iptEtiqueta.value = 'ESTANDAR - FEMME';
-		// ETIQUETA Standard Homme
-		} else if (sexo == 'H O M M E') {
-			iptEtiqueta.value = 'ESTANDAR - HOMME';
+	// Bottle es DIVAIN 100 (100ml)
+	if (getChkValue(chksImpresora1) == 'bottle') {
 
-		// ETIQUETA kids
-		} else if (sexo == 'K I D S') {
-			iptEtiqueta.value = 'KIDS';
+		if (categoria == 'divain') {
+
+			// Misma impresión Solo NUmeros Centrados
+			// file: NUEVA_ETIQUETA_100ML
+			// ETIQUETA Standard Femme
+			// 8436592101047
+			if (sexo == 'F E M M E') {
+				iptEtiqueta.value = 'ESTANDAR - FEMME';
+				// ETIQUETA Standard Homme
+				// 8436596740037
+			} else if (sexo == 'H O M M E') {
+				iptEtiqueta.value = 'ESTANDAR - HOMME';
+				// ETIQUETA Standard Unisex
+				//8436596741287
+			} else if (sexo == 'U N I S E X') {
+				iptEtiqueta.value = 'ESTANDAR - UNISEX';
+
+
+				// ETIQUETA kids
+				// Una Sola Etiqueta
+				// debe imprimir: número, raya, sexo y lote (centrado).
+				// file: xHacer
+				// 8436592109036
+			}
+			else if (sexo == 'K I D S') {
+				iptEtiqueta.value = 'KIDS';
+
+			}
+
+
+			// Una etiqueta que puede ser BLACK_EDITION_HOMME, BLACK_EDITION_FEMME, BLACK_EDITION_UNISEX
+			// debe imprimir: número, raya y sexo (centrado).
+			// file: xHacer
+			// 8436592102969
+		} else if (categoria == 'black') {
+			iptEtiqueta.value = 'BLACK EDITION';
 
 			// ETIQUETA SOLIDARIO_UNISEX
-		} else if (sexo == 'U N I S E X') {
-			iptEtiqueta.value = 'SOLIDARIO - UNISEX';
+			// Debe imprimir: número, raya y sexo (centrado).
+			// file: xHacer
+			// 8436592109937
+		} else if (categoria == 'solidario') {
+			iptEtiqueta.value = 'SOLIDARIO UNISEX';
 
 		}
 
-		// Una etiqueta que puede ser BLACK_EDITION_HOMME, BLACK_EDITION_FEMME, BLACK_EDITION_UNISEX
-	} else if (categoria == 'black' && getChkValue(chksImpresora1) == 'bottle' ) {
-		iptEtiqueta.value = 'BLACK EDITION';
-
 	}
-
 
 }
 
 const getChkValue = (chks) => {
-	chks.forEach(chk => {
-		if (chk.checked)
-			return chk.value;
-	})
+	for (let i = 0; i < chks.length; i++) {
+		if (chks[i].checked)
+			return chks[i].value;
+	}
 	return null;
 }
 

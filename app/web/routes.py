@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from app.LIB.print_labels import PrinterLabels
+from app.LIB.print_labels import PrintManager, PrinterLabels
 from flask import render_template, flash, request, redirect, url_for
 from flask import current_app
 # from app.LIB.printers import printer_job
@@ -30,7 +30,8 @@ def home():
         # if formdata['loteBotella']:
         # PrinterLabels(formdata, printer_job).print()
         # PrinterLabels(formdata, printer_job).print()
-        PrinterLabels(formdata, fake_printer_job).print()
+        # PrinterLabels(formdata, fake_printer_job).print()
+        PrintManager(formdata, fake_printer_job).print()
 
         copies_number = request.form.get('CopiesNumber')
 

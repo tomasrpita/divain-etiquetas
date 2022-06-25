@@ -21,10 +21,10 @@ columns_search = ['EAN 1 Litro', 'EAN 1/2 Litro', 'EAN BOTES', 'EAN MUESTRAS', '
 def get_reference_data(idBotella):
 
     df = get_df()
-    if (isinstance(df, str)):
-        print("#"*50)
-        print(df)
-        print("#"*50)
+    # if (isinstance(df, str)):
+    #     print("#"*50)
+    #     print(df)
+    #     print("#"*50)
 
     resp = {
         'data': None,
@@ -39,10 +39,10 @@ def get_reference_data(idBotella):
         resp['error'] = "Error: debe ingresar un número valido"
         return resp
 
-    print("#"*50)
-    print(columns_search)
-    # print(df.dtypes)
-    print("#"*50)
+    # print("#"*50)
+    # print(columns_search)
+    # # print(df.dtypes)
+    # print("#"*50)
     if isinstance(df, DataFrame):
         for column in columns_search:
 

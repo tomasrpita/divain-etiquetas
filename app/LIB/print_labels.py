@@ -2,6 +2,10 @@
 
 # from app.LIB.printers import printer_job
 
+import logging
+from typing import Callable, Dict, List, Tuple
+
+log = logging.getLogger(__name__)
 
 class PrinterLabels():
 	def __init__(self, formdata, printer_job) -> None:
@@ -160,7 +164,7 @@ class PrinterLabels():
 
 	def print(self):
 
-		tipo_ean = self.ean_botes or  self.ean_muestras
+		tipo_ean = self.ean_botes or self.ean_muestras
 
 		# TSC
 		if self.tsc_label == 'bottle':
@@ -185,3 +189,69 @@ class PrinterLabels():
 			print("TSC: BOX")
 		else:
 			print("TSC: NINGUNA")
+
+
+
+
+
+class PrintManager():
+
+	def __init__(self, print_data: dict, printer: Callable) -> None:
+		self.copies_mumber = print_data.get('CopiesNumber', 1)
+		self.printer = printer
+		# self.principal_label = self.get_principal_label(print_data)
+		# self.barcode_label =  self.get_barcode_label(print_data)
+		self.labels_jobs = [
+			("Impresora 1", self.get_principal_label(print_data)),
+			("Impresora 2", self.get_barcode_label(print_data) ),
+		]
+
+	def get_principal_label(self, print_data: dict) -> bytes or None:
+		# TODO: Implementar
+		log.debug("get_principal_label - xImplementar")
+		return None
+
+	def get_barcode_label(self, print_data: dict) -> bytes or None:
+		if print_data.get("zd_label", "") == "ninguna":
+			return None
+
+		printer_file = "./printer_labels/new_codigo_barras.prn"
+
+		# TODO: Estos deben ser datos de la instancita para luego tener aparte la función de
+		# parseo y reutilizzarlos en la otra etiaqueta, tal vez una dataclase referencia
+		tipo_ean = print_data.get('ean_botes') or print_data.get('ean_muestras')
+		sku = print_data.get('sku')
+
+		try:
+			if not tipo_ean:
+				raise ValueError("No hay tipo de ean")
+
+			#barcode
+			ean_select = tipo_ean[:-1] + '>6' + tipo_ean[-1:]
+
+
+			with open(printer_file, "rb") as f:
+				label = f.read()
+
+			# name
+			label = label.replace(b'DIVAIN-XXX', bytes(sku, 'utf-8'))
+
+			# !105123456789012!1003
+			label = label.replace(b'123456789012>63', bytes(ean_select, 'utf-8'))
+
+			#bar_print_number
+			label = label.replace(b'1234567890123', bytes(tipo_ean, 'utf-8'))
+
+			#copies number
+			label = label.replace(b'^PQ1,0,1,Y', bytes(f'^PQ{self.copies_mumber },0,1,Y', 'utf-8'))
+
+			return label
+
+		except Exception as e:
+			log.error(f"Error al intentar generar etiqueta de código de barra {e}")
+			return None
+
+	def print(self) -> None:
+		for printer_name, label  in self.labels_jobs:
+			if label:
+				self.printer(printer_name, label)
