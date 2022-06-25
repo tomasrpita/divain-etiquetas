@@ -3,7 +3,7 @@
 from app.LIB.print_labels import PrinterLabels
 from flask import render_template, flash, request, redirect, url_for
 from flask import current_app
-from app.LIB.printers import printer_job
+# from app.LIB.printers import printer_job
 
 
 from app.LIB.utils import get_copies_number
@@ -20,6 +20,7 @@ def fake_printer_job(printer_name, printer_file):
 @bp.route("/home", methods=['GET', 'POST'])
 def home():
 
+
     formdata = None
 
     copies_number = get_copies_number()
@@ -28,8 +29,8 @@ def home():
         formdata = request.form.to_dict(flat=True)
         # if formdata['loteBotella']:
         # PrinterLabels(formdata, printer_job).print()
-        PrinterLabels(formdata, printer_job).print()
-        # PrinterLabels(formdata, fake_printer_job).print()
+        # PrinterLabels(formdata, printer_job).print()
+        PrinterLabels(formdata, fake_printer_job).print()
 
         copies_number = request.form.get('CopiesNumber')
 

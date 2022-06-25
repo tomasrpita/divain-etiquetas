@@ -2,13 +2,14 @@
 # coding: utf-8
 
 import os
+from numpy import nan
 
 from pandas.core.frame import DataFrame
 import xlrd
 import pandas as pd
 
 # excel_path = 'database\BBDD_DIVAIN.xlsx'
-excel_path = 'database\BBDD_DIVAIN_NEW.xlsx'
+excel_path = 'database/BBDD_DIVAIN_NEW.xlsx'
 
 excel_path = os.path.join(os.getcwd(), excel_path)
 
@@ -57,21 +58,15 @@ def get_reference_data(idBotella):
 
             if not row_reference.empty:
                 resp['data'] = {
-                    # 'numero_divain': int(row_reference['DIVAIN'].values[0]),
-                    # 'sexo': row_reference['SEXO'].values[0],
-                    # 'ean_13': int(row_reference['EAN 13'].values[0]),
-                    # 'sku': row_reference['SKU '].values[0]
-                    # 'numero_divain': int(row_reference['N DIVAIN'].values[0]),
                     'numero_divain': row_reference['N DIVAIN'].values[0],
                     'sexo': row_reference['SEXO'].values[0],
                     'ean_botes': int(row_reference['EAN BOTES'].values[0]),
                     'ean_muestras': int(row_reference['EAN MUESTRAS'].values[0]),
                     'sku': row_reference['SKU DIVAIN'].values[0],
                     'categoria': row_reference['CATEGORIA'].values[0],
-                    'CAJA': row_reference['CAJA'].values[0],
-                    'TAPON': row_reference['TAPON'].values[0],
-                    'INGREDIENTES': row_reference['INGREDIENTES'].values[0],
-
+                    'caja': row_reference['CAJA'].values[0],
+                    'tapon': row_reference['TAPON'].values[0],
+                    'ingredientes': "" if row_reference['INGREDIENTES'].values[0] is nan else row_reference['INGREDIENTES'].values[0],
                     }
                 resp['error'] = None
                 break
