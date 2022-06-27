@@ -102,11 +102,13 @@ class PrinterLabels():
 	def print_bottle_label(self):
 		printer = 'Impresora 1'
 
-		# if self.sex == 'H O M M E':
-		# 	f=open(f"./printer_labels/new_bottle_{self.categoria}100ml_homme.prn", "rb")
-		# else:
-		# 	f=open(f"./printer_labels/new_bottle_{self.categoria}100ml.prn", "rb")
-		f=open(f"./printer_labels/new_bottle_{self.categoria}100ml.prn", "rb")
+
+
+		if self.sex == 'H O M M E':
+			f=open(f"./printer_labels/new_bottle_{self.categoria}100ml_homme.prn", "rb")
+		else:
+			f=open(f"./printer_labels/new_bottle_{self.categoria}100ml.prn", "rb")
+		# f=open(f"./printer_labels/new_bottle_{self.categoria}100ml.prn", "rb")
 
 		# f=open(f"./printer_labels/NUEVA_ETIQUETA_100ML.prn", "rb")
 
@@ -208,6 +210,8 @@ class PrinterLabels():
 			print("TSC: BOTTLE")
 			if self.categoria == 'divain' and self.sex in ["F E M M E", "H O M M E", "U N I S E X"]:
 				self.print_bottle_label_standard_new()
+			elif self.categoria == 'solidario':
+				pass
 			else:
 				self.print_bottle_label()
 
