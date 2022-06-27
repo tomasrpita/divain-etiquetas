@@ -229,7 +229,7 @@ const selectLabel = ({ categoria, sexo }) => {
 		if (categoria == 'divain') {
 
 			// Misma impresión Solo NUmeros Centrados
-			// file: NUEVA_ETIQUETA_100ML
+			// file: syandard_100ml
 			// ETIQUETA Standard Femme
 			// 8436592101047
 			if (sexo == 'F E M M E') {

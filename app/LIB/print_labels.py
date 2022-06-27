@@ -2,6 +2,7 @@
 
 # from app.LIB.printers import printer_job
 
+from dataclasses import dataclass
 import logging
 from typing import Callable, Dict, List, Tuple
 
@@ -209,6 +210,8 @@ class PrintManager():
 	def get_principal_label(self, print_data: dict) -> bytes or None:
 		# TODO: Implementar
 		log.debug("get_principal_label - xImplementar")
+
+
 		return None
 
 	def get_barcode_label(self, print_data: dict) -> bytes or None:
@@ -219,6 +222,8 @@ class PrintManager():
 
 		# TODO: Estos deben ser datos de la instancita para luego tener aparte la función de
 		# parseo y reutilizzarlos en la otra etiaqueta, tal vez una dataclase referencia
+		# Quien determina si vienen el bote o la muestra?
+		# REvisar
 		tipo_ean = print_data.get('ean_botes') or print_data.get('ean_muestras')
 		sku = print_data.get('sku')
 
@@ -255,3 +260,17 @@ class PrintManager():
 		for printer_name, label  in self.labels_jobs:
 			if label:
 				self.printer(printer_name, label)
+
+
+@dataclass
+class ReferenceLabelData:
+	sku: str
+	ean_botes: str
+	ean_muestras: str
+
+
+@dataclass
+class PrintJobData:
+	copies_number: int
+	label_type: str or None
+	print_barcode: bool

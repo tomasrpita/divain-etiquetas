@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from app.LIB.print_labels import PrintManager, PrinterLabels
+from app.LIB.print_labels import PrintManager, PrinterLabels, ReferenceLabelData
 from flask import render_template, flash, request, redirect, url_for
 from flask import current_app
 # from app.LIB.printers import printer_job
@@ -26,12 +26,17 @@ def home():
     copies_number = get_copies_number()
 
     if request.method == 'POST':
-        formdata = request.form.to_dict(flat=True)
+        # formdata = request.form.to_dict(flat=True)
+        reference_data = ReferenceLabelData(
+            sku=request.form.get("sku"),
+            ean_botes=request.form.get("ean_botes"),
+            ean_muestras=request.form.get("ean_muestras"),
+        )
         # if formdata['loteBotella']:
         # PrinterLabels(formdata, printer_job).print()
         # PrinterLabels(formdata, printer_job).print()
         # PrinterLabels(formdata, fake_printer_job).print()
-        PrintManager(formdata, fake_printer_job).print()
+        PrintManager(reference_data, fake_printer_job).print()
 
         copies_number = request.form.get('CopiesNumber')
 
