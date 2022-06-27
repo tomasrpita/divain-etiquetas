@@ -106,8 +106,44 @@ class PrinterLabels():
 		# 	f=open(f"./printer_labels/new_bottle_{self.categoria}100ml_homme.prn", "rb")
 		# else:
 		# 	f=open(f"./printer_labels/new_bottle_{self.categoria}100ml.prn", "rb")
+		f=open(f"./printer_labels/new_bottle_{self.categoria}100ml.prn", "rb")
 
-		f=open(f"printer_labels/NUEVA_ETIQUETA_100ML.prn", "rb")
+		# f=open(f"./printer_labels/NUEVA_ETIQUETA_100ML.prn", "rb")
+
+		# f=open(f"./printer_labels/new_bottle_divain100ml.prn", "rb")
+		# f=open("./printer_labels/new_bottle_black100ml.prn", "rb")
+
+		s=f.read()
+		f.close()
+
+		#centrar nombre
+		if self.sex == 'H O M M E':
+			s=s.replace(b'TEXT 302,101', bytes('TEXT 302,95', 'utf-8'))
+
+		#sex
+		s=s.replace(b'X X X X X', bytes(self.sex, 'utf-8'))
+
+		#lote
+		s=s.replace(b'YYYYY', bytes(f'{self.lote}', 'utf-8'))
+
+		#numero
+		s=s.replace(b'ZZZ', bytes(self.sku.replace('DIVAIN-', ''), 'utf-8'))
+
+		#copies number
+		s=s.replace(b'PRINT 1,1', bytes(f'PRINT {self.copies_mumber },1', 'utf-8'))
+
+		self.printer_job(printer, s)
+
+
+	def print_bottle_label_standard_new(self):
+		printer = 'Impresora 1'
+
+		# if self.sex == 'H O M M E':
+		# 	f=open(f"./printer_labels/new_bottle_{self.categoria}100ml_homme.prn", "rb")
+		# else:
+		# 	f=open(f"./printer_labels/new_bottle_{self.categoria}100ml.prn", "rb")
+
+		f=open(f"./labels/estandard_100ml.prn", "rb")
 
 		# f=open(f"./printer_labels/new_bottle_divain100ml.prn", "rb")
 		# f=open("./printer_labels/new_bottle_black100ml.prn", "rb")
@@ -169,8 +205,12 @@ class PrinterLabels():
 
 		# TSC
 		if self.tsc_label == 'bottle':
-			self.print_bottle_label()
 			print("TSC: BOTTLE")
+			if self.categoria == 'divain' and self.sex in ["F E M M E", "H O M M E", "U N I S E X"]:
+				self.print_bottle_label_standard_new()
+			else:
+				self.print_bottle_label()
+
 			tipo_ean = self.ean_botes
 		elif self.tsc_label == 'sample':
 			self.print_sample_label()
@@ -220,7 +260,7 @@ class PrintManager():
 
 		printer_file = "./printer_labels/new_codigo_barras.prn"
 
-		# TODO: Estos deben ser datos de la instancita para luego tener aparte la función de
+		# TODO: Estos deben ser datos de la instancia para luego tener aparte la función de
 		# parseo y reutilizzarlos en la otra etiaqueta, tal vez una dataclase referencia
 		# Quien determina si vienen el bote o la muestra?
 		# REvisar

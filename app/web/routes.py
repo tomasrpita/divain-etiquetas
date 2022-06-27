@@ -26,17 +26,17 @@ def home():
     copies_number = get_copies_number()
 
     if request.method == 'POST':
-        # formdata = request.form.to_dict(flat=True)
-        reference_data = ReferenceLabelData(
-            sku=request.form.get("sku"),
-            ean_botes=request.form.get("ean_botes"),
-            ean_muestras=request.form.get("ean_muestras"),
-        )
+        formdata = request.form.to_dict(flat=True)
+        # reference_data = ReferenceLabelData(
+        #     sku=request.form.get("sku"),
+        #     ean_botes=request.form.get("ean_botes"),
+        #     ean_muestras=request.form.get("ean_muestras"),
+        # )
         # if formdata['loteBotella']:
+        #   PrinterLabels(formdata, printer_job).print()
         # PrinterLabels(formdata, printer_job).print()
-        # PrinterLabels(formdata, printer_job).print()
-        # PrinterLabels(formdata, fake_printer_job).print()
-        PrintManager(reference_data, fake_printer_job).print()
+        PrinterLabels(formdata, fake_printer_job).print()
+        # PrintManager(reference_data, fake_printer_job).print()
 
         copies_number = request.form.get('CopiesNumber')
 
