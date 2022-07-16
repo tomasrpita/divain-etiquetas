@@ -1,1 +1,1 @@
-%CD%/venv/Scripts/flask run -h localhost -p 3000
+%CD%/venv/Scripts/flask run -h localhost -p 5001
