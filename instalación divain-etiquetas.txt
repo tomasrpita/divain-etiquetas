@@ -1,0 +1,13 @@
+Dirvers TSC, ZEBRA
+
+instalar desde https://www.python.org/ftp/python/3.9.9/python-3.9.9-amd64.exe
+y seleccionar opcion de agregar path (Add Python 3.9 to PATH)
+
+abrir simbolo del sistema o terminal
+ESCRIBIR:
+cd divain-etiquetas (ENTER)
+python -m venv venv (ENTER)
+venv\Scripts\activate (ENTER)
+pip install -r requirements.txt (ENTER)
+
+crear acceso directo del archivo run_divain_etiquetas.bat
