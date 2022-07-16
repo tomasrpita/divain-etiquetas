@@ -39,7 +39,7 @@ def get_reference_data(idBotella):
         resp['error'] = "Error: debe ingresar un número valido"
         return resp
 
-    # print("#"*50)
+    # prin ("#"*50)
     # print(columns_search)
     # # print(df.dtypes)
     # print("#"*50)
@@ -64,11 +64,11 @@ def get_reference_data(idBotella):
                     'sexo': row_reference['SEXO'].values[0].strip(),
                     'ean_botes': int(row_reference['EAN BOTES'].values[0]),
                     'ean_muestras': int(row_reference['EAN MUESTRAS'].values[0]),
-                    'sku': row_reference['SKU DIVAIN'].values[0],
+                    'sku': row_reference['SKU DIVAIN'].values[0].strip(),
                     'categoria': row_reference['CATEGORIA'].values[0].strip(),
-                    'caja': row_reference['CAJA'].values[0],
-                    'tapon': row_reference['TAPON'].values[0],
-                    'ingredientes': "" if row_reference['INGREDIENTES'].values[0] is nan else row_reference['INGREDIENTES'].values[0],
+                    'caja': row_reference['CAJA'].values[0].strip(),
+                    'tapon': row_reference['TAPON'].values[0].strip(),
+                    'ingredientes': "" if row_reference['INGREDIENTES'].values[0] is nan else row_reference['INGREDIENTES'].values[0].strip(),
                     }
                 resp['error'] = None
                 break

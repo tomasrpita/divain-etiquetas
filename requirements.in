@@ -1,7 +1,7 @@
 # App
 pandas==1.4.2
 openpyxl==3.0.10
-Flask==2.1.2
+Flask==2.1.3
 flask-restful
 
 # Tests
