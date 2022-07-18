@@ -6,11 +6,9 @@ def get_printer_list():
         printers = win32print.EnumPrinters(
             win32print.PRINTER_ENUM_CONNECTIONS
             + win32print.PRINTER_ENUM_LOCAL)
-        for i in printers:
-            
-            list.append(i[2])
+        for printer in printers:
+            list.append(printer[2])
 
-      
         return list
 
 def printer_job(printer_name, printer_file):
