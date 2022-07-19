@@ -1,0 +1,11 @@
+wp.EnumPrinters(wp.PRINTER_ENUM_LOCAL, None, 1)
+(8388608, 'Impresora 1,TSC TTP-345,', 'Impresora 1', '')
+
+wp.EnumPrinters(wp.PRINTER_ENUM_LOCAL, None, 2)
+{'pServerName': None, 'pPrinterName': 'Impresora 1', 'pShareName': 'TSC_TTP-345', 'pPortName': 'USB001', 'pDriverName': 'TSC TTP-345', 'pComment': '', 'pLocation': '', 'pDevMode': <PyDEVMODEW object at 0x000001B6F675D640>, 'pSepFile': '', 'pPrintProcessor': 'winprint', 'pDatatype': 'RAW', 'pParameters': '', 'pSecurityDescriptor': None, 'Attributes': 6728, 'Priority': 1, 'DefaultPriority': 0, 'StartTime': 0, 'UntilTime': 0, 'Status': 0, 'cJobs': 0, 'AveragePPM': 0}
+
+wp.EnumPrinters(wp.PRINTER_ENUM_LOCAL, None, 4)
+{'pPrinterName': 'Impresora 1', 'pServerName': None, 'Attributes': 6728}
+
+wp.EnumPrinters(wp.PRINTER_ENUM_LOCAL, None, 5)
+Solo da impresoras WSD
