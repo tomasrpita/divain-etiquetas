@@ -16,6 +16,7 @@ def fake_printer_job(printer_name, printer_file):
     log.info(f"Fake printer job printer name: {printer_name}")
     log.info(f"Fake printer job printer_file: {printer_file}")
 
+
 @bp.route("/", methods=['GET', 'POST'])
 @bp.route("/home", methods=['GET', 'POST'])
 def home():

@@ -6,11 +6,9 @@ def get_printer_list():
         printers = win32print.EnumPrinters(
             win32print.PRINTER_ENUM_CONNECTIONS
             + win32print.PRINTER_ENUM_LOCAL)
-        for i in printers:
-            
-            list.append(i[2])
+        for printer in printers:
+            list.append(printer[2])
 
-      
         return list
 
 def printer_job(printer_name, printer_file):
@@ -19,7 +17,6 @@ def printer_job(printer_name, printer_file):
       hJob = win32print.StartDocPrinter(hPrinter, 1, ("test of raw data", None, "RAW"))
       try:
         win32print.StartPagePrinter(hPrinter)
-        # win32print.WritePrinter (hPrinter, raw_data)
         win32print.WritePrinter(hPrinter, printer_file)
         win32print.EndPagePrinter(hPrinter)
       finally:

@@ -145,3 +145,5 @@ tmp/
 # bkn office
 ~$*
 
+# Excel files
+*.xlsx

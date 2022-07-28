@@ -207,7 +207,7 @@ class PrinterLabels():
 
 		# TSC
 		if self.tsc_label == 'bottle':
-			print("TSC: BOTTLE")
+			print("Impresora 1: BOTTLE")
 			if self.categoria == 'divain' and self.sex in ["F E M M E", "H O M M E", "U N I S E X"]:
 				self.print_bottle_label_standard_new()
 			elif self.categoria == 'solidario':
@@ -220,20 +220,20 @@ class PrinterLabels():
 			self.print_sample_label()
 			tipo_ean = self.ean_muestras
 
-			print("TSC: SAMPLE")
+			print("Impresora 1: SAMPLE")
 		elif self.tsc_label == 'bottle15ml':
 			self.print_bottle_label_15ml()
 
 		else:
-			print("TSC: NINGUNA")
+			print("Impresora 2: NINGUNA")
 
 		# ZD
 		print("Tipo EAN: ", tipo_ean)
 		if self.zd_label == 'box' and tipo_ean:
 			self.print_box_label(tipo_ean)
-			print("TSC: BOX")
+			print("Impresora 2: BOX")
 		else:
-			print("TSC: NINGUNA")
+			print("Ipresora 2: NINGUNA")
 
 
 
