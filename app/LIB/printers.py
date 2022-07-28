@@ -17,7 +17,6 @@ def printer_job(printer_name, printer_file):
       hJob = win32print.StartDocPrinter(hPrinter, 1, ("test of raw data", None, "RAW"))
       try:
         win32print.StartPagePrinter(hPrinter)
-        # win32print.WritePrinter (hPrinter, raw_data)
         win32print.WritePrinter(hPrinter, printer_file)
         win32print.EndPagePrinter(hPrinter)
       finally:
