@@ -2,6 +2,8 @@
 
 # from app.LIB.printers import printer_job
 
+# printer 2 = ZDesigner ZD421-203dpi ZPL
+
 from dataclasses import dataclass
 import logging
 from typing import Callable, Dict, List, Tuple
