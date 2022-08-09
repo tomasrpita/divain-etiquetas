@@ -79,9 +79,29 @@ class PrinterLabels():
 		# printer = 'Impresora 2'
 		# printer = 'ZDesigner ZD420-203dpi ZPL'
 
-		f=open("./labels/codigo_barras_ingredientes.prn", "rb")
+		f=open("./labels/codigo_barras_ingredientes.prn", "r")
 		s=f.read()
 		f.close()
+
+		# read line by line ''s'' and replace the text
+		with open("./labels/codigo_barras_ingredientes.prn", "r") as f:
+			# s = f.read()
+			for line_number , line in enumerate(f, start=1):
+				print(line_number)
+				# SKU
+				if line_number == 26 or line_number == 27:
+					s = s.replace(line, (line.replace('DIVAIN-ZZZ', self.sku)))
+				# LOTE
+				elif line_number == 28 or line_number == 29:
+					s = s.replace(line, (line.replace('xxxxxx', self.lote)))
+				# BAR CODE
+				elif line_number == 30:
+					ean_select = tipo_ean[:-1] + '!100' + tipo_ean[-1:]
+					s = s.replace(line, (line.replace('123456789012!1003', ean_select)))
+				# Núnmero código de barras
+				elif line_number == 31:
+					s = s.replace(line, (line.replace('1234567890123', tipo_ean)))
+
 
 		# # name
 		# s=s.replace(b'DIVAIN-XXX', bytes(self.sku, 'utf-8'))
@@ -99,7 +119,7 @@ class PrinterLabels():
 		# s=s.replace(b'^PQ1,0,1,Y', bytes(f'^PQ{self.copies_mumber },0,1,Y', 'utf-8'))
 
 
-		self.printer_job(printer, s)
+		self.printer_job(printer, bytes(s, 'utf-8'))
 
 	# def print_box_label(self, tipo_ean):
 	# 	printer = 'Impresora 2'
@@ -254,6 +274,7 @@ class PrinterLabels():
 			self.print_bottle_label_15ml()
 
 		else:
+
 			print("Impresora 2: NINGUNA")
 
 		# ZD

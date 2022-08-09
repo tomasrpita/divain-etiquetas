@@ -37,6 +37,7 @@ def home():
         #   PrinterLabels(formdata, printer_job).print()
         PrinterLabels(formdata, printer_job).print()
         # PrinterLabels(formdata, fake_printer_job).print()
+
         # PrintManager(reference_data, fake_printer_job).print()
 
         copies_number = request.form.get('CopiesNumber')
