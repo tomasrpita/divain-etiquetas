@@ -18,7 +18,8 @@ const iptTapon = document.getElementById('tapon');
 const iptEtiqueta = document.getElementById('etiqueta');
 
 const chksImpresora1 = document.querySelectorAll('#impresora-1 input[type="radio"]');
-
+const chksImpresora2 = document.querySelectorAll('#impresora-1 input[type="radio"]');
+const chkCodigoBarras = document.getElementById('zdLabel1');
 
 
 chksImpresora1.forEach(chk => {
@@ -87,8 +88,6 @@ iptEanBotella.addEventListener('keyup', ({ key }) => {
 					iptLoteBotella.readOnly = false;
 					iptLoteBotella.focus();
 
-
-
 				})
 
 			}
@@ -140,10 +139,9 @@ const getReference = () => {
 	const eanBotella = iptEanBotella.value;
 	getData(`/api/reference/${eanBotella}`)
 		.then(result => {
-			console.log('Qué pasa aqui?')
 			console.log(result);
 			if (!!result.data) {
-				console.log(result.data);
+				// console.log(result.data);
 				postReferenceData(result.data)
 				selectLabel(result.data)
 				iptEanBotella.classList.remove("is-invalid");
@@ -152,6 +150,11 @@ const getReference = () => {
 				// console.log("divian100", divain100)
 				if (!divain100)
 					iptEanBotella.readOnly = true;
+					// si tengo que imprimir el código de barras pido el lote
+					if (chkCodigoBarras.checked) {
+						iptLoteBotella.readOnly = false;
+						iptLoteBotella.focus();
+					}
 				else {
 					firstBottle = false
 					divainId100 = iptEanBotella.value
@@ -168,8 +171,9 @@ const getReference = () => {
 				// if (result.data.categoria == 'black')
 				// 	iptEanBotella.value += '        =>              !!!!!BLACK!!!!!';
 
-				if (!checkD100.checked)
-					formLabels.submit();
+				
+				// if (!checkD100.checked)
+					// formLabels.submit();
 
 			} else if (!!result.error) {
 				throw new Error(result.error)

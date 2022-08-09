@@ -75,30 +75,57 @@ class PrinterLabels():
 
 
 	def print_box_label(self, tipo_ean):
-		printer = 'Impresora 2'
+		printer = 'Impresora 1'
+		# printer = 'Impresora 2'
 		# printer = 'ZDesigner ZD420-203dpi ZPL'
 
-		f=open("./printer_labels/new_codigo_barras.prn", "rb")
+		f=open("./labels/codigo_barras_ingredientes.prn", "rb")
 		s=f.read()
 		f.close()
 
-		# name
-		s=s.replace(b'DIVAIN-XXX', bytes(self.sku, 'utf-8'))
+		# # name
+		# s=s.replace(b'DIVAIN-XXX', bytes(self.sku, 'utf-8'))
 
-		#barcode
-		ean_select = tipo_ean[:-1] + '>6' + tipo_ean[-1:]
+		# #barcode
+		# ean_select = tipo_ean[:-1] + '>6' + tipo_ean[-1:]
 
-		# !105123456789012!1003
-		s=s.replace(b'123456789012>63', bytes(ean_select, 'utf-8'))
+		# # !105123456789012!1003
+		# s=s.replace(b'123456789012>63', bytes(ean_select, 'utf-8'))
 
-		#bar_print_number
-		s=s.replace(b'1234567890123', bytes(tipo_ean, 'utf-8'))
+		# #bar_print_number
+		# s=s.replace(b'1234567890123', bytes(tipo_ean, 'utf-8'))
 
-		#copies number
-		s=s.replace(b'^PQ1,0,1,Y', bytes(f'^PQ{self.copies_mumber },0,1,Y', 'utf-8'))
+		# #copies number
+		# s=s.replace(b'^PQ1,0,1,Y', bytes(f'^PQ{self.copies_mumber },0,1,Y', 'utf-8'))
 
 
 		self.printer_job(printer, s)
+
+	# def print_box_label(self, tipo_ean):
+	# 	printer = 'Impresora 2'
+	# 	# printer = 'ZDesigner ZD420-203dpi ZPL'
+
+	# 	f=open("./printer_labels/new_codigo_barras.prn", "rb")
+	# 	s=f.read()
+	# 	f.close()
+
+	# 	# name
+	# 	s=s.replace(b'DIVAIN-XXX', bytes(self.sku, 'utf-8'))
+
+	# 	#barcode
+	# 	ean_select = tipo_ean[:-1] + '>6' + tipo_ean[-1:]
+
+	# 	# !105123456789012!1003
+	# 	s=s.replace(b'123456789012>63', bytes(ean_select, 'utf-8'))
+
+	# 	#bar_print_number
+	# 	s=s.replace(b'1234567890123', bytes(tipo_ean, 'utf-8'))
+
+	# 	#copies number
+	# 	s=s.replace(b'^PQ1,0,1,Y', bytes(f'^PQ{self.copies_mumber },0,1,Y', 'utf-8'))
+
+
+	# 	self.printer_job(printer, s)
 
 
 	def print_bottle_label(self):
