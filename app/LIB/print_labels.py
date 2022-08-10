@@ -10,7 +10,7 @@ from typing import Callable, List
 
 log = logging.getLogger(__name__)
 
-default_printer = "TSC TTP-345 (Copiar 1)" # Botes
+default_printer = "Impresora 2" # Botes
 codebar_printer = "Impresora 1"
 
 """
