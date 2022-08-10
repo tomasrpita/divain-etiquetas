@@ -122,26 +122,26 @@ class PrinterLabels():
 			for line_number , line in enumerate(f, start=1):
 				# SKU
 				# lista de ingredientes
-				if 12 <= line_number <= 26:
+				if 13 <= line_number <= 27:
 					if index_exists(lista_ingredientes, line_number - 12):
 						s = s.replace(line, (line.replace('XXXXXXXXXXXX', lista_ingredientes[line_number - 12])))
 					else:
 						s = s.replace(line, '')
-				elif line_number == 27 or line_number == 28:
+				elif line_number == 28 or line_number == 29:
 					s = s.replace(line, (line.replace('DIVAIN-ZZZ', self.sku)))
 				# LOTE
-				elif line_number == 29 or line_number == 30:
+				elif line_number == 30 or line_number == 31:
 					s = s.replace(line, (line.replace('xxxxxxxxxx', self.lote)))
 				# BAR CODE
-				elif line_number == 310:
+				elif line_number == 32:
 					ean_select = tipo_ean[:-1] + '!100' + tipo_ean[-1:]
 					s = s.replace(line, (line.replace('123456789012!1003', ean_select)))
 				# Núnmero código de barras
-				elif line_number == 32:
+				elif line_number == 33:
 					s = s.replace(line, (line.replace('1234567890123', tipo_ean)))
 
 				# Número de copias
-				elif line_number == 33:
+				elif line_number == 34:
 					s = s.replace(line, (line.replace('1,1', f'{self.copies_mumber },1')))
 
 		self.printer_job(printer, bytes(s, 'utf-8'))
