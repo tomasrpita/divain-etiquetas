@@ -104,7 +104,7 @@ class PrinterLabels():
 
 
 	def print_box_label(self, tipo_ean):
-		printer = 'Impresora 2'
+		printer = codebar_printer
 		# printer = 'ZDesigner ZD420-203dpi ZPL'
 
 		f=open("./labels/codigo_barras_ingredientes.prn", "r")
