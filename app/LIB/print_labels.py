@@ -60,7 +60,7 @@ class PrinterLabels():
 
 
 	def print_sample_label(self):
-		printer = 'Impresora 1'
+		printer = default_printer
 
 		# f=open("./printer_labels/new_sample_label.prn", "rb")
 
@@ -174,7 +174,7 @@ class PrinterLabels():
 
 
 	def print_bottle_label(self):
-		printer = 'Impresora 1'
+		printer = default_printer
 
 		if self.sex == 'H O M M E':
 			f=open(f"./printer_labels/new_bottle_{self.categoria}100ml_homme.prn", "rb")
@@ -210,7 +210,7 @@ class PrinterLabels():
 
 
 	def print_bottle_label_standard_new(self):
-		printer = 'Impresora 1'
+		printer = default_printer
 
 		# if self.sex == 'H O M M E':
 		# 	f=open(f"./printer_labels/new_bottle_{self.categoria}100ml_homme.prn", "rb")
@@ -244,7 +244,7 @@ class PrinterLabels():
 		self.printer_job(printer, s)
 
 	def print_bottle_label_15ml(self):
-		printer = 'Impresora 1'
+		printer = default_printer
 
 
 		if self.sex == 'H O M M E':
