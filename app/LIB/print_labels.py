@@ -133,7 +133,7 @@ class PrinterLabels():
 				elif line_number == 29 or line_number == 30:
 					s = s.replace(line, (line.replace('xxxxxxxxxx', self.lote)))
 				# BAR CODE
-				elif line_number == 31:
+				elif line_number == 310:
 					ean_select = tipo_ean[:-1] + '!100' + tipo_ean[-1:]
 					s = s.replace(line, (line.replace('123456789012!1003', ean_select)))
 				# Núnmero código de barras
