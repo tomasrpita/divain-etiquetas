@@ -146,4 +146,4 @@ tmp/
 ~$*
 
 # Excel files
-*.xlsx
+# *.xlsx
