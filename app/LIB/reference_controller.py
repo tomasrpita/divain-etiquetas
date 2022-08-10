@@ -18,6 +18,13 @@ columns_search = ['EAN 1 Litro', 'EAN 1/2 Litro', 'EAN BOTES', 'EAN MUESTRAS', '
 # columns_search = ['EAN 1 Litro', 'EAN 1/2 Litro', 'EAN MUESTRAS', 'N DIVAIN']
 
 
+def get_str_value(obj, key):
+    value = obj[key].values[0]
+    if isinstance(value, str):
+        return value.strip()
+    return ""
+
+
 def get_reference_data(idBotella):
 
     df = get_df()
@@ -61,14 +68,14 @@ def get_reference_data(idBotella):
 
                 resp['data'] = {
                     'numero_divain': row_reference['N DIVAIN'].values[0],
-                    'sexo': row_reference['SEXO'].values[0].strip(),
+                    'sexo': get_str_value(row_reference, "SEXO"), #row_reference['SEXO'].values[0].strip(),
                     'ean_botes': int(row_reference['EAN BOTES'].values[0]),
                     'ean_muestras': int(row_reference['EAN MUESTRAS'].values[0]),
-                    'sku': row_reference['SKU DIVAIN'].values[0].strip(),
-                    'categoria': row_reference['CATEGORIA'].values[0].strip(),
-                    'caja': row_reference['CAJA'].values[0].strip(),
-                    'tapon': row_reference['TAPON'].values[0].strip(),
-                    'ingredientes': "" if row_reference['INGREDIENTES'].values[0] is nan else row_reference['INGREDIENTES'].values[0].strip(),
+                    'sku': get_str_value(row_reference, 'SKU DIVAIN'),
+                    'categoria': get_str_value(row_reference, 'CATEGORIA'),
+                    'caja': get_str_value(row_reference, 'CAJA'),
+                    'tapon': get_str_value(row_reference, 'TAPON'),
+                    'ingredientes': get_str_value(row_reference, 'INGREDIENTES'),
                     }
                 resp['error'] = None
                 break

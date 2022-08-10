@@ -18,8 +18,8 @@
     <!-- Raíz de nuestra aplicacion para que lo maneje JS/jQuery desde los archivos de scripts -->
     <script type=text/javascript>
       $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-      const wrongSound = '{{ url_for('static', filename='sounds/wrong.mp3') }}'
-      const successSound = '{{ url_for('static', filename='sounds/success.wav') }}'
+      const wrongSound = '{{ url_for("static", filename="sounds/wrong.mp3") }}'
+      const successSound = '{{ url_for("static", filename="sounds/success.wav") }}'
 
     </script>
 

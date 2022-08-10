@@ -199,10 +199,11 @@ const postReferenceData = ({ ean_botes, ean_muestras, numero_divain, sexo, sku, 
     <input type="text" name="sexo" value="${sexo}">
     <input type="text" name="sku" value="${sku}">
 	<input type="text" name="categoria" value="${categoria}">
+	<input type="text" name="ingredientes" value="${ingredientes}">
     `
-	hiddenInputs += ingredientes ?
-		`<input type="text" name="ingredientes" value="${ingredientes}">`
-		: '';
+	// hiddenInputs += ingredientes ?
+	// 	`<input type="text" name="ingredientes" value="${ingredientes}">`
+	// 	: '';
 
 	divHiddenInputs.innerHTML = hiddenInputs;
 

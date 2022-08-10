@@ -6,9 +6,35 @@
 
 from dataclasses import dataclass
 import logging
-from typing import Callable, Dict, List, Tuple
+from typing import Callable, List
 
 log = logging.getLogger(__name__)
+
+
+"""
+from a text string containing a space-separated list of words, split it into text strings of 36 characters or more"""
+def split_text(text: str, max_line_chr: int) -> List[str]:
+	words = text.split(" ")
+	lines = []
+	line = ""
+	for word in words:
+		if len(line) + len(word) > max_line_chr:
+			lines.append(line)
+			line = word
+		else:
+			line += " " + word
+	lines.append(line.strip())
+	return lines
+
+
+def index_exists(list: List, index: int) -> bool:
+    try:
+        list[index]
+        return True
+    except IndexError:
+        return False
+
+# TODO Si hay mas de 15 lineas de ingredientes avisar que no se puede imprimir
 
 class PrinterLabels():
 	def __init__(self, formdata, printer_job) -> None:
@@ -22,6 +48,7 @@ class PrinterLabels():
 		self.sex = formdata['sexo']
 		self.sku = formdata['sku']
 		self.categoria = formdata['categoria']
+		self.ingredientes = formdata['ingredientes']
 		# self.free_sample = True if  formdata.get('free_sample') else False
 		self.free_sample = formdata.get('free_sample')
 		self.tsc_label = formdata['tscLabel'] if formdata['tscLabel'] != 'ninguna' else ""
@@ -75,49 +102,45 @@ class PrinterLabels():
 
 
 	def print_box_label(self, tipo_ean):
-		printer = 'Impresora 1'
-		# printer = 'Impresora 2'
+		printer = 'Impresora 2'
 		# printer = 'ZDesigner ZD420-203dpi ZPL'
 
 		f=open("./labels/codigo_barras_ingredientes.prn", "r")
 		s=f.read()
 		f.close()
 
+		line_length = 39
+		lista_ingredientes = split_text(self.ingredientes, line_length)
+		# print('Número de lineas de ingredientes: ', len(lista_ingredientes))
+		# print('Número de ingredientes: ', len(self.ingredientes.split(' ')))
+
 		# read line by line ''s'' and replace the text
 		with open("./labels/codigo_barras_ingredientes.prn", "r") as f:
 			# s = f.read()
 			for line_number , line in enumerate(f, start=1):
-				print(line_number)
 				# SKU
-				if line_number == 26 or line_number == 27:
+				# lista de ingredientes
+				if 12 <= line_number <= 26:
+					if index_exists(lista_ingredientes, line_number - 12):
+						s = s.replace(line, (line.replace('XXXXXXXXXXXX', lista_ingredientes[line_number - 12])))
+					else:
+						s = s.replace(line, '')
+				elif line_number == 27 or line_number == 28:
 					s = s.replace(line, (line.replace('DIVAIN-ZZZ', self.sku)))
 				# LOTE
-				elif line_number == 28 or line_number == 29:
-					s = s.replace(line, (line.replace('xxxxxx', self.lote)))
+				elif line_number == 29 or line_number == 30:
+					s = s.replace(line, (line.replace('xxxxxxxxxx', self.lote)))
 				# BAR CODE
-				elif line_number == 30:
+				elif line_number == 31:
 					ean_select = tipo_ean[:-1] + '!100' + tipo_ean[-1:]
 					s = s.replace(line, (line.replace('123456789012!1003', ean_select)))
 				# Núnmero código de barras
-				elif line_number == 31:
+				elif line_number == 32:
 					s = s.replace(line, (line.replace('1234567890123', tipo_ean)))
 
-
-		# # name
-		# s=s.replace(b'DIVAIN-XXX', bytes(self.sku, 'utf-8'))
-
-		# #barcode
-		# ean_select = tipo_ean[:-1] + '>6' + tipo_ean[-1:]
-
-		# # !105123456789012!1003
-		# s=s.replace(b'123456789012>63', bytes(ean_select, 'utf-8'))
-
-		# #bar_print_number
-		# s=s.replace(b'1234567890123', bytes(tipo_ean, 'utf-8'))
-
-		# #copies number
-		# s=s.replace(b'^PQ1,0,1,Y', bytes(f'^PQ{self.copies_mumber },0,1,Y', 'utf-8'))
-
+				# Número de copias
+				elif line_number == 33:
+					s = s.replace(line, (line.replace('1,1', f'{self.copies_mumber },1')))
 
 		self.printer_job(printer, bytes(s, 'utf-8'))
 
@@ -150,8 +173,6 @@ class PrinterLabels():
 
 	def print_bottle_label(self):
 		printer = 'Impresora 1'
-
-
 
 		if self.sex == 'H O M M E':
 			f=open(f"./printer_labels/new_bottle_{self.categoria}100ml_homme.prn", "rb")
