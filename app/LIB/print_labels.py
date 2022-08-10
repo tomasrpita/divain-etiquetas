@@ -10,6 +10,8 @@ from typing import Callable, List
 
 log = logging.getLogger(__name__)
 
+default_printer = "TSC TTP-345 (Copiar 1)" # Botes
+codebar_printer = "Impresora 1"
 
 """
 from a text string containing a space-separated list of words, split it into text strings of 36 characters or more"""
