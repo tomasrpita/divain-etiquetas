@@ -52,8 +52,6 @@ hiddeBottleImp.forEach(bottle => {
 			divBottles.forEach(bottle => { bottle.classList.add('invisible') })
 			divain100 = false
 		}
-
-
 	})
 })
 
@@ -63,9 +61,6 @@ showBottleImp.addEventListener('change', function () {
 		divBottles.forEach(bottle => { bottle.classList.remove('invisible') })
 		divain100 = true
 	}
-
-
-
 })
 
 
@@ -83,11 +78,9 @@ iptEanBotella.addEventListener('keyup', ({ key }) => {
 						bottle.classList.remove('text-muted')
 						bottle.classList.add('text-success')
 					}
-
 					iptEanBotella.readOnly = true
 					iptLoteBotella.readOnly = false;
 					iptLoteBotella.focus();
-
 				})
 
 			}
@@ -99,11 +92,6 @@ iptEanBotella.addEventListener('keyup', ({ key }) => {
 })
 
 
-
-
-
-
-
 iptLoteBotella.addEventListener('keyup', ({ key }) => {
 	if (key === "Enter") {
 		if (!!iptLoteBotella.value && iptLoteBotella.value.replace(/\s/g, '').length)
@@ -112,25 +100,21 @@ iptLoteBotella.addEventListener('keyup', ({ key }) => {
 })
 
 
-const getlastBottle = () => {
-	if (iptEanBotella.value == divainId100) {
-		divBottles.forEach((bottle, i) => {
-			if (i == 1) {
-				bottle.classList.remove('text-muted')
-				bottle.classList.add('text-success')
-			}
+// const getlastBottle = () => {
+// 	if (iptEanBotella.value == divainId100) {
+// 		divBottles.forEach((bottle, i) => {
+// 			if (i == 1) {
+// 				bottle.classList.remove('text-muted')
+// 				bottle.classList.add('text-success')
+// 			}
 
+// 			iptLoteBotella.readOnly = false;
+// 			iptLoteBotella.focus();
 
-			iptLoteBotella.readOnly = false;
-			iptLoteBotella.focus();
+// 		})
 
-
-
-		})
-
-	}
-
-}
+// 	}
+// }
 
 
 const getReference = () => {
@@ -147,15 +131,19 @@ const getReference = () => {
 				iptEanBotella.classList.remove("is-invalid");
 				iptEanBotella.classList.add("is-valid");
 
-				// console.log("divian100", divain100)
-				if (!divain100)
+				if (!divain100) {
+
+					// console.log("divian100", divain100)
+					
+					console.log("1 divian100", divain100)
 					iptEanBotella.readOnly = true;
 					// si tengo que imprimir el código de barras pido el lote
 					if (chkCodigoBarras.checked) {
 						iptLoteBotella.readOnly = false;
 						iptLoteBotella.focus();
 					}
-				else {
+				} else {
+					console.log("2 divian100", divain100)
 					firstBottle = false
 					divainId100 = iptEanBotella.value
 					iptEanBotella.value = ''
@@ -164,7 +152,6 @@ const getReference = () => {
 							bottle.classList.remove('text-muted')
 							bottle.classList.add('text-success')
 						}
-
 					})
 				}
 
