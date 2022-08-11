@@ -12,3 +12,12 @@ def get_copies_number():
 	return int(parser.get("basic", "default_copies_number"))
 
 
+def get_printers():
+
+	parser = ConfigParser()
+	parser.read('config.ini')
+
+	return (
+		parser.get("printers", "default_printer"), 
+		parser.get("printers", "codebar_printer")
+		)

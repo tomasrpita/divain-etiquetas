@@ -1,21 +1,21 @@
 # coding: utf-8
 
 # from app.LIB.printers import printer_job
-
-# printer 2 = ZDesigner ZD421-203dpi ZPL
-
 from dataclasses import dataclass
 import logging
 from typing import Callable, List
+from app.LIB.utils import get_printers
+
 
 log = logging.getLogger(__name__)
+default_printer, codebar_printer = get_printers()
 
-default_printer = "Impresora 2" # Botes
-codebar_printer = "Impresora 1"
 
-"""
-from a text string containing a space-separated list of words, split it into text strings of 36 characters or more"""
+
 def split_text(text: str, max_line_chr: int) -> List[str]:
+	"""
+	Split text in lines with max_line_chr characters
+	"""
 	words = text.split(" ")
 	lines = []
 	line = ""
@@ -30,14 +30,14 @@ def split_text(text: str, max_line_chr: int) -> List[str]:
 
 
 def index_exists(list: List, index: int) -> bool:
-    try:
-        list[index]
-        return True
-    except IndexError:
-        return False
+	"""
+	Check if index exists in list
+	"""
+	return index < len(list) and index >= 0
+
+
 
 # TODO Si hay mas de 15 lineas de ingredientes avisar que no se puede imprimir
-
 class PrinterLabels():
 	def __init__(self, formdata, printer_job) -> None:
 
@@ -145,33 +145,6 @@ class PrinterLabels():
 					s = s.replace(line, (line.replace('1,1', f'{self.copies_mumber },1')))
 
 		self.printer_job(printer, bytes(s, 'utf-8'))
-
-	# def print_box_label(self, tipo_ean):
-	# 	printer = 'Impresora 2'
-	# 	# printer = 'ZDesigner ZD420-203dpi ZPL'
-
-	# 	f=open("./printer_labels/new_codigo_barras.prn", "rb")
-	# 	s=f.read()
-	# 	f.close()
-
-	# 	# name
-	# 	s=s.replace(b'DIVAIN-XXX', bytes(self.sku, 'utf-8'))
-
-	# 	#barcode
-	# 	ean_select = tipo_ean[:-1] + '>6' + tipo_ean[-1:]
-
-	# 	# !105123456789012!1003
-	# 	s=s.replace(b'123456789012>63', bytes(ean_select, 'utf-8'))
-
-	# 	#bar_print_number
-	# 	s=s.replace(b'1234567890123', bytes(tipo_ean, 'utf-8'))
-
-	# 	#copies number
-	# 	s=s.replace(b'^PQ1,0,1,Y', bytes(f'^PQ{self.copies_mumber },0,1,Y', 'utf-8'))
-
-
-	# 	self.printer_job(printer, s)
-
 
 	def print_bottle_label(self):
 		printer = default_printer
