@@ -3,7 +3,7 @@
 from app.LIB.print_labels import PrintManager, PrinterLabels, ReferenceLabelData
 from flask import render_template, flash, request, redirect, url_for
 from flask import current_app
-from app.LIB.printers import printer_job
+# from app.LIB.printers import printer_job
 
 
 from app.LIB.utils import get_copies_number
@@ -35,8 +35,8 @@ def home():
         # )
         # if formdata['loteBotella']:
         #   PrinterLabels(formdata, printer_job).print()
-        PrinterLabels(formdata, printer_job).print()
-        # PrinterLabels(formdata, fake_printer_job).print()
+        # PrinterLabels(formdata, printer_job).print()
+        PrinterLabels(formdata, fake_printer_job).print()
 
         # PrintManager(reference_data, fake_printer_job).print()
 
