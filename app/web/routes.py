@@ -3,6 +3,7 @@
 from app.LIB.print_labels import PrintManager, PrinterLabels, ReferenceLabelData
 from flask import render_template, flash, request, redirect, url_for
 from flask import current_app
+
 from app.LIB.printers import printer_job
 
 

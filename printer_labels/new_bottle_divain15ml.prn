@@ -8,8 +8,8 @@ SET PARTIAL_CUTTER OFF
 <xpml></page></xpml><xpml><page quantity='1' pitch='15.1 mm'></xpml>SET TEAR ON
 CLS
 CODEPAGE 1252
-TEXT 175,138,"FUTURALR.TTF",270,15,15,"ZZZ"
+TEXT 175,138,"FUTURAMR.TTF",270,15,15,"ZZZ"
 BAR 229,28, 4, 113
-TEXT 238,138,"FUTURALR.TTF",270,6,6,"X X X X X"
+TEXT 238,138,"FUTURAMR.TTF",270,6,6,"X X X X X"
 PRINT 1,1
 <xpml></page></xpml><xpml><end/></xpml>
