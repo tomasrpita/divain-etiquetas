@@ -229,6 +229,7 @@ class PrinterLabels:
                 "F E M M E",
                 "H O M M E",
                 "U N I S E X",
+                "K I D S",
             ]:
                 self.print_bottle_label_standard_new()
             elif self.categoria == "solidario":
