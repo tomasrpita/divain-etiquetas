@@ -106,22 +106,22 @@ class PrinterLabels:
         printer = codebar_printer
         # printer = 'ZDesigner ZD420-203dpi ZPL'
 
-        f = open("./labels/codigo_barras_ingredientes.prn", "r")
+        f = open("./labels/codigo_barras_ingredientes_usa.prn", "r")
         s = f.read()
         f.close()
 
-        line_length = 39
+        line_length = 17
         lista_ingredientes = split_text(self.ingredientes, line_length)
         # print('Número de lineas de ingredientes: ', len(lista_ingredientes))
         # print('Número de ingredientes: ', len(self.ingredientes.split(' ')))
 
         # read line by line ''s'' and replace the text
-        with open("./labels/codigo_barras_ingredientes.prn", "r") as f:
+        with open("./labels/codigo_barras_ingredientes_usa.prn", "r") as f:
             # s = f.read()
             for line_number, line in enumerate(f, start=1):
                 # SKU
                 # lista de ingredientes
-                if 13 <= line_number <= 27:
+                if 13 <= line_number <= 20:
                     if index_exists(lista_ingredientes, line_number - 12):
                         s = s.replace(
                             line,
@@ -133,21 +133,21 @@ class PrinterLabels:
                         )
                     else:
                         s = s.replace(line, "")
-                elif line_number == 28 or line_number == 29:
+                elif line_number == 21 or line_number == 22:
                     s = s.replace(line, (line.replace("DIVAIN-ZZZ", self.sku)))
                 # LOTE
-                elif line_number == 30 or line_number == 31:
+                elif line_number == 23 or line_number == 24:
                     s = s.replace(line, (line.replace("xxxxxxxxxx", self.lote)))
                 # BAR CODE
-                elif line_number == 32:
+                elif line_number == 25:
                     ean_select = tipo_ean[:-1] + "!100" + tipo_ean[-1:]
                     s = s.replace(line, (line.replace("123456789012!1003", ean_select)))
                 # Núnmero código de barras
-                elif line_number == 33:
+                elif line_number == 26:
                     s = s.replace(line, (line.replace("1234567890123", tipo_ean)))
 
                 # Número de copias
-                elif line_number == 34:
+                elif line_number == 27:
                     s = s.replace(
                         line, (line.replace("1,1", f"{self.copies_mumber },1"))
                     )
