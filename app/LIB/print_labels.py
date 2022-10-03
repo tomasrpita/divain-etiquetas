@@ -110,7 +110,7 @@ class PrinterLabels:
         s = f.read()
         f.close()
 
-        line_length = 17
+        line_length = 20
         lista_ingredientes = split_text(self.ingredientes, line_length)
         # print('Número de lineas de ingredientes: ', len(lista_ingredientes))
         # print('Número de ingredientes: ', len(self.ingredientes.split(' ')))
