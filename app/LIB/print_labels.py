@@ -121,7 +121,7 @@ class PrinterLabels:
             for line_number, line in enumerate(f, start=1):
                 # SKU
                 # lista de ingredientes
-                if 13 <= line_number <= 20:
+                if 18 <= line_number <= 26:
                     if index_exists(lista_ingredientes, line_number - 12):
                         s = s.replace(
                             line,
@@ -133,17 +133,17 @@ class PrinterLabels:
                         )
                     else:
                         s = s.replace(line, "")
-                elif line_number == 21 or line_number == 22:
+                elif line_number == 13 or line_number == 14:
                     s = s.replace(line, (line.replace("DIVAIN-ZZZ", self.sku)))
                 # LOTE
-                elif line_number == 23 or line_number == 24:
+                elif line_number == 15 or line_number == 16:
                     s = s.replace(line, (line.replace("xxxxxxxxxx", self.lote)))
                 # BAR CODE
-                elif line_number == 25:
+                elif line_number == 17:
                     ean_select = tipo_ean[:-1] + "!100" + tipo_ean[-1:]
                     s = s.replace(line, (line.replace("123456789012!1003", ean_select)))
                 # Núnmero código de barras
-                elif line_number == 26:
+                elif line_number == 18:
                     s = s.replace(line, (line.replace("1234567890123", tipo_ean)))
 
                 # Número de copias
