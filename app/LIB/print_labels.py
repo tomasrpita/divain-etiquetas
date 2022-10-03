@@ -106,7 +106,7 @@ class PrinterLabels:
         printer = codebar_printer
         # printer = 'ZDesigner ZD420-203dpi ZPL'
 
-        f = open("./labels/codigo_barras_ingredientes_usa.prn", "r")
+        f = open("./labels/codigo_barras_ingredientes_usa2.prn", "r")
         s = f.read()
         f.close()
 
@@ -116,7 +116,7 @@ class PrinterLabels:
         # print('Número de ingredientes: ', len(self.ingredientes.split(' ')))
 
         # read line by line ''s'' and replace the text
-        with open("./labels/codigo_barras_ingredientes_usa.prn", "r") as f:
+        with open("./labels/codigo_barras_ingredientes_usa2.prn", "r") as f:
             # s = f.read()
             for line_number, line in enumerate(f, start=1):
                 # SKU
