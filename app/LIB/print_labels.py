@@ -122,12 +122,12 @@ class PrinterLabels:
                 # SKU
                 # lista de ingredientes
                 if 13 <= line_number <= 20:
-                    if index_exists(lista_ingredientes, line_number - 7):
+                    if index_exists(lista_ingredientes, line_number - 12):
                         s = s.replace(
                             line,
                             (
                                 line.replace(
-                                    "X", lista_ingredientes[line_number - 7]
+                                    "XXXXXXXXXXXXXXXXX", lista_ingredientes[line_number - 12]
                                 )
                             ),
                         )
