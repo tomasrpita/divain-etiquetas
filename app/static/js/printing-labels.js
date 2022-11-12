@@ -18,7 +18,7 @@ const iptTapon = document.getElementById('tapon');
 const iptEtiqueta = document.getElementById('etiqueta');
 
 const chksImpresora1 = document.querySelectorAll('#impresora-1 input[type="radio"]');
-const chksImpresora2 = document.querySelectorAll('#impresora-1 input[type="radio"]');
+const chksImpresora2 = document.querySelectorAll('#impresora-2 input[type="radio"]');
 const chkCodigoBarras = document.getElementById('zdLabel1');
 
 
@@ -30,6 +30,18 @@ chksImpresora1.forEach(chk => {
 		} else {
 			document.querySelector('#sample2').disabled = true;
 			document.querySelector('#sample3').disabled = true;
+		}
+	})
+})
+
+chksImpresora2.forEach(chk => {
+	chk.addEventListener('change', () => {
+		if (chk.checked && chk.value == 'ninguna') {
+			document.querySelector('#label_ingredients_type_normal').disabled = true;
+			document.querySelector('#label_ingredients_type_usa').disabled = true;
+		} else {
+			document.querySelector('#label_ingredients_type_normal').disabled = false;
+			document.querySelector('#label_ingredients_type_usa').disabled = false;
 		}
 	})
 })
@@ -134,7 +146,7 @@ const getReference = () => {
 				if (!divain100) {
 
 					// console.log("divian100", divain100)
-					
+
 					console.log("1 divian100", divain100)
 					iptEanBotella.readOnly = true;
 					// si tengo que imprimir el código de barras pido el lote
@@ -158,9 +170,9 @@ const getReference = () => {
 				// if (result.data.categoria == 'black')
 				// 	iptEanBotella.value += '        =>              !!!!!BLACK!!!!!';
 
-				
+
 				// if (!checkD100.checked)
-					// formLabels.submit();
+				// formLabels.submit();
 
 			} else if (!!result.error) {
 				throw new Error(result.error)

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from configparser import ConfigParser
+import os
 
 
 def get_copies_number():
@@ -11,6 +12,12 @@ def get_copies_number():
 
 	return int(parser.get("basic", "default_copies_number"))
 
+def get_database_name():
+
+	parser = ConfigParser()
+	parser.read('config.ini')
+
+	return parser.get("database", "name")
 
 def get_printers():
 
@@ -18,6 +25,6 @@ def get_printers():
 	parser.read('config.ini')
 
 	return (
-		parser.get("printers", "default_printer"), 
+		parser.get("printers", "default_printer"),
 		parser.get("printers", "codebar_printer")
 		)
