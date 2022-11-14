@@ -141,6 +141,7 @@ tmp/
 
 # Archivos de Mac
 .DS_Store
+DS_Store
 
 # bkn office
 ~$*
