@@ -36,7 +36,7 @@ def home():
 	if request.method == "POST":
 		formdata = request.form.to_dict(flat=True)
 		# PrinterLabels(formdata, fake_printer_job).print()
-		PrintManager(formdata, printer_job).print()
+		PrinterLabels(formdata, printer_job).print()
 
 		copies_number = request.form.get("CopiesNumber")
 
