@@ -5,7 +5,7 @@ from app.LIB.print_labels import PrintManager, PrinterLabels, ReferenceLabelData
 from flask import render_template, flash, request, redirect, url_for, abort, current_app
 from app.LIB.utils import get_database_name
 
-# from app.LIB.printers import printer_job
+from app.LIB.printers import printer_job
 
 
 from app.LIB.utils import get_copies_number
@@ -35,8 +35,8 @@ def home():
 
 	if request.method == "POST":
 		formdata = request.form.to_dict(flat=True)
-		PrinterLabels(formdata, fake_printer_job).print()
-		# PrintManager(reference_data, fake_printer_job).print()
+		# PrinterLabels(formdata, fake_printer_job).print()
+		PrintManager(formdata, printer_job).print()
 
 		copies_number = request.form.get("CopiesNumber")
 
