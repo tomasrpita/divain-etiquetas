@@ -11,7 +11,7 @@ from google.auth.transport.requests import Request
 
 SECRET_FILE_NAME = "client_secret_651054741647-ldep5h1cqe83f2ci17smfh6c6p620kkr.apps.googleusercontent.com.json"
 SECRET_FOLDER = "database"
-SECRET_FILE_PATH = os.path.join(os.getcwd(), SECRET_FOLDER, SECRET_FILE_NAME)
+SECRET_FILE_PATH = os.path.join(SECRET_FOLDER, SECRET_FILE_NAME)
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
@@ -21,6 +21,7 @@ RANGE = "A1:M1000"
 
 BBDD_FOLDER = "database"
 BBDD_FILE_NAME = "BBDD_DIVAIN_NEW.xlsx"
+BBDD_PATH = os.path.join(BBDD_FOLDER, BBDD_FILE_NAME)
 BBDD_PATH = os.path.join(os.getcwd(), BBDD_FOLDER, BBDD_FILE_NAME)
 
 # function to check if the internet connection is available
