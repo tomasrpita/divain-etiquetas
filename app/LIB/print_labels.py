@@ -59,6 +59,70 @@ class PrinterLabels:
         self.zd_label = formdata["zdLabel"] if formdata["zdLabel"] != "ninguna" else ""
         self.printer_job = printer_job
 
+    def print_sample_label_test(self):
+        printer = default_printer
+
+        f=open("./printer_labels/new_sample_label_test.prn", "rb")
+
+        # f=open("./printer_labels/new_sample_label.prn", "rb")
+        s=f.read()
+        f.close()
+
+        self.ean_13 = self.ean_muestras or self.ean_botes
+
+        # number
+        s=s.replace(b'XXX', bytes(self.sku.replace('DIVAIN-', ''), 'utf-8'))
+
+        #sex
+        s=s.replace(b'X X X X X', bytes(self.sex, 'utf-8'))
+
+        #barcode
+        ean_13 = self.ean_13[:-1] + '!100' + self.ean_13[-1:]
+        s=s.replace(b'123456789012!1003', bytes(ean_13, 'utf-8'))
+
+        #copies number
+        s=s.replace(b'PRINT 1,1', bytes(f'PRINT {self.copies_mumber },1', 'utf-8'))
+
+        self.printer_job(printer, s)
+
+        # if self.free_sample == "free":
+        #     if self.sex == "H O M M E":
+        #         f = open("./printer_labels/new_free_sample_homme.prn", "rb")
+        #     else:
+        #         f = open("./printer_labels/new_free_sample.prn", "rb")
+
+        # elif self.free_sample == "standard":
+        #     if self.sex == "H O M M E":
+        #         f = open(
+        #             f"./printer_labels/new_sample_{self.categoria}_homme.prn", "rb"
+        #         )
+        #     else:
+        #         f = open(f"./printer_labels/new_sample_{self.categoria}.prn", "rb")
+
+        # elif self.free_sample == "pack":
+        #     if self.sex == "H O M M E":
+        #         f = open(f"./printer_labels/new_sample_{self.categoria}_pack.prn", "rb")
+        #     else:
+        #         f = open(f"./printer_labels/new_sample_{self.categoria}_pack.prn", "rb")
+
+        # s = f.read()
+        # f.close()
+
+        # # number
+        # s = s.replace(b"ZZZ", bytes(self.sku.replace("DIVAIN-", ""), "utf-8"))
+
+        # # sex
+        # s = s.replace(b"X X X X X", bytes(self.sex, "utf-8"))
+
+        # # barcode
+        # ean_muestras = self.ean_muestras[:-1] + "!100" + self.ean_muestras[-1:]
+        # s = s.replace(b"123456789012!1003", bytes(ean_muestras, "utf-8"))
+
+        # # copies number
+        # s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
+
+        # self.printer_job(printer, s)
+
     def print_sample_label(self):
         printer = default_printer
 
@@ -239,7 +303,8 @@ class PrinterLabels:
 
             tipo_ean = self.ean_botes
         elif self.tsc_label == "sample":
-            self.print_sample_label()
+            # self.print_sample_label()
+            self.print_sample_label_test()
             tipo_ean = self.ean_muestras
 
             print("Impresora 1: SAMPLE")

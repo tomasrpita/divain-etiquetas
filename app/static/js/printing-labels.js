@@ -81,8 +81,10 @@ showBottleImp.addEventListener('change', function () {
 iptEanBotella.addEventListener('keyup', ({ key }) => {
 	if (key === "Enter") {
 		if (divain100 && firstBottle) {
+			console.log('divain100')
 			getReference();
 		} else if (divain100 && !firstBottle) {
+			console.log('divain100 2')
 			// getLastBottle()
 			if (iptEanBotella.value == divainId100) {
 				divBottles.forEach((bottle, i) => {
@@ -97,6 +99,7 @@ iptEanBotella.addEventListener('keyup', ({ key }) => {
 
 			}
 		} else {
+			console.log('divain1')
 			getReference();
 		}
 
@@ -151,8 +154,13 @@ const getReference = () => {
 					iptEanBotella.readOnly = true;
 					// si tengo que imprimir el código de barras pido el lote
 					if (chkCodigoBarras.checked) {
+						console.log("chkCodigoBarras:" + chkCodigoBarras.checked)
 						iptLoteBotella.readOnly = false;
 						iptLoteBotella.focus();
+					} else {
+						// si no tengo que imprimir el código de barras envío el formulario
+						// Caso Sample
+						formLabels.submit();
 					}
 				} else {
 					console.log("2 divian100", divain100)
