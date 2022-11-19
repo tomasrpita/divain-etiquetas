@@ -148,3 +148,9 @@ DS_Store
 
 # Excel files
 # *.xlsx
+
+# Archivos secret google
+client_secret*.json
+
+# pickle files
+token.pickle
