@@ -146,8 +146,8 @@ DS_Store
 # bkn office
 ~$*
 
-# Excel files
-# *.xlsx
+Excel files
+*.xlsx
 
 # Archivos secret google
 client_secret*.json
