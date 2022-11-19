@@ -61,6 +61,7 @@ class PrinterLabels:
 
     def print_sample_label_test(self):
         printer = default_printer
+        print("Sample:", default_printer )
 
         f=open("./printer_labels/new_sample_label_test.prn", "rb")
 
@@ -125,6 +126,7 @@ class PrinterLabels:
 
     def print_sample_label(self):
         printer = default_printer
+        print("Sample:", default_printer )
 
         # f=open("./printer_labels/new_sample_label.prn", "rb")
 
@@ -168,6 +170,7 @@ class PrinterLabels:
 
     def print_box_label(self, tipo_ean):
         printer = codebar_printer
+        print("Box:", codebar_printer)
         # printer = 'ZDesigner ZD420-203dpi ZPL'
 
         f = open("./labels/codigo_barras_ingredientes_usa.prn", "r")
@@ -221,6 +224,7 @@ class PrinterLabels:
     # Kids
     def print_bottle_label(self):
         printer = default_printer
+        print("Bottle:", default_printer)
 
         f = open(f"./printer_labels/new_bottle_{self.categoria}100ml.prn", "rb")
         s = f.read()
@@ -242,6 +246,7 @@ class PrinterLabels:
 
     def print_bottle_label_standard_new(self):
         printer = default_printer
+        print("Bottle:", default_printer)
 
         f = open(f"./labels/estandard_100ml.prn", "rb")
 
@@ -258,6 +263,7 @@ class PrinterLabels:
 
     def print_bottle_label_15ml(self):
         printer = default_printer
+        print("Bottle:", default_printer)
 
         if self.sex == "H O M M E":
             f = open(f"./printer_labels/new_bottle_divain15ml_homme.prn", "rb")
@@ -288,7 +294,6 @@ class PrinterLabels:
 
         # TSC
         if self.tsc_label == "bottle":
-            print("Impresora 2: BOTTLE")
             if self.categoria == "divain" and self.sex in [
                 "F E M M E",
                 "H O M M E",
@@ -307,22 +312,23 @@ class PrinterLabels:
             self.print_sample_label_test()
             tipo_ean = self.ean_muestras
 
-            print("Impresora 2: SAMPLE")
+            # print("Impresora 2: SAMPLE")
+
 
         elif self.tsc_label == "bottle15ml":
             self.print_bottle_label_15ml()
 
         else:
 
-            print("Impresora 2: NINGUNA")
+            print("Ninguna: ", default_printer)
+
 
         # ZD
         print("Tipo EAN: ", tipo_ean)
         if self.zd_label == "box" and tipo_ean:
             self.print_box_label(tipo_ean)
-            print("Impresora 1: BOX")
         else:
-            print("Ipresora 1: NINGUNA")
+            print("Ninguna: ", codebar_printer)
 
 
 class PrintManager:
