@@ -194,7 +194,7 @@ const getReference = () => {
 		}).finally(() => spinnerEanBotella.classList.add('invisible'))
 }
 
-const postReferenceData = ({ ean_botes, ean_muestras, numero_divain, sexo, sku, categoria, tapon, caja, ingredientes }) => {
+const postReferenceData = ({ ean_botes, ean_muestras, numero_divain, sexo, sku, categoria, tapon, caja, qr_code, ingredientes }) => {
 
 	iptTapon.value = tapon || '';
 	iptCaja.value = caja || '';
@@ -206,6 +206,7 @@ const postReferenceData = ({ ean_botes, ean_muestras, numero_divain, sexo, sku, 
     <input type="text" name="sexo" value="${sexo}">
     <input type="text" name="sku" value="${sku}">
 	<input type="text" name="categoria" value="${categoria}">
+	<input type="text" name="qr_code" value="${qr_code}">
 	<input type="text" name="ingredientes" value="${ingredientes}">
     `
 	// hiddenInputs += ingredientes ?

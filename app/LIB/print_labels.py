@@ -42,6 +42,7 @@ class PrinterLabels:
         self.copies_mumber = (
             int(formdata["CopiesNumber"]) if formdata["CopiesNumber"] else 0
         )
+
         self.lote = formdata["loteBotella"]
         self.ean_botes = formdata["ean_botes"]
         self.ean_muestras = formdata["ean_muestras"]
@@ -57,6 +58,7 @@ class PrinterLabels:
             formdata["tscLabel"] if formdata["tscLabel"] != "ninguna" else ""
         )
         self.zd_label = formdata["zdLabel"] if formdata["zdLabel"] != "ninguna" else ""
+        self.qr_code = formdata["qr_code"]
         self.printer_job = printer_job
 
     def print_sample_label_test(self):

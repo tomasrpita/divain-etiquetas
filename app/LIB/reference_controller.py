@@ -2,8 +2,6 @@
 # coding: utf-8
 
 import os
-from numpy import nan
-
 from pandas.core.frame import DataFrame
 import xlrd
 import pandas as pd
@@ -25,7 +23,12 @@ columns_search = [
 
 
 def get_str_value(obj, key):
-    value = obj[key].values[0]
+    k = obj.get(key)
+    if k is None:
+        return ""
+
+    value = k.values[0]
+
     if isinstance(value, str):
         return value.strip()
     return ""
@@ -79,6 +82,7 @@ def get_reference_data(idBotella):
                     "categoria": get_str_value(row_reference, "CATEGORIA"),
                     "caja": get_str_value(row_reference, "CAJA"),
                     "tapon": get_str_value(row_reference, "TAPON"),
+                    "qr_code": get_str_value(row_reference, "QR") or "https://divainparfums.com/",
                     "ingredientes": get_str_value(row_reference, "INGREDIENTES"),
                 }
                 resp["error"] = None
