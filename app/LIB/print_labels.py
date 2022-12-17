@@ -250,13 +250,17 @@ class PrinterLabels:
         printer = default_printer
         print("Bottle:", default_printer)
 
-        f = open(f"./labels/estandard_100ml.prn", "rb")
+        # f = open(f"./labels/estandard_100ml.prn", "rb")
+        f = open(f"./labels/estandard_QR_100ml.prn", "rb")
 
         s = f.read()
         f.close()
 
         # numero
         s = s.replace(b"ZZZ", bytes(self.sku.replace("DIVAIN-", ""), "utf-8"))
+
+        # QR
+        s = s.replace(b"https://divainparfums.us/", bytes(self.qr_code, "utf-8"))
 
         # copies number
         s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))

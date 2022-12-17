@@ -209,9 +209,7 @@ const postReferenceData = ({ ean_botes, ean_muestras, numero_divain, sexo, sku, 
 	<input type="text" name="qr_code" value="${qr_code}">
 	<input type="text" name="ingredientes" value="${ingredientes}">
     `
-	// hiddenInputs += ingredientes ?
-	// 	`<input type="text" name="ingredientes" value="${ingredientes}">`
-	// 	: '';
+
 
 	divHiddenInputs.innerHTML = hiddenInputs;
 
