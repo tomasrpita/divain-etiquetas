@@ -27,7 +27,7 @@ def error403(error):
 @bp.app_errorhandler(404)
 def error404(error):
     current_app.logger.error(f"{error} - url ingresada: {request.url}")
-    return render_template("errors/400.html"), 404
+    return render_template("errors/404.html"), 404
 
 
 @bp.app_errorhandler(500)

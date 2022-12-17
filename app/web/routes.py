@@ -42,7 +42,7 @@ def home():
 
 	else:
 		if not database_exists(database_name):
-			flash("No encontrada fichero de base de datos {database_name}", "danger")
+			flash(f"No encontrado fichero de base de datos {database_name}", "danger")
 			abort(404)
 
 		copies_number = get_copies_number()
