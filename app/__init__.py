@@ -5,8 +5,11 @@ import os
 from flask import Flask
 from config import config
 
+from app.LIB import reload_database
+
 from app.logger import configure_logging
 from app.API import initialize_api
+
 
 
 def create_app(config_name=(os.getenv("FLASK_CONFIG") or "default")):
@@ -35,6 +38,8 @@ def create_app(config_name=(os.getenv("FLASK_CONFIG") or "default")):
             from app.API import bp as api_bp
             app.register_blueprint(api_bp)
 
+        # Recarga de la base de datos
+        reload_database.run()
 
         # Flask Shell
         @app.shell_context_processor
