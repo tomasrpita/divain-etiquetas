@@ -1,4 +1,4 @@
-SIZE 67 mm, 28 mm
+<xpml><page quantity='0' pitch='28.0 mm'></xpml>SIZE 64.5 mm, 28 mm
 GAP 3 mm, 0 mm
 SPEED 3
 DENSITY 14
@@ -10,8 +10,10 @@ SET PEEL OFF
 SET CUTTER OFF
 SET PARTIAL_CUTTER OFF
 SET TEAR ON
+<xpml></page></xpml><xpml><page quantity='1' pitch='28.0 mm'></xpml>SET TEAR ON
 CLS
-QRCODE 171,128,L,3,A,90,M2,S7,"https://divainparfums.us/"
 CODEPAGE 1252
+QRCODE 171,128,L,3,A,90,M2,S7,"https://divainparfums.us/"
 TEXT 228,116,"FUTURAMR.TTF",90,14,14,"ZZZ"
 PRINT 1,1
+<xpml></page></xpml><xpml><end/></xpml>
