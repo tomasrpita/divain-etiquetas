@@ -262,6 +262,9 @@ class PrinterLabels:
         # numero
         s = s.replace(b"ZZZ", bytes(self.sku.replace("DIVAIN-", ""), "utf-8"))
 
+        # qr
+        s = s.replace(b"https://divainparfums.us/", bytes(self.qr_code, "utf-8"))
+
         # copies number
         s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
 
