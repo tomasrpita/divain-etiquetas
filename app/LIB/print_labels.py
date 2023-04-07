@@ -1,6 +1,7 @@
 # coding: utf-8
 
 # from app.LIB.printers import printer_job
+import os
 from dataclasses import dataclass
 import logging
 from typing import Callable, List
@@ -9,6 +10,57 @@ from app.LIB.utils import get_printers
 
 log = logging.getLogger(__name__)
 default_printer, codebar_printer = get_printers()
+
+# UE - UK - USA- MX
+destinations = {
+    "UE": {
+        "destination": "UE",
+        "ingredient_lines": {
+            "start": 36,
+            "end": 45,
+        },
+        "lote_bottle_line": 46,
+        "lote_box_line": 49,
+        "ean_box_line": 47,
+        "sku_box_line": 48,
+        "copies_number_line": 50,
+        "file": "ue-bottle-box.prn"
+    },
+    "UK": {
+        "destination": "UK",
+        "ingredient_lines": {
+            "start": 26,
+            "end": 35,
+        },
+        "lote_bottle_line": 39,
+        "lote_box_line": 38,
+        "ean_box_line": 36,
+        "sku_box_line": 37,
+        "copies_number_line": 40,
+        "file": "uk-bottle-box.prn"
+    },
+
+    "USA": {
+        "destination": "USA",
+        "ingredient_lines": {
+            "start": 37,
+            "end": 46,
+        },
+        "lote_bottle_line": 0, # for no print
+        "lote_box_line": 49,
+        "ean_box_line": 47,
+        "sku_box_line": 48,
+        "copies_number_line": 50,
+        "file": "usa-bottle-box.prn"
+
+    },
+    "MX": {
+        "destination": "MX",
+        "file": "mx-bottle-box.prn"
+    },
+}
+
+
 
 
 def split_text(text: str, max_line_chr: int) -> List[str]:
@@ -57,9 +109,13 @@ class PrinterLabels:
         self.tsc_label = (
             formdata["tscLabel"] if formdata["tscLabel"] != "ninguna" else ""
         )
-        self.zd_label = formdata["zdLabel"] if formdata["zdLabel"] != "ninguna" else ""
-        self.qr_code = formdata["qr_code"]
+
+        # GRupo de etiquetas destino
+        self.zd_label = formdata.get("zdLabel")
+
+        self.label_destination = formdata.get("label_destination")
         self.printer_job = printer_job
+
 
     def print_sample_label_test(self):
         printer = default_printer
@@ -228,9 +284,7 @@ class PrinterLabels:
         printer = default_printer
         print("Bottle:", default_printer)
 
-        # f = open(f"./printer_labels/new_bottle_{self.categoria}100ml.prn", "rb")
-        # NOTE: Prueba para QR
-        f = open(f"./labels/estandard_QR_100ml.prn", "rb")
+        f = open(f"./printer_labels/new_bottle_{self.categoria}100ml.prn", "rb")
         s = f.read()
         f.close()
 
@@ -252,8 +306,7 @@ class PrinterLabels:
         printer = default_printer
         print("Bottle:", default_printer)
 
-        # f = open(f"./labels/estandard_100ml.prn", "rb")
-        f = open(f"./labels/estandard_QR_100ml.prn", "rb")
+        f = open(f"./labels/estandard_100ml.prn", "rb")
 
         s = f.read()
         f.close()
@@ -261,13 +314,12 @@ class PrinterLabels:
         # numero
         s = s.replace(b"ZZZ", bytes(self.sku.replace("DIVAIN-", ""), "utf-8"))
 
-        # QR
-        s = s.replace(b"https://divainparfums.us/", bytes(self.qr_code, "utf-8"))
-
         # copies number
         s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
 
         self.printer_job(printer, s)
+
+
 
     def print_bottle_label_15ml(self):
         printer = default_printer
@@ -296,11 +348,96 @@ class PrinterLabels:
 
         self.printer_job(printer, s)
 
+
+    def print_destination_group_label(self, labels_info: dict):
+        printer = codebar_printer
+
+        base_dir = "./labels/"
+
+
+
+        if labels_info["destination"] == "MX":
+            f = open(os.path.join(base_dir, labels_info["file"]), "rb")
+            s = f.read()
+            f.close()
+
+            # Lote bottle
+            s = s.replace(b"XXXXXX", bytes(f"{self.lote}", "utf-8"))
+
+            # Ean box
+            s = s.replace(b"EEEEEEEEEEE", bytes(f"{self.ean_botes}", "utf-8"))
+
+            # SKU box
+            s = s.replace(b"SSSSSSSSSSS", bytes(f"{self.sku}", "utf-8"))
+
+            # Lote box
+            s = s.replace(b"LLLLLLLLLLL", bytes(f"{self.lote}", "utf-8"))
+
+            # Copies number
+            s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
+
+
+        else:
+
+            f = open(os.path.join(base_dir, labels_info["file"]), "r")
+            s = f.read()
+            f.close()
+
+            line_length = 30
+            lista_ingredientes = split_text(self.ingredientes, line_length)
+
+            with open(os.path.join(base_dir, labels_info["file"]), "r") as f:
+
+                for line_number, line in enumerate(f, start=1):
+                    # SKU
+                    # lista de ingredientes
+                    if labels_info["ingredient_lines"]["start"] <= line_number <= labels_info["ingredient_lines"]["end"]:
+                        index = line_number - labels_info["ingredient_lines"]["start"]
+                        print(index)
+                        print(lista_ingredientes[index - 1])
+                        if index_exists(lista_ingredientes, index):
+                            s = s.replace(
+                                line,
+                                (
+                                    line.replace(
+                                        "####################", lista_ingredientes[index]
+                                    )
+                                ),
+                            )
+                        else:
+                            s = s.replace(line, "")
+
+                    elif line_number == labels_info["lote_bottle_line"]:
+                        s = s.replace(line, (line.replace("XXXXXX", self.lote)))
+
+                    elif line_number == labels_info["ean_box_line"]:
+                        # Ean box
+                        s = s.replace(line, (line.replace("EEEEEEEEEEE", self.ean_botes)))
+
+
+                    elif line_number == labels_info["sku_box_line"]:
+                        # SKU box
+                        s = s.replace(line, (line.replace("SSSSSSSSSSS", self.sku)))
+
+                    elif line_number == labels_info["lote_box_line"]:
+                        # Lote box
+                        s = s.replace(line, (line.replace("LLLLLLLLLLL", self.lote)))
+
+                    elif line_number == labels_info["copies_number_line"]:
+                        s = s.replace(
+                            line, (line.replace("1,1", f"{self.copies_mumber },1"))
+                        )
+
+                s = bytes(s, "utf-8")
+
+        self.printer_job(printer, s)
+
+
     def print(self):
 
         tipo_ean = self.ean_botes or self.ean_muestras
 
-        # TSC
+        # Bloque que se relaciona con lo marcado en le formulario como impresora 1
         if self.tsc_label == "bottle":
             if self.categoria == "divain" and self.sex in [
                 "F E M M E",
@@ -331,10 +468,18 @@ class PrinterLabels:
             print("Ninguna: ", default_printer)
 
 
-        # ZD
         print("Tipo EAN: ", tipo_ean)
-        if self.zd_label == "box" and tipo_ean:
-            self.print_box_label(tipo_ean)
+
+        # Bloque que se relaciona con lo marcado en le formulario como impresora 2
+        if self.zd_label == "destination_group":
+            # DESTINATIOS UE UK USA MX
+            if self.label_destination in destinations.keys():
+                self.print_destination_group_label(destinations[self.label_destination])
+            else:
+                log.error("Destino no válido")
+
+        # if self.zd_label == "box" and tipo_ean:
+        #     # self.print_box_label(tipo_ean)
         else:
             print("Ninguna: ", codebar_printer)
 

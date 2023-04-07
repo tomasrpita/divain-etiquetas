@@ -19,6 +19,7 @@ const iptEtiqueta = document.getElementById('etiqueta');
 
 const chksImpresora1 = document.querySelectorAll('#impresora-1 input[type="radio"]');
 const chksImpresora2 = document.querySelectorAll('#impresora-2 input[type="radio"]');
+
 const chkCodigoBarras = document.getElementById('zdLabel1');
 
 
@@ -34,14 +35,21 @@ chksImpresora1.forEach(chk => {
 	})
 })
 
+
+// Controla las etiquetas de destino
+const labelsDestination = document.querySelectorAll('input[name="label_destination"]');
+
+// Si la impresora 2 es "ninguna" deshabilita las etiquetas de destino
 chksImpresora2.forEach(chk => {
 	chk.addEventListener('change', () => {
 		if (chk.checked && chk.value == 'ninguna') {
-			document.querySelector('#label_ingredients_type_normal').disabled = true;
-			document.querySelector('#label_ingredients_type_usa').disabled = true;
+			labelsDestination.forEach(label => {
+				label.disabled = true;
+			})
 		} else {
-			document.querySelector('#label_ingredients_type_normal').disabled = false;
-			document.querySelector('#label_ingredients_type_usa').disabled = false;
+			labelsDestination.forEach(label => {
+				label.disabled = false;
+			})
 		}
 	})
 })
@@ -194,7 +202,7 @@ const getReference = () => {
 		}).finally(() => spinnerEanBotella.classList.add('invisible'))
 }
 
-const postReferenceData = ({ ean_botes, ean_muestras, numero_divain, sexo, sku, categoria, tapon, caja, qr_code, ingredientes }) => {
+const postReferenceData = ({ ean_botes, ean_muestras, numero_divain, sexo, sku, categoria, tapon, caja, ingredientes }) => {
 
 	iptTapon.value = tapon || '';
 	iptCaja.value = caja || '';
@@ -206,7 +214,6 @@ const postReferenceData = ({ ean_botes, ean_muestras, numero_divain, sexo, sku, 
     <input type="text" name="sexo" value="${sexo}">
     <input type="text" name="sku" value="${sku}">
 	<input type="text" name="categoria" value="${categoria}">
-	<input type="text" name="qr_code" value="${qr_code}">
 	<input type="text" name="ingredientes" value="${ingredientes}">
     `
 
