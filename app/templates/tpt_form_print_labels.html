@@ -40,9 +40,10 @@
         </div>
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel2" value="sample" {% if
+          {# <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel2" value="sample" {% if #}
+          <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel_sample" value="sample" {% if
             formdata and formdata['tscLabel']=='sample' %} checked {% endif %}>
-          <label class="form-check-label" for="tscLabel2">
+          <label class="form-check-label" for="tscLabel_sample">
             SAMPLE
           </label>
         </div>
@@ -58,14 +59,37 @@
       </div>
     </div>
 
+      <div class="form-group row ">
+      <label class="col-3  col-form-label">Tipo Etiqueta Sample</label>
+      <div class="col-7">
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input " type="radio" name="free_sample" id="sample2" value="standard" {% if formdata
+            and formdata['free_sample']=='standard' %} checked {% endif %} disabled>
+          <label class="form-check-label" for="sample2">
+            Sample
+          </label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="free_sample" id="sample3" value="pack" {% if formdata and
+            formdata['free_sample']=='pack' %} checked {% endif %} disabled>
+          <label class="form-check-label" for="sample3">
+            Pack
+          </label>
+        </div>
+
+      </div>
+    </div>
+
     <div id="impresora-2" class="form-group row">
       <label class="col-3  col-form-label">Impresora 2</label>
       <div class="col-7">
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="zdLabel" id="zdLabel1" value="box" {% if not formdata or
+          <input class="form-check-input" type="radio" name="zdLabel" id="zdLabel1" value="destination_group" {% if not formdata or
             formdata['zdLabel']=='box' %} checked {% endif %}>
           <label class="form-check-label" for="zdLabel1">
-            CODIGO DE BARRAS
+            Grupo destino
           </label>
         </div>
 
@@ -80,7 +104,7 @@
     </div>
 
 
-    <div class="form-group row ">
+    {# <div class="form-group row ">
       <label class="col-3  col-form-label">Tipo Etiqueta Sample</label>
       <div class="col-7">
 
@@ -101,13 +125,47 @@
         </div>
 
       </div>
-    </div>
+    </div> #}
 
-    <div class="form-group row ">
-      <label class="col-3  col-form-label">Tipo Etiqueta Ingredientes</label>
-      <div class="col-7">
+  <div class="form-group row ">
+      <label class="col-3  col-form-label">Tipo Etiquetas destino</label>
+
+     <div class="col-7">
 
         <div class="form-check form-check-inline">
+          <input class="form-check-input " type="radio" name="label_destination" id="label_destination_ue"
+            value="UE" {% if not formdata or formdata['label_destination']=='UE' %} checked {% endif %}>
+          <label class="form-check-label" for="label_destination_ue">
+            UE
+          </label>
+        </div>
+
+                <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="label_destination" id="label_destination_uk"
+            value="UK" {% if formdata and formdata['label_destination']=='UK' %} checked {% endif %}>
+          <label class="form-check-label" for="label_destination_uk">
+            UK
+          </label>
+        </div>
+
+          <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="label_destination" id="label_destination_usa"
+            value="USA" {% if formdata and formdata['label_destination']=='USA' %} checked {% endif %}>
+          <label class="form-check-label" for="label_destination_usa">
+            USA
+          </label>
+        </div>
+
+          <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="label_destination" id="label_destination_mx"
+            value="MX" {% if formdata and formdata['label_destination']=='MX' %} checked {% endif %}>
+          <label class="form-check-label" for="label_destination_mx">
+            MX
+          </label>
+        </div>
+
+        {#
+          <div class="form-check form-check-inline">
           <input class="form-check-input " type="radio" name="label_ingredients_type" id="label_ingredients_type_normal"
             value="normal" {% if not formdata or formdata['label_ingredients_type']=='normal' %} checked {% endif %}>
           <label class="form-check-label" for="zdLabel2">
@@ -122,12 +180,13 @@
             EEUU
           </label>
         </div>
+         #}
 
       </div>
-    </div>
+
+  </div>
 
   </section>
-
   <hr>
 
   <!-- AREA PRODUCTOS -->
@@ -167,21 +226,21 @@
     <div class="form-group row">
       <label class="col-3  col-form-label">CAJA</label>
       <div class="col-5">
-        <input id="caja" class="form-control" type="text" {# required #} readonly>
+        <input id="caja" class="form-control" type="text" readonly>
       </div>
     </div>
 
     <div class="form-group row">
       <label class="col-3  col-form-label">TAPÓN</label>
       <div class="col-5">
-        <input id="tapon" class="form-control" type="text" {# required #} readonly>
+        <input id="tapon" class="form-control" type="text" readonly>
       </div>
     </div>
 
     <div class="form-group row">
       <label class="col-3  col-form-label">ETIQUETA</label>
       <div class="col-5">
-        <input id="etiqueta" class="form-control" type="text" {# required #} readonly>
+        <input id="etiqueta" class="form-control" type="text" readonly>
       </div>
     </div>
   </section>
@@ -191,6 +250,7 @@
   <section>
     <div class="d-none" id="hiddenInputs"></div>
   </section>
+
   <small id="smallEanBotella" class="form-text text-danger invisible ">Código invalido por favor intente nuevamente
   </small>
 </form>

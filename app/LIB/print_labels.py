@@ -10,6 +10,28 @@ from app.LIB.utils import get_printers
 log = logging.getLogger(__name__)
 default_printer, codebar_printer = get_printers()
 
+# UE - UK - USA- MX
+destinations = {
+    "UE": {
+        "bottle": {},
+        "box": {}
+    },
+    "UK": {
+        "bottle": {},
+        "box": {}
+    },
+    "USA": {
+        "bottle": {},
+        "box": {}
+    },
+    "MX": {
+        "bottle": {},
+        "box": {}
+    },
+}
+
+
+
 
 def split_text(text: str, max_line_chr: int) -> List[str]:
     """
@@ -57,7 +79,11 @@ class PrinterLabels:
         self.tsc_label = (
             formdata["tscLabel"] if formdata["tscLabel"] != "ninguna" else ""
         )
-        self.zd_label = formdata["zdLabel"] if formdata["zdLabel"] != "ninguna" else ""
+
+        # GRupo de etiquetas destino
+        self.zd_label = formdata.get("zdLabel")
+
+        self.label_destination = formdata.get("label_destination")
         self.printer_job = printer_job
 
 
@@ -293,12 +319,17 @@ class PrinterLabels:
         self.printer_job(printer, s)
 
 
+    def print_destination_group_label(self, labels_info: dict):
+        log.info("Printing destination group label")
+        log.info(f"Labels info: {labels_info}")
+
+
 
     def print(self):
 
         tipo_ean = self.ean_botes or self.ean_muestras
 
-        # TSC
+        # Bloque que se relaciona con lo marcado en le formulario como impresora 1
         if self.tsc_label == "bottle":
             if self.categoria == "divain" and self.sex in [
                 "F E M M E",
@@ -329,10 +360,18 @@ class PrinterLabels:
             print("Ninguna: ", default_printer)
 
 
-        # ZD
         print("Tipo EAN: ", tipo_ean)
-        if self.zd_label == "box" and tipo_ean:
-            self.print_box_label(tipo_ean)
+
+        # Bloque que se relaciona con lo marcado en le formulario como impresora 2
+        if self.zd_label == "destination_group":
+            # DESTINATIOS UE UK USA MX
+            if self.label_destination in destinations.keys():
+                self.print_destination_group_label(destinations[self.label_destination])
+            else:
+                log.error("Destino no válido")
+
+        # if self.zd_label == "box" and tipo_ean:
+        #     # self.print_box_label(tipo_ean)
         else:
             print("Ninguna: ", codebar_printer)
 
