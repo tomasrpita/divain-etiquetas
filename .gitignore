@@ -147,7 +147,7 @@ DS_Store
 ~$*
 
 Excel files
-*.xlsx
+# *.xlsx
 
 # Archivos secret google
 client_secret*.json
