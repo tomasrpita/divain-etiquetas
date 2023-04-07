@@ -1,6 +1,7 @@
 # coding: utf-8
 
 # from app.LIB.printers import printer_job
+import os
 from dataclasses import dataclass
 import logging
 from typing import Callable, List
@@ -14,19 +15,24 @@ default_printer, codebar_printer = get_printers()
 destinations = {
     "UE": {
         "bottle": {},
-        "box": {}
+        "box": {},
+        "file": "ue-bottle-box.prn"
     },
     "UK": {
         "bottle": {},
-        "box": {}
+        "box": {},
+        "file": "uk-bottle-box.prn"
     },
     "USA": {
         "bottle": {},
-        "box": {}
+        "box": {},
+        "file": "usa-bottle-box.prn"
+
     },
     "MX": {
         "bottle": {},
-        "box": {}
+        "box": {},
+        "file": "mx-bottle-box.prn"
     },
 }
 
@@ -322,6 +328,30 @@ class PrinterLabels:
     def print_destination_group_label(self, labels_info: dict):
         log.info("Printing destination group label")
         log.info(f"Labels info: {labels_info}")
+
+        base_dir = "./labels/"
+        print(base_dir)
+
+        f = open(os.path.join(base_dir, labels_info["file"]), "rb")
+        s = f.read()
+        f.close()
+
+        # Lote bottle
+        s = s.replace(b"XXXXXX", bytes(f"{self.lote}", "utf-8"))
+
+        # Ean box
+        s = s.replace(b"EEEEEEEEEEE", bytes(f"{self.ean_botes}", "utf-8"))
+
+        # SKU box
+        s = s.replace(b"SSSSSSSSSSS", bytes(f"{self.sku}", "utf-8"))
+
+        # Lote box
+        s = s.replace(b"LLLLLLLLLLL", bytes(f"{self.lote}", "utf-8"))
+
+        # Copies number
+        s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
+
+        self.printer_job(default_printer, s)
 
 
 
