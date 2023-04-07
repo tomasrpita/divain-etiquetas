@@ -58,8 +58,8 @@ class PrinterLabels:
             formdata["tscLabel"] if formdata["tscLabel"] != "ninguna" else ""
         )
         self.zd_label = formdata["zdLabel"] if formdata["zdLabel"] != "ninguna" else ""
-        self.qr_code = formdata["qr_code"]
         self.printer_job = printer_job
+
 
     def print_sample_label_test(self):
         printer = default_printer
@@ -228,9 +228,7 @@ class PrinterLabels:
         printer = default_printer
         print("Bottle:", default_printer)
 
-        # f = open(f"./printer_labels/new_bottle_{self.categoria}100ml.prn", "rb")
-        # NOTE: Prueba para QR
-        f = open(f"./labels/estandard_QR_100ml.prn", "rb")
+        f = open(f"./printer_labels/new_bottle_{self.categoria}100ml.prn", "rb")
         s = f.read()
         f.close()
 
@@ -252,8 +250,7 @@ class PrinterLabels:
         printer = default_printer
         print("Bottle:", default_printer)
 
-        # f = open(f"./labels/estandard_100ml.prn", "rb")
-        f = open(f"./labels/estandard_QR_100ml.prn", "rb")
+        f = open(f"./labels/estandard_100ml.prn", "rb")
 
         s = f.read()
         f.close()
