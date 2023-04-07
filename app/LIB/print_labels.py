@@ -14,24 +14,34 @@ default_printer, codebar_printer = get_printers()
 # UE - UK - USA- MX
 destinations = {
     "UE": {
+        "destination": "UE",
         "bottle": {},
         "box": {},
         "file": "ue-bottle-box.prn"
     },
     "UK": {
-        "bottle": {},
-        "box": {},
+        "destination": "UK",
+        "ingredient_lines": {
+            "start": 26,
+            "end": 35,
+        },
+        "lote_bottle_line": 39,
+        "lote_box_line": 38,
+        "ean_box_line": 36,
+        "sku_box_line": 37,
+        "copies_number_line": 40,
         "file": "uk-bottle-box.prn"
     },
+
     "USA": {
+        "destination": "USA",
         "bottle": {},
         "box": {},
         "file": "usa-bottle-box.prn"
 
     },
     "MX": {
-        "bottle": {},
-        "box": {},
+        "destination": "MX",
         "file": "mx-bottle-box.prn"
     },
 }
@@ -329,29 +339,81 @@ class PrinterLabels:
         printer = codebar_printer
 
         base_dir = "./labels/"
-        print(base_dir)
 
-        f = open(os.path.join(base_dir, labels_info["file"]), "rb")
-        s = f.read()
-        f.close()
 
-        # Lote bottle
-        s = s.replace(b"XXXXXX", bytes(f"{self.lote}", "utf-8"))
 
-        # Ean box
-        s = s.replace(b"EEEEEEEEEEE", bytes(f"{self.ean_botes}", "utf-8"))
+        if labels_info["destination"] == "MX":
+            f = open(os.path.join(base_dir, labels_info["file"]), "rb")
+            s = f.read()
+            f.close()
 
-        # SKU box
-        s = s.replace(b"SSSSSSSSSSS", bytes(f"{self.sku}", "utf-8"))
+            # Lote bottle
+            s = s.replace(b"XXXXXX", bytes(f"{self.lote}", "utf-8"))
 
-        # Lote box
-        s = s.replace(b"LLLLLLLLLLL", bytes(f"{self.lote}", "utf-8"))
+            # Ean box
+            s = s.replace(b"EEEEEEEEEEE", bytes(f"{self.ean_botes}", "utf-8"))
 
-        # Copies number
-        s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
+            # SKU box
+            s = s.replace(b"SSSSSSSSSSS", bytes(f"{self.sku}", "utf-8"))
+
+            # Lote box
+            s = s.replace(b"LLLLLLLLLLL", bytes(f"{self.lote}", "utf-8"))
+
+            # Copies number
+            s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
+
+
+        else:
+
+            f = open(os.path.join(base_dir, labels_info["file"]), "r")
+            s = f.read()
+            f.close()
+
+            line_length = 30
+            lista_ingredientes = split_text(self.ingredientes, line_length)
+
+            with open(os.path.join(base_dir, labels_info["file"]), "r") as f:
+
+                for line_number, line in enumerate(f, start=1):
+                    # SKU
+                    # lista de ingredientes
+                    if labels_info["ingredient_lines"]["start"] <= line_number <= labels_info["ingredient_lines"]["end"]:
+                        if index_exists(lista_ingredientes, line_number - (labels_info["ingredient_lines"]["start"] - 1)):
+                            s = s.replace(
+                                line,
+                                (
+                                    line.replace(
+                                        "####################", lista_ingredientes[line_number - (labels_info["ingredient_lines"]["start"] - 1)]
+                                    )
+                                ),
+                            )
+                        else:
+                            s = s.replace(line, "")
+
+                    elif line_number == labels_info["lote_box_line"]:
+                        s = s.replace(line, (line.replace("XXXXXX", self.lote)))
+
+                    elif line_number == labels_info["ean_box_line"]:
+                        # Ean box
+                        s = s.replace(line, (line.replace("EEEEEEEEEEE", self.ean_botes)))
+
+
+                    elif line_number == labels_info["sku_box_line"]:
+                        # SKU box
+                        s = s.replace(line, (line.replace("SSSSSSSSSSS", self.sku)))
+
+                    elif line_number == labels_info["lote_box_line"]:
+                        # Lote box
+                        s = s.replace(line, (line.replace("LLLLLLLLLLL", self.lote)))
+
+                    elif line_number == labels_info["copies_number_line"]:
+                        s = s.replace(
+                            line, (line.replace("1,1", f"{self.copies_mumber },1"))
+                        )
+
+                s = bytes(s, "utf-8")
 
         self.printer_job(printer, s)
-
 
 
     def print(self):
