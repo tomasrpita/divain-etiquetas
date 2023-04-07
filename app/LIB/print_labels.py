@@ -326,8 +326,7 @@ class PrinterLabels:
 
 
     def print_destination_group_label(self, labels_info: dict):
-        log.info("Printing destination group label")
-        log.info(f"Labels info: {labels_info}")
+        printer = codebar_printer
 
         base_dir = "./labels/"
         print(base_dir)
@@ -351,7 +350,7 @@ class PrinterLabels:
         # Copies number
         s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
 
-        self.printer_job(default_printer, s)
+        self.printer_job(printer, s)
 
 
 
