@@ -266,6 +266,8 @@ class PrinterLabels:
 
         self.printer_job(printer, s)
 
+
+
     def print_bottle_label_15ml(self):
         printer = default_printer
         print("Bottle:", default_printer)
@@ -292,6 +294,8 @@ class PrinterLabels:
         s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
 
         self.printer_job(printer, s)
+
+
 
     def print(self):
 
