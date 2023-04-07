@@ -11,7 +11,6 @@ excel_path = "database/BBDD_DIVAIN_NEW.xlsx"
 
 excel_path = os.path.join(os.getcwd(), excel_path)
 
-# columns_search = [' Prady 1 litro', 'Natur 1/2', 'Natur 1 litro']
 columns_search = [
     "EAN 1 Litro",
     "EAN 1/2 Litro",
@@ -19,8 +18,6 @@ columns_search = [
     "EAN MUESTRAS",
     "N DIVAIN",
 ]
-# columns_search = ['EAN 1 Litro', 'EAN 1/2 Litro', 'EAN MUESTRAS', 'N DIVAIN']
-
 
 def get_str_value(obj, key):
     k = obj.get(key)
@@ -32,7 +29,6 @@ def get_str_value(obj, key):
     if isinstance(value, str):
         return value.strip()
     return ""
-
 
 def get_reference_data(idBotella):
 
