@@ -35,8 +35,15 @@ destinations = {
 
     "USA": {
         "destination": "USA",
-        "bottle": {},
-        "box": {},
+        "ingredient_lines": {
+            "start": 37,
+            "end": 46,
+        },
+        # "lote_bottle_line": 39,
+        "lote_box_line": 49,
+        "ean_box_line": 47,
+        "sku_box_line": 48,
+        "copies_number_line": 50,
         "file": "usa-bottle-box.prn"
 
     },
