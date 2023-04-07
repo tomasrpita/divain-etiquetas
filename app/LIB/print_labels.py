@@ -378,7 +378,7 @@ class PrinterLabels:
                     # SKU
                     # lista de ingredientes
                     if labels_info["ingredient_lines"]["start"] <= line_number <= labels_info["ingredient_lines"]["end"]:
-                        index = line_number - (labels_info["ingredient_lines"]["start"] - 1)
+                        index = line_number - labels_info["ingredient_lines"]["start"]
                         print(index)
                         print(lista_ingredientes[index - 1])
                         if index_exists(lista_ingredientes, index):
