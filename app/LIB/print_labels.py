@@ -15,8 +15,15 @@ default_printer, codebar_printer = get_printers()
 destinations = {
     "UE": {
         "destination": "UE",
-        "bottle": {},
-        "box": {},
+        "ingredient_lines": {
+            "start": 36,
+            "end": 45,
+        },
+        "lote_bottle_line": 46,
+        "lote_box_line": 49,
+        "ean_box_line": 47,
+        "sku_box_line": 48,
+        "copies_number_line": 50,
         "file": "ue-bottle-box.prn"
     },
     "UK": {
