@@ -20,13 +20,16 @@
       <label class="col-3  col-form-label">Impresora 1</label>
 
       <div class="col-7">
+
         <div class="form-check form-check-inline">
-          <input class="form-check-input show-bottle" type="radio" name="tscLabel" id="tscLabel1" value="bottle" {% if
-            not formdata or formdata['tscLabel']=='bottle' %} checked {% endif %}>
+          <input class="form-check-input show-bottle" type="radio" name="tscLabel" id="tscLabel1" value="bottle"
+          {# {% if not formdata or formdata['tscLabel']=='bottle' %} checked {% endif %}> #}
+          {% if formdata and formdata['tscLabel']=='bottle' %} checked {% endif %}>
           <label class="form-check-label" for="tscLabel1">
             DIVAIN 100
           </label>
         </div>
+
 
         <div class="form-check form-check-inline">
           <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel2" value="bottle15ml" {%
@@ -45,8 +48,9 @@
         </div>
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel3" value="ninguna" {% if
-            formdata and formdata['tscLabel']=='ninguna' %} checked {% endif %}>
+          <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel3" value="ninguna"
+          {# {% if formdata and formdata['tscLabel']=='ninguna' %} checked {% endif %}> #}
+          {% if not formdata or formdata['tscLabel']=='ninguna' %} checked {% endif %}>
           <label class="form-check-label" for="tscLabel3">
             Ninguna
           </label>
