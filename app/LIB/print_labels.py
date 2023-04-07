@@ -386,7 +386,7 @@ class PrinterLabels:
                                 line,
                                 (
                                     line.replace(
-                                        "####################", lista_ingredientes[index - 1]
+                                        "####################", lista_ingredientes[index]
                                     )
                                 ),
                             )
