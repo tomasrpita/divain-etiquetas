@@ -378,19 +378,22 @@ class PrinterLabels:
                     # SKU
                     # lista de ingredientes
                     if labels_info["ingredient_lines"]["start"] <= line_number <= labels_info["ingredient_lines"]["end"]:
-                        if index_exists(lista_ingredientes, line_number - (labels_info["ingredient_lines"]["start"] - 1)):
+                        index = line_number - (labels_info["ingredient_lines"]["start"] - 1)
+                        print(index)
+                        print(lista_ingredientes[index - 1])
+                        if index_exists(lista_ingredientes, index):
                             s = s.replace(
                                 line,
                                 (
                                     line.replace(
-                                        "####################", lista_ingredientes[line_number - (labels_info["ingredient_lines"]["start"] - 1)]
+                                        "####################", lista_ingredientes[index - 1]
                                     )
                                 ),
                             )
                         else:
                             s = s.replace(line, "")
 
-                    elif line_number == labels_info["lote_box_line"]:
+                    elif line_number == labels_info["lote_bottle_line"]:
                         s = s.replace(line, (line.replace("XXXXXX", self.lote)))
 
                     elif line_number == labels_info["ean_box_line"]:
