@@ -24,7 +24,7 @@ destinations = {
         "ean_box_line": 47,
         "sku_box_line": 48,
         "copies_number_line": 50,
-        "file": "ue-bottle-box.prn"
+        "file": "ue-bottle-box-codebar.prn"
     },
     "UK": {
         "destination": "UK",
@@ -37,7 +37,7 @@ destinations = {
         "ean_box_line": 36,
         "sku_box_line": 37,
         "copies_number_line": 40,
-        "file": "uk-bottle-box.prn"
+        "file": "uk-bottle-box-codebar.prn"
     },
 
     "USA": {
@@ -51,12 +51,12 @@ destinations = {
         "ean_box_line": 47,
         "sku_box_line": 48,
         "copies_number_line": 50,
-        "file": "usa-bottle-box.prn"
+        "file": "usa-bottle-box-codebar.prn"
 
     },
     "MX": {
         "destination": "MX",
-        "file": "mx-bottle-box.prn"
+        "file": "mx-bottle-box-codebar.prn"
     },
 }
 
