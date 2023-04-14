@@ -361,19 +361,25 @@ class PrinterLabels:
             s = f.read()
             f.close()
 
-            # # Lote bottle
-            # s = s.replace(b"XXXXXX", bytes(f"{self.lote}", "utf-8"))
+            # Lote bottle
+            s = s.replace(b"XXXXXX", bytes(f"{self.lote}", "utf-8"))
 
             # # Ean box
             # s = s.replace(b"EEEEEEEEEEE", bytes(f"{self.ean_botes}", "utf-8"))
 
             # # SKU box
-            # s = s.replace(b"SSSSSSSSSSS", bytes(f"{self.sku}", "utf-8"))
+            s = s.replace(b"DIVIAN-ZZZ", bytes(f"{self.sku}", "utf-8"))
 
             # # Lote box
             # s = s.replace(b"LLLLLLLLLLL", bytes(f"{self.lote}", "utf-8"))
+            s = s .replace(b"xxxxxxxxxx", bytes(f"{self.lote}", "utf-8"))
+
             # bar code
-            s = s.replace(b"123456789012!1003", bytes(f"{self.ean_botes}!1003", "utf-8"))
+            ean_select = self.ean_botes[:-1] + "!100" + self.ean_botes[-1:]
+            s = s.replace(b"123456789012!1003", bytes(ean_select, "utf-8"))
+
+            # codebar number
+            s = s.replace(b"1234567890123", bytes(f"{self.ean_botes}", "utf-8"))
 
             # Copies number
             s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
