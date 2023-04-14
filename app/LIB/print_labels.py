@@ -368,7 +368,7 @@ class PrinterLabels:
             # s = s.replace(b"EEEEEEEEEEE", bytes(f"{self.ean_botes}", "utf-8"))
 
             # # SKU box
-            s = s.replace(b"DIVIAN-ZZZ", bytes(f"{self.sku}", "utf-8"))
+            s = s.replace(b"DIVAIN-ZZZ", bytes(f"{self.sku}", "utf-8"))
 
             # # Lote box
             # s = s.replace(b"LLLLLLLLLLL", bytes(f"{self.lote}", "utf-8"))
