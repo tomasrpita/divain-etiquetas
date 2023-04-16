@@ -100,3 +100,6 @@ urllib3==1.26.12
     # via requests
 werkzeug==2.2.2
     # via flask
+
+# PMC
+pywin32

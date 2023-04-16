@@ -78,7 +78,6 @@ def get_reference_data(idBotella):
                     "categoria": get_str_value(row_reference, "CATEGORIA"),
                     "caja": get_str_value(row_reference, "CAJA"),
                     "tapon": get_str_value(row_reference, "TAPON"),
-                    "qr_code": get_str_value(row_reference, "QR") or "https://divainparfums.com/",
                     "ingredientes": get_str_value(row_reference, "INGREDIENTES"),
                 }
                 resp["error"] = None
