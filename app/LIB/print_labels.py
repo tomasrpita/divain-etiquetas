@@ -383,7 +383,7 @@ class PrinterLabels:
 					if labels_info["ingredient_lines"]["start"] <= line_number <= labels_info["ingredient_lines"]["end"]:
 						index = line_number - labels_info["ingredient_lines"]["start"]
 						print(index)
-						print(lista_ingredientes[index - 1])
+						# print(lista_ingredientes[index - 1])
 						if index_exists(lista_ingredientes, index):
 							s = s.replace(
 								line,
@@ -451,7 +451,7 @@ class PrinterLabels:
 		elif self.tsc_label == "QR_HQ" or self.tsc_label == "QR_QQ":
 			self.print_qr_label()
 
-		# elif self.tsc_label == "sample":    
+		# elif self.tsc_label == "sample":
 
 			# print("Impresora 2: SAMPLE")
 

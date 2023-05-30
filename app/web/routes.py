@@ -15,8 +15,9 @@ def fake_printer_job(printer_name, printer_file):
 # check if os is windows or mac
 if os.name == "nt":
 	# windows
-	from app.LIB.printers import printer_job
-	printers = printer_job
+	# from app.LIB.printers import printer_job
+	# printers = printer_job
+	printers = fake_printer_job
 else:
 	# mac
 	printers = fake_printer_job
