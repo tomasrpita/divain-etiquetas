@@ -127,77 +127,65 @@ const getReference = () => {
 	console.log('getReference')
 	spinnerEanBotella.classList.remove('invisible');
 	const eanBotella = iptEanBotella.value;
-	getData(`/api/reference/${eanBotella}`)
-		.then(result => {
-			console.log(result);
-			if (!!result.data) {
-				// console.log(result.data);
-				postReferenceData(result.data)
-				selectLabel(result.data)
-				iptEanBotella.classList.remove("is-invalid");
-				iptEanBotella.classList.add("is-valid");
+	const labelInfo = findLabelInfo(eanBotella);
 
-				if (!divain100) {
+	console.log({ labelInfo });
 
-					// console.log("divian100", divain100)
+	if (labelInfo) {
+		postReferenceData(labelInfo);
+		selectLabel(labelInfo);
+		iptEanBotella.classList.remove("is-invalid");
+		iptEanBotella.classList.add("is-valid");
 
-					console.log("1 divian100", divain100)
-					iptEanBotella.readOnly = true;
-					// si tengo que imprimir el código de barras pido el lote
-					if (chkCodigoBarras.checked) {
-						console.log("chkCodigoBarras:" + chkCodigoBarras.checked)
-						iptLoteBotella.readOnly = false;
-						iptLoteBotella.focus();
-					} else {
-						// si no tengo que imprimir el código de barras envío el formulario
-						// Caso Sample
-						formLabels.submit();
-					}
-				} else {
-					console.log("2 divian100", divain100)
-					firstBottle = false
-					divainId100 = iptEanBotella.value
-					iptEanBotella.value = ''
-					divBottles.forEach((bottle, i) => {
-						if (i == 0) {
-							bottle.classList.remove('text-muted')
-							bottle.classList.add('text-success')
-						}
-					})
-				}
+		if (!divain100) {
 
-				// if (result.data.categoria == 'black')
-				// 	iptEanBotella.value += '        =>              !!!!!BLACK!!!!!';
-
-
-				// if (!checkD100.checked)
-				// formLabels.submit();
-
-			} else if (!!result.error) {
-				throw new Error(result.error)
+			iptEanBotella.readOnly = true;
+			// si tengo que imprimir el código de barras pido el lote
+			if (chkCodigoBarras.checked) {
+				console.log("chkCodigoBarras:" + chkCodigoBarras.checked)
+				iptLoteBotella.readOnly = false;
+				iptLoteBotella.focus();
 			} else {
-				throw new Error('Error desconocido')
+				// si no tengo que imprimir el código de barras envío el formulario
+				// Caso Sample
+				formLabels.submit();
 			}
 
-		}).catch((err) => {
-			console.error(err);
-			showErrorAlert('Error al obtener la referencia: ' + err);
-		}).finally(() => spinnerEanBotella.classList.add('invisible'))
+			
+		} else {
+			firstBottle = false
+			divainId100 = iptEanBotella.value
+			iptEanBotella.value = ''
+			divBottles.forEach((bottle, i) => {
+				if (i == 0) {
+					bottle.classList.remove('text-muted')
+					bottle.classList.add('text-success')
+				}
+			})
+			
+		}
+
+	} else {
+		console.log('getReference else');
+		showErrorAlert('No se ha encontrado la información de la etiqueta con los datos introducidos')
+	}
+
+	spinnerEanBotella.classList.add('invisible')
 }
 
-const postReferenceData = ({ ean_botes, ean_muestras, numero_divain, sexo, sku, categoria, tapon, caja, ingredientes }) => {
+const postReferenceData = ({ ean_bottle, ean_sample, divain_number, sex, sku_divain, category, cap, box, ingredients }) => {
 
-	iptTapon.value = tapon || '';
-	iptCaja.value = caja || '';
+	iptTapon.value = cap || '';
+	iptCaja.value = box || '';
 
 	let hiddenInputs = `
-    <input type="text" name="ean_botes" value="${ean_botes}">
-	<input type="text" name="ean_muestras" value="${ean_muestras}">
-    <input type="text" name="numero_divain" value="${numero_divain}">
-    <input type="text" name="sexo" value="${sexo}">
-    <input type="text" name="sku" value="${sku}">
-	<input type="text" name="categoria" value="${categoria}">
-	<input type="text" name="ingredientes" value="${ingredientes}">
+    <input type="text" name="ean_botes" value="${ean_bottle}">
+	<input type="text" name="ean_muestras" value="${ean_sample}">
+    <input type="text" name="numero_divain" value="${divain_number}">
+    <input type="text" name="sexo" value="${sex}">
+    <input type="text" name="sku" value="${sku_divain}">
+	<input type="text" name="categoria" value="${category}">
+	<input type="text" name="ingredientes" value="${ingredients}">
     `
 
 
@@ -218,57 +206,57 @@ const showErrorAlert = (errorMessasge) => {
 	panelmessages.innerHTML += message;
 }
 
-const selectLabel = ({ categoria, sexo }) => {
+const selectLabel = ({ category, sex }) => {
 
 	console.log('selectLabel');
-	console.log({ categoria }, { sexo }, { chk: getChkValue(chksImpresora1) })
+	console.log({ category }, { sex }, { chk: getChkValue(chksImpresora1) })
 
 
 	// Bottle es DIVAIN 100 (100ml)
 	if (getChkValue(chksImpresora1) == 'bottle') {
 
-		if (categoria == 'divain') {
+		if (category == 'divain') {
 
 			// Misma impresión Solo NUmeros Centrados
 			// file: syandard_100ml
 			// ETIQUETA Standard Femme
 			// 8436592101047
-			if (sexo == 'F E M M E') {
+			if (sex == 'F E M M E') {
 				iptEtiqueta.value = 'ESTANDAR - FEMME';
 				// ETIQUETA Standard Homme
 				// 8436596740037
-			} else if (sexo == 'H O M M E') {
+			} else if (sex == 'H O M M E') {
 				iptEtiqueta.value = 'ESTANDAR - HOMME';
 				// ETIQUETA Standard Unisex
 				//8436596741287
-			} else if (sexo == 'U N I S E X') {
+			} else if (sex == 'U N I S E X') {
 				iptEtiqueta.value = 'ESTANDAR - UNISEX';
 
 
 				// ETIQUETA kids
 				// Una Sola Etiqueta
-				// debe imprimir: número, raya, sexo y lote (centrado).
+				// debe imprimir: número, raya, sex y lote (centrado).
 				// file: xHacer
 				// 8436592109036
 			}
-			else if (sexo == 'K I D S') {
+			else if (sex == 'K I D S') {
 				iptEtiqueta.value = 'KIDS';
 
 			}
 
 
 			// Una etiqueta que puede ser BLACK_EDITION_HOMME, BLACK_EDITION_FEMME, BLACK_EDITION_UNISEX
-			// debe imprimir: número, raya y sexo (centrado).
+			// debe imprimir: número, raya y sex (centrado).
 			// file: xHacer
 			// 8436592102969
-		} else if (categoria == 'black') {
+		} else if (category == 'black') {
 			iptEtiqueta.value = 'BLACK EDITION';
 
 			// ETIQUETA SOLIDARIO_UNISEX
-			// Debe imprimir: número, raya y sexo (centrado).
+			// Debe imprimir: número, raya y sex (centrado).
 			// file: xHacer
 			// 8436592109937
-		} else if (categoria == 'solidario') {
+		} else if (category == 'solidario') {
 			iptEtiqueta.value = 'SOLIDARIO UNISEX';
 
 		}

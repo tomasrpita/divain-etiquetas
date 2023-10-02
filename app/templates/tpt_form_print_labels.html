@@ -271,7 +271,45 @@
   <small id="smallEanBotella" class="form-text text-danger invisible ">Código invalido por favor intente nuevamente
   </small>
 </form>
+<script>
+  const labelsInfo = {{ labels_info | tojson }};
 
-<script src="{{ url_for('static', filename='js/printing-labels.js') }}"></script>
+  function createFindLabelInfo(labelsInfo) {
+    return function(userInput) {
+    // Primero buscar por 'supplier_references_eans'
+    for (const obj of labelsInfo) {
+      if (obj.supplier_references_eans.includes(userInput)) {
+        return obj;
+      }
+    }
+    // Segundo, buscar por 'ean_bottle'
+    for (const obj of labelsInfo) {
+      if (obj.ean_bottle === userInput) {
+        return obj;
+      }
+    }
+    // Tercero, buscar por 'ean_sample'
+    for (const obj of labelsInfo) {
+      if (obj.ean_sample === userInput) {
+        return obj;
+      }
+    }
+    // Cuarto, buscar por 'divain_number'
+    for (const obj of labelsInfo) {
+      if (obj.divain_number === userInput) {
+        return obj;
+      }
+    }
+    // Si no se encuentra nada, devolver null
+    return null;
+    };
+  }
+
+  const findLabelInfo = createFindLabelInfo(labelsInfo);
+
+</script>
+
+<script src="{{ url_for('static', filename='js/printing-labels-new.js') }}"></script>
+{# <script src="{{ url_for('static', filename='js/printing-labels.js') }}"></script> #}
 
 {% endblock %}
