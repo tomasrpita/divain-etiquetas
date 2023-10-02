@@ -272,9 +272,16 @@
   </small>
 </form>
 <script>
+
+  // Variables globales
+
+  // Información de las etiquetas que viene del servidor
   const labelsInfo = {{ labels_info | tojson }};
 
+  // Precarga de los datos de las etiquetas en el cliente
   function createFindLabelInfo(labelsInfo) {
+    
+    // Devuelve una función que busca la información de una etiqueta
     return function(userInput) {
     // Primero buscar por 'supplier_references_eans'
     for (const obj of labelsInfo) {
@@ -300,16 +307,16 @@
         return obj;
       }
     }
-    // Si no se encuentra nada, devolver null
+    // Si no se encuentra nada
     return null;
     };
   }
 
+  // Función que se llama en printing-labels-new.js para buscar la información de una etiqueta
   const findLabelInfo = createFindLabelInfo(labelsInfo);
 
 </script>
 
 <script src="{{ url_for('static', filename='js/printing-labels-new.js') }}"></script>
-{# <script src="{{ url_for('static', filename='js/printing-labels.js') }}"></script> #}
 
 {% endblock %}

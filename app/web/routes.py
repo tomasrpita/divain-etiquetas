@@ -4,15 +4,12 @@ import os
 from app.LIB.print_labels import PrinterLabels
 from app.services.labels_info_service import get_labels_info
 from flask import render_template, flash, request, abort, current_app
-# from app.LIB.utils import get_database_name
 from app.LIB.utils import get_copies_number
 from app.web import bp
 
 def fake_printer_job(printer_name, printer_file):
 	log.info(f"Fake printer job printer name: {printer_name}")
 	log.info(f"Fake printer job printer_file: {printer_file}")
-
-
 
 
 # check if os is windows or mac
@@ -30,14 +27,8 @@ else:
 
 log = current_app.logger
 
-# database_name = get_database_name()
-
-
-# def database_exists(name):
-# 	path = os.path.join(os.getcwd(), "database", name)
-# 	return os.path.isfile(path)
-
-labels_info, error = get_labels_info(True)
+# get labels info
+labels_info, error = get_labels_info(on_production)
 
 
 @bp.route("/", methods=["GET", "POST"])
