@@ -14,10 +14,11 @@ pywin32
 # google-auth-oauthlib==0.7.1
 # openpyxl==3.0.10
 
+requests
+
 
 # Tests
 # pytest
-# requests
 
 # Format and lifting
 # black

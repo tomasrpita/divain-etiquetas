@@ -37,7 +37,7 @@ log = current_app.logger
 # 	path = os.path.join(os.getcwd(), "database", name)
 # 	return os.path.isfile(path)
 
-labels_info, error = get_labels_info(on_production)
+labels_info, error = get_labels_info(True)
 
 
 @bp.route("/", methods=["GET", "POST"])

@@ -11,6 +11,8 @@ class Config(object):
     MAIL_SERVER = None
     APP_NAME = "Divain Etiquetas"
 
+    LABELS_INFO_URL = os.environ.get("LABELS_INFO_URL") or "https://divain.pro/api/references/labels-info/"
+
 
 class TestingConfig(Config):
     """
