@@ -1,5 +1,5 @@
 # App
-Flask==2.2.2
+Flask
 requests
 
 # Para trabajar con impresoras en windows.
