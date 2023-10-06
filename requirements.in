@@ -1,5 +1,5 @@
 # App
-Flask
+Flask==2.2.2
 requests
 
 # Para trabajar con impresoras en windows.
@@ -13,5 +13,6 @@ pywin32
 
 # Format and lifting
 # black
-# isort
+# isortgit push
+
 # flake8
