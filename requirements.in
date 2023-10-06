@@ -1,7 +1,7 @@
 # App
 Flask==2.2.2
 requests
-
+Werkzeug==2.2.2
 # Para trabajar con impresoras en windows.
 pywin32
 
