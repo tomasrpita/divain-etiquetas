@@ -1,7 +1,11 @@
 # App
-Flask==2.2.2
+Flask
 requests
-Werkzeug==2.2.2
+
+
+# Werkzeug==2.2.2
+
+
 # Para trabajar con impresoras en windows.
 pywin32
 
