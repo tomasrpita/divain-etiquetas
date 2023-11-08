@@ -19,10 +19,12 @@ if os.name == "nt":
 	on_production = True
 	printers = printer_job
 	# printers = fake_printer_job
+	api_prodruction_order = current_app.config["BASE_URL"] + current_app.config["PRODUCTION_ORDER_URL"]
 else:
 	# mac
 	printers = fake_printer_job
 	on_production = False
+	api_prodruction_order = "http://127.0.0.1:8000/" + current_app.config["PRODUCTION_ORDER_URL"]
 
 
 log = current_app.logger
@@ -59,3 +61,34 @@ def home():
 		formdata=formdata,
 		labels_info=labels_info,
 	)
+
+
+@bp.route("/pro", methods=["GET"])
+def pro_labels():
+
+	if error or not labels_info:
+			error_message =  error or "Datos vienen vacios."
+			flash(f"Error tratando de obtener los datos de las etiquetas: {error_message}", "danger")
+			abort(404)
+
+
+	return render_template(
+		"tpt_form_print_labels_pro.html",
+		form_action="web.pro_labels",
+		labels_info=labels_info,
+		api_prodruction_order=api_prodruction_order
+	)
+
+
+@bp.route("/pro/print", methods=["POST"])
+def pro_print_labels():
+
+	# get form data from json
+	formdata = request.get_json()
+	
+	PrinterLabels(formdata, printers).print()
+
+	return {
+		"status": "ok",
+		"printed": True
+	}

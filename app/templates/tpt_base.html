@@ -18,20 +18,24 @@
     <!-- Raíz de nuestra aplicacion para que lo maneje JS/jQuery desde los archivos de scripts -->
     <script type=text/javascript>
       $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-      const wrongSound = '{{ url_for("static", filename="sounds/wrong.mp3") }}'
-      const successSound = '{{ url_for("static", filename="sounds/success.wav") }}'
+      const wrongSound = '{{ url_for('static', filename='sounds/wrong.mp3') }}'
+      const successSound = '{{ url_for('static', filename='sounds/success.wav') }}'
+      const beepSound = '{{ url_for('static', filename='sounds/beep.mp3') }}'
 
     </script>
 
         <!-- Aqui cambiamos el jquery para usar la version completa que trae el metodo .getJSON -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
 
+        <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fontawesome5/css/all.min.css') }}">
 <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}">
 
     <title>DIVAIN-Etiquetas</title>
-  </head>
+</head>
+
 <body>
   <script src="{{ url_for('static', filename='js/provider.min.js') }}"></script>
   <!-- Menu de la aplicacion -->
@@ -48,6 +52,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    
 </body>
 </html>

@@ -13,6 +13,9 @@ class Config(object):
 
     LABELS_INFO_URL = os.environ.get("LABELS_INFO_URL") or "https://divain.pro/api/references/labels-info/"
 
+    BASE_URL = os.environ.get("BASE_URL") or "https://divain.pro/"
+    PRODUCTION_ORDER_URL = os.environ.get("PRODUCTION_ORDER_URL") or "api/production-order-label/"
+
 
 class TestingConfig(Config):
     """

@@ -1,0 +1,77 @@
+{% extends "tpt_base.html" %}
+{% block body %}
+<h1 class="text-center mt-3">Imprimir Etiquetas</h1>
+<hr>
+
+<div id="root"></div>
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script data-plugins="transform-modules-umd" type="text/babel" data-presets="react" data-type="module" src='{{ url_for("static", filename="js/react-components/hooks/useFetch2.js") }}'></script>
+<script data-plugins="transform-modules-umd" type="text/babel" data-presets="react" data-type="module" src='{{ url_for("static", filename="js/react-components/PrintLabelsPro.jsx") }}'></script>
+
+
+<script>
+
+    // Variables globales
+  
+    // Información de las etiquetas que viene del servidor
+    const labelsInfo = {{ labels_info | tojson }};
+  
+    // Precarga de los datos de las etiquetas en el cliente
+    function createFindLabelInfo(labelsInfo) {
+      
+      // Devuelve una función que busca la información de una etiqueta
+      return function(userInput) {
+      // Primero buscar por 'supplier_references_eans'
+      for (const obj of labelsInfo) {
+        if (obj.supplier_references_eans.includes(userInput)) {
+          return obj;
+        }
+      }
+      // Segundo, buscar por 'ean_bottle'
+      for (const obj of labelsInfo) {
+        if (obj.ean_bottle === userInput) {
+          return obj;
+        }
+      }
+      // Tercero, buscar por 'ean_sample'
+      for (const obj of labelsInfo) {
+        if (obj.ean_sample === userInput) {
+          return obj;
+        }
+      }
+      // Cuarto, buscar por 'divain_number'
+      for (const obj of labelsInfo) {
+        if (obj.divain_number === userInput) {
+          return obj;
+        }
+      }
+      // Si no se encuentra nada
+      return null;
+      };
+    }
+  
+    // Función que se llama en printing-labels-new.js para buscar la información de una etiqueta
+    const findLabelInfo = createFindLabelInfo(labelsInfo);
+  
+  </script>
+
+
+<script>
+    const apiProductionOrder =  '{{api_prodruction_order}}';
+</script>
+
+<script data-plugins="transform-modules-umd" type="text/babel"  data-type="module">
+
+    import { PrintLabelsPro } from '{{ url_for("static", filename="js/react-components/PrintLabelsPro.jsx") }}';
+
+    ReactDOM.createRoot(document.getElementById('root')).render(
+        <PrintLabelsPro />
+    );
+
+
+</script>
+
+{% endblock %}
