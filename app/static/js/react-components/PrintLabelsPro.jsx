@@ -42,7 +42,7 @@ export const PrintLabelsPro = () => {
             setDrawer(codeInput);
             setCodeInput('');
             audioPlay('success');
-
+            
         }
 
     }, [data]);
@@ -80,7 +80,9 @@ export const PrintLabelsPro = () => {
             } else {
                 setError('No se encontró información de la etiqueta');
                 iptControl.current.classList.add("is-invalid");
-                audioPlay('wrong');
+                setTimeout(() => {
+                    audioPlay('wrong');
+                }, 300);
                 return;
             }
         }
@@ -90,6 +92,7 @@ export const PrintLabelsPro = () => {
         
         if (data && data.printed) {
             console.log({ data });
+            window.location.href = '/pro';
         }
 
     }, [data]);
@@ -113,6 +116,15 @@ export const PrintLabelsPro = () => {
             }
         });
     }, [bottlesChecked]);
+
+    
+    React.useEffect(() => {
+        if (hasError) {
+            setTimeout(() => {
+                audioPlay('wrong');
+            }, 300);
+        }
+    }, [hasError]);
 
 
     const handleInputChange = (e) => {
@@ -157,7 +169,7 @@ export const PrintLabelsPro = () => {
 
                     setBottlesChecked(bottlesChecked + 1);
                     setCodeInput('');
-                    audioPlay('success');
+                    // audioPlay('success');
                     console.log({ ean13Ean128Map });
                     console.log({ bottlesChecked });
                     console.log({ bottles });
@@ -167,7 +179,10 @@ export const PrintLabelsPro = () => {
                 } else {
                     setError('EAN128 incorrecto');
                     iptControl.current.classList.add("is-invalid");
-                    audioPlay('wrong');
+                    iptControl.current.classList.add("is-invalid");
+                    setTimeout(() => {
+                        audioPlay('wrong');
+                    }, 300);
                     return;
                 }
             } else if (drawer && bottlesChecked === bottles) {
@@ -176,7 +191,10 @@ export const PrintLabelsPro = () => {
                 if (codeInput !== drawer) {
                     setError('Gaveta incorrecta');
                     iptControl.current.classList.add("is-invalid");
-                    audioPlay('wrong');
+                    iptControl.current.classList.add("is-invalid");
+                    setTimeout(() => {
+                        audioPlay('wrong');
+                    }, 300);
                     return;
                 }
 
