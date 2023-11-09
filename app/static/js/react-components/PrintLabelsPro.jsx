@@ -120,6 +120,7 @@ export const PrintLabelsPro = () => {
     
     React.useEffect(() => {
         if (hasError) {
+            iptControl.current.classList.add("is-invalid");
             setTimeout(() => {
                 audioPlay('wrong');
             }, 300);
