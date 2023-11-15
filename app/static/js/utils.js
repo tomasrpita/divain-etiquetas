@@ -68,6 +68,9 @@ function parseEan128(ean128) {
 }
 
 const getEan13 = (ean128) => {
+    // TODO: Apaño mientras todos los proveedores no tienen el ean128
+    if (ean128.length === 13) return ean128;
+
     console.log("getEan13");
     console.log({ ean128 });
     const ean13Pattern = /\(01\)(\d{13})/;
