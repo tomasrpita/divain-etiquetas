@@ -129,7 +129,9 @@ export const PrintLabelsPro = () => {
 
 
     const handleInputChange = (e) => {
-        setCodeInput(e.target.value);
+        // to upper case
+        const newValue = e.target.value.toUpperCase();
+        setCodeInput(newValue);
     }
 
     const handleKeyDown = (e) => {
