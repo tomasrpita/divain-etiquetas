@@ -1,6 +1,63 @@
 import { useFetch2 as useFetch } from "./hooks/useFetch2"
 
 
+const getEtiquetaFields = (category, sex) => {
+    const etiquetaField = {
+        value: ''
+    };
+    
+    console.log({category, sex});
+    
+    if (category == 'divain') {
+
+
+        // Misma impresión Solo NUmeros Centrados
+        // file: syandard_100ml
+        // ETIQUETA Standard Femme
+        // 8436592101047
+        if (sex == 'F E M M E') {
+            etiquetaField.value = 'ESTANDAR - FEMME';
+            // ETIQUETA Standard Homme
+            // 8436596740037
+        } else if (sex == 'H O M M E') {
+            etiquetaField.value = 'ESTANDAR - HOMME';
+            // ETIQUETA Standard Unisex
+            //8436596741287
+        } else if (sex == 'U N I S E X') {
+            etiquetaField.value = 'ESTANDAR - UNISEX';
+
+
+            // ETIQUETA kids
+            // Una Sola Etiqueta
+            // debe imprimir: número, raya, sex y lote (centrado).
+            // file: xHacer
+            // 8436592109036
+        }
+        else if (sex == 'K I D S') {
+            etiquetaField.value = 'KIDS';
+
+        }
+
+
+        // Una etiqueta que puede ser BLACK_EDITION_HOMME, BLACK_EDITION_FEMME, BLACK_EDITION_UNISEX
+        // debe imprimir: número, raya y sex (centrado).
+        // file: xHacer
+        // 8436592102969
+    } else if (category == 'black') {
+        etiquetaField.value = 'BLACK EDITION';
+
+        // ETIQUETA SOLIDARIO_UNISEX
+        // Debe imprimir: número, raya y sex (centrado).
+        // file: xHacer
+        // 8436592109937
+    } else if (category == 'solidario') {
+        etiquetaField.value = 'SOLIDARIO UNISEX';
+
+    }
+
+    return etiquetaField;
+}
+
 export const PrintLabelsPro = () => {
 
     const [codeInput, setCodeInput] = React.useState('');
@@ -14,6 +71,9 @@ export const PrintLabelsPro = () => {
     const [productionOrderId, setProductionOrderId] = React.useState(0);
     const [ean13Ean128Map, setean13Ean128Map] = React.useState({});
     const [batch, setBatch] = React.useState('');
+    const [etiquetaField, setEtiquetaField] = React.useState({
+        value: ''
+    });
 
 
 
@@ -40,6 +100,11 @@ export const PrintLabelsPro = () => {
             setBottles(data.ean13_list.length);
             setBatch(data.batch);
             setDrawer(codeInput);
+
+            const ean13 = data.ean13_list[0];
+            const labelInfo = findLabelInfo(ean13);
+            // TODO: traer toda la data de la etiqueta de una vez
+            setEtiquetaField(getEtiquetaFields(labelInfo.category, labelInfo.sex));
             setCodeInput('');
             audioPlay('success');
             
@@ -149,6 +214,7 @@ export const PrintLabelsPro = () => {
             if (!drawer) {
                 console.log({ codeInput });
                 setFetchUrl(apiProductionOrder + codeInput);
+            
             } else if (drawer && bottlesChecked < bottles) {
                 const ean128 = codeInput;
                 const currentBottle = ean13s.find(ean13 => ean13 === getEan13(ean128));
@@ -263,6 +329,14 @@ export const PrintLabelsPro = () => {
                 </div>
                 <div className="col-7">
                     <input type="text" className="form-control" value={sku} readOnly />
+                </div>
+            </div>
+            <div className="form-group row">
+                <div className="col-3">
+                    <label className="col-form-label">etiqueta:</label>
+                </div>
+                <div className="col-7">
+                    <input type="text" className="form-control" value={etiquetaField.value} readOnly />
                 </div>
             </div>
             <div className="form-group row">
