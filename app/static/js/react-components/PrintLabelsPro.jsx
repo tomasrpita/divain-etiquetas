@@ -101,10 +101,17 @@ export const PrintLabelsPro = () => {
             setBatch(data.batch);
             setDrawer(codeInput);
 
+            // Se dan casos que no la reucpera por ean13
+            // corregir como se cargan los datos, tal vez solo 
+            // trae los ean13 por proveedor por omisión
             const ean13 = data.ean13_list[0];
-            const labelInfo = findLabelInfo(ean13);
-            // TODO: traer toda la data de la etiqueta de una vez
-            setEtiquetaField(getEtiquetaFields(labelInfo.category, labelInfo.sex));
+            const divain_number = data.divain_sku.split('-')[1];
+            const  labelInfo = findLabelInfo(ean13) || findLabelInfo(divain_number);
+            console.log({ labelInfo });
+            if (labelInfo) {
+                // TODO: traer toda la data de la etiqueta de una vez
+                setEtiquetaField(getEtiquetaFields(labelInfo.category, labelInfo.sex));
+            }
             setCodeInput('');
             audioPlay('success');
             
