@@ -87,7 +87,6 @@ export const PrintLabelsPro = () => {
 
     React.useEffect(() => {
         if (data && data.production_order_id) {
-            console.log({ data });
             setDrawer(codeInput);
             // setLocation(data.location_name);
             iptControl.current.setAttribute('placeholder', 'Ingrese EAN128 de la botella');
@@ -107,7 +106,6 @@ export const PrintLabelsPro = () => {
             const ean13 = data.ean13_list[0];
             const divain_number = data.divain_sku.split('-')[1];
             const  labelInfo = findLabelInfo(ean13) || findLabelInfo(divain_number);
-            console.log({ labelInfo });
             if (labelInfo) {
                 // TODO: traer toda la data de la etiqueta de una vez
                 setEtiquetaField(getEtiquetaFields(labelInfo.category, labelInfo.sex));
