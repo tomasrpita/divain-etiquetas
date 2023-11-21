@@ -85,13 +85,6 @@ def pro_print_labels():
 
 	# get form data from json
 	formdata = request.get_json()
-
-	# check batch is present
-	if not formdata.get("batch"):
-		return {
-			"status": "error",
-			"message": "No se ha enviado el numero de lote."
-		}
 	
 	PrinterLabels(formdata, printers).print()
 
