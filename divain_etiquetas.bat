@@ -1,4 +1,4 @@
-cd /d "C:\Users\ENVASADO-04\divain-etiquetas\.venv\Scripts"
+cd /d "C:\Users\ENVASADO-04\divain-etiquetas\venv\Scripts"
 set FLASK_APP=..\..\app.py
-C:\Users\ENVASADO-04\divain-etiquetas\.venv\Scripts qflask run -h localhost -p 5666
+flask run -h localhost -p 5666
 pause
