@@ -204,7 +204,7 @@ class PrinterLabels:
 
 		line_length = 20
 		lista_ingredientes = split_text(self.ingredientes, line_length)
-		# print('Número de lineas de ingredientes: ', len(lista_ingredientes))
+		# print('Número de lineas de ingredientes: ', len(liskta_ingredientes))
 		# print('Número de ingredientes: ', len(self.ingredientes.split(' ')))
 
 		# read line by line ''s'' and replace the text
