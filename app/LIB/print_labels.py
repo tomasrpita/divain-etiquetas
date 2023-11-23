@@ -446,7 +446,7 @@ class PrinterLabels:
 
 		# Bloque que se relaciona con lo marcado en le formulario como impresora 1
 		
-		
+
 		if self.sku.endswith(tuple(avoid_print_bottle_skus)):
 			pass
 		
@@ -461,7 +461,7 @@ class PrinterLabels:
 				self.print_bottle_label_standard_new()
 
 			# Son preimpresas no se imprimen
-			elif self.categoria == "divain" and self.sex == "H O M E":
+			elif self.sex == "H O M E":
 				pass
 
 			elif self.categoria == "solidario":
