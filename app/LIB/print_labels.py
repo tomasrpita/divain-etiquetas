@@ -429,8 +429,29 @@ class PrinterLabels:
 
 		tipo_ean = self.ean_botes or self.ean_muestras
 
+		avoid_print_bottle_skus = [
+			"-940",
+			"-941",
+			"1001",
+			"1002",
+			"1003",
+			"1004",
+			"1005",
+			"1006",
+			"1007",
+			"1008",
+			"1009",
+			"1010",
+		]
+
 		# Bloque que se relaciona con lo marcado en le formulario como impresora 1
-		if self.tsc_label == "bottle":
+		
+		
+		if self.sku.endswith(tuple(avoid_print_bottle_skus)):
+			pass
+		
+		
+		elif self.tsc_label == "bottle":
 			if self.categoria == "divain" and self.sex in [
 				"F E M M E",
 				"H O M M E",
@@ -438,6 +459,11 @@ class PrinterLabels:
 				"K I D S",
 			]:
 				self.print_bottle_label_standard_new()
+
+			# Son preimpresas no se imprimen
+			elif self.categoria == "divain" and self.sex == "H O M E":
+				pass
+
 			elif self.categoria == "solidario":
 				pass
 			else:

@@ -124,6 +124,7 @@ export const PrintLabelsPro = () => {
             const ean13 = Object.keys(ean13Ean128Map)[0];
             const divain_number = sku.split('-')[1];
             const  labelInfo = findLabelInfo(ean13) || findLabelInfo(divain_number);
+            
             if (labelInfo) {
                 console.log({ labelInfo });
                 const labelInfoToPrint = {
