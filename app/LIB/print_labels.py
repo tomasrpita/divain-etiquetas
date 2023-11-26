@@ -430,6 +430,8 @@ class PrinterLabels:
 		tipo_ean = self.ean_botes or self.ean_muestras
 
 		avoid_print_bottle_skus = [
+			
+			"-048"
 			"-940",
 			"-941",
 			"1001",

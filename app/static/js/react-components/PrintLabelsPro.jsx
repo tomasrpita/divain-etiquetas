@@ -112,6 +112,8 @@ export const PrintLabelsPro = () => {
             }
             setCodeInput('');
             audioPlay('success');
+            iptControl.current.focus();
+
             
         }
 
@@ -156,6 +158,8 @@ export const PrintLabelsPro = () => {
                 }, 300);
                 return;
             }
+            iptControl.current.focus();
+
         }
     }, [data]);
 
@@ -164,6 +168,7 @@ export const PrintLabelsPro = () => {
         if (data && data.printed) {
             console.log({ data });
             window.location.href = '/pro';
+
         }
 
     }, [data]);
@@ -190,13 +195,14 @@ export const PrintLabelsPro = () => {
 
     
     React.useEffect(() => {
-        if (hasError) {
-            iptControl.current.classList.add("is-invalid");
+        if (hasError || error) {
             setTimeout(() => {
                 audioPlay('wrong');
             }, 300);
+            setCodeInput('');
+            iptControl.current.focus();
         }
-    }, [hasError]);
+    }, [hasError, error]);
 
 
     const handleInputChange = (e) => {
@@ -254,11 +260,6 @@ export const PrintLabelsPro = () => {
                 } else {
                     setError('EAN128 incorrecto');
                     iptControl.current.classList.add("is-invalid");
-                    iptControl.current.classList.add("is-invalid");
-                    setTimeout(() => {
-                        audioPlay('wrong');
-                    }, 300);
-                    return;
                 }
             } else if (drawer && bottlesChecked === bottles) {
 
@@ -266,11 +267,6 @@ export const PrintLabelsPro = () => {
                 if (codeInput !== drawer) {
                     setError('Gaveta incorrecta');
                     iptControl.current.classList.add("is-invalid");
-                    iptControl.current.classList.add("is-invalid");
-                    setTimeout(() => {
-                        audioPlay('wrong');
-                    }, 300);
-                    return;
                 }
 
 
