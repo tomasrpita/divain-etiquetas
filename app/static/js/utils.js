@@ -67,15 +67,53 @@ function parseEan128(ean128) {
         return { ean13, batch, date };
 }
 
-const getEan13 = (ean128) => {
-    // TODO: Apaño mientras todos los proveedores no tienen el ean128
-    if (ean128.length === 13) return ean128;
+const calculateEAN12CheckDigit =  (ean12) => {
+    if (ean12.length !== 12 || !/^\d+$/.test(ean12)) {
+        throw new Error("Input must be a 12-digit string.");
+    }
 
+    let sum = 0;
+    for (let i = 0; i < ean12.length; i++) {
+        let digit = parseInt(ean12[i]);
+        sum += (i % 2 === 0) ? digit : digit * 3;
+    }
+
+    let checkDigit = (10 - (sum % 10)) % 10;
+    return checkDigit;
+}
+
+
+const getEan13 = (ean128) => {
     console.log("getEan13");
     console.log({ ean128 });
-    const ean13Pattern = /\(01\)(\d{13})/;
-    const ean13Match = ean128.match(ean13Pattern);
-    const ean13 = ean13Match ? ean13Match[1] : null;
-    console.log({ ean13 });
-    return ean13;
-}
+
+    if (ean128.length == 13) {
+        console.log({ ean13: ean128 });
+        return ean128;
+    }
+
+    // Lista de patrones para buscar el código que empieza con '84' o '87'
+    const patterns = [
+            /84\d{10}/,
+            /87\d{10}/,
+            /\*01\(84\d{10}/,
+            /\*01\(87\d{10}/,
+            /01(84\d{10})/,
+            /01(87\d{10})/,
+        ];
+
+    for (let pattern of patterns) {
+        const match = ean128.match(pattern);
+        console.log({ match });
+        if (match) {
+            const ean12 = match[0];
+            const checkDigit = calculateEAN12CheckDigit(ean12);
+            const ean13 = ean12 + checkDigit;
+            console.log({ ean13 });
+            return ean13;
+        }
+    }
+
+    console.log("No se encontró un EAN13 válido");
+    return null;
+};

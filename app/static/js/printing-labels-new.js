@@ -87,6 +87,7 @@ showBottleImp.addEventListener('change', function () {
 
 
 iptEanBotella.addEventListener('keyup', ({ key }) => {
+	
 	if (key === "Enter") {
 		if (divain100 && firstBottle) {
 			console.log('divain100')
@@ -94,7 +95,7 @@ iptEanBotella.addEventListener('keyup', ({ key }) => {
 		} else if (divain100 && !firstBottle) {
 			console.log('divain100 2')
 			// getLastBottle()
-			if (iptEanBotella.value == divainId100) {
+			if (getEan13(iptEanBotella.value) == divainId100) {
 				divBottles.forEach((bottle, i) => {
 					if (i == 1) {
 						bottle.classList.remove('text-muted')
@@ -126,7 +127,7 @@ iptLoteBotella.addEventListener('keyup', ({ key }) => {
 const getReference = () => {
 	console.log('getReference')
 	spinnerEanBotella.classList.remove('invisible');
-	const eanBotella = iptEanBotella.value;
+	const eanBotella = getEan13(iptEanBotella.value);
 	const labelInfo = findLabelInfo(eanBotella);
 
 	console.log({ labelInfo });
@@ -154,7 +155,7 @@ const getReference = () => {
 			
 		} else {
 			firstBottle = false
-			divainId100 = iptEanBotella.value
+			divainId100 = getEan13(iptEanBotella.value)
 			iptEanBotella.value = ''
 			divBottles.forEach((bottle, i) => {
 				if (i == 0) {
