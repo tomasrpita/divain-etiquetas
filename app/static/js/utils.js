@@ -95,11 +95,11 @@ const getEan13 = (ean128) => {
     // Lista de patrones para buscar el código que empieza con '84' o '87'
     const patterns = [
             /84\d{10}/,
-            /87\d{10}/,
+            // /87\d{10}/,
             /\*01\(84\d{10}/,
-            /\*01\(87\d{10}/,
+            // /\*01\(87\d{10}/,
             /01(84\d{10})/,
-            /01(87\d{10})/,
+            // /01(87\d{10})/,
         ];
 
     for (let pattern of patterns) {
