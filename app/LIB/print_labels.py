@@ -431,7 +431,6 @@ class PrinterLabels:
 
 		avoid_print_bottle_skus = [
 			
-			"-048"
 			"-940",
 			"-941",
 			"1001",
