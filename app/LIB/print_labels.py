@@ -444,6 +444,7 @@ class PrinterLabels:
 			"1008",
 			"1009",
 			"1010",
+			"1011",
 		]
 
 		# Bloque que se relaciona con lo marcado en le formulario como impresora 1
