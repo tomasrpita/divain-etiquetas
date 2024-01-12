@@ -341,6 +341,10 @@ class PrinterLabels:
 		base_dir = "./labels/"
 
 
+		# Workaround for change number of copies
+		self.copies_mumber = 44
+
+
 
 		if labels_info["destination"] == "MX":
 			f = open(os.path.join(base_dir, labels_info["file"]), "rb")
