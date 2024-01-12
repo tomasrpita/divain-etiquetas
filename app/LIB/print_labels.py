@@ -342,7 +342,7 @@ class PrinterLabels:
 
 
 		# Workaround for change number of copies
-		self.copies_mumber = 44
+		self.copies_mumber = 45
 
 
 
