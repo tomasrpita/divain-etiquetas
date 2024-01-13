@@ -92,7 +92,7 @@ def index_exists(list: List, index: int) -> bool:
 
 # TODO Si hay mas de 15 lineas de ingredientes avisar que no se puede imprimir
 class PrinterLabels:
-	def __init__(self, formdata, printer_job) -> None:
+	def __init__(self, formdata, printer_job, pro=False) -> None:
 
 		self.copies_mumber = (
 			int(formdata["CopiesNumber"]) if formdata["CopiesNumber"] else 0
@@ -118,6 +118,7 @@ class PrinterLabels:
 		# GRupo de etiquetas destino
 		self.label_destination = formdata.get("label_destination")
 		self.printer_job = printer_job
+		self.pro = pro
 
 
 	def print_sample_label_test(self):
@@ -342,7 +343,7 @@ class PrinterLabels:
 
 
 		# Workaround for change number of copies
-		self.copies_mumber = 45
+		self.copies_mumber = 45 if self.pro else self.copies_mumber
 
 
 

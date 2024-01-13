@@ -86,7 +86,7 @@ def pro_print_labels():
 	# get form data from json
 	formdata = request.get_json()
 	
-	PrinterLabels(formdata, printers).print()
+	PrinterLabels(formdata, printers, pro=True).print()
 
 	return {
 		"status": "ok",
