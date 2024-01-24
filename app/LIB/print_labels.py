@@ -499,7 +499,7 @@ class PrinterLabels:
 
 		# Bloque que se relaciona con lo marcado en le formulario como impresora 2
 		if self.zd_label == "destination_group":
-			# DESTINATIOS UE UK USA MX
+			# Destinos UE UK USA MX
 			if self.label_destination in destinations.keys():
 				self.print_destination_group_label(destinations[self.label_destination])
 			else:

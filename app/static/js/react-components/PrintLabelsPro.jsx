@@ -5,9 +5,9 @@ const getEtiquetaFields = (category, sex) => {
     const etiquetaField = {
         value: ''
     };
-    
-    console.log({category, sex});
-    
+
+    console.log({ category, sex });
+
     if (category == 'divain') {
 
 
@@ -74,6 +74,8 @@ export const PrintLabelsPro = () => {
     const [etiquetaField, setEtiquetaField] = React.useState({
         value: ''
     });
+    const [labelDestination, setLabelDestination] = React.useState('UE');
+
 
 
 
@@ -105,7 +107,7 @@ export const PrintLabelsPro = () => {
             // trae los ean13 por proveedor por omisión
             const ean13 = data.ean13_list[0];
             const divain_number = data.divain_sku.split('-')[1];
-            const  labelInfo = findLabelInfo(ean13) || findLabelInfo(divain_number);
+            const labelInfo = findLabelInfo(ean13) || findLabelInfo(divain_number);
             if (labelInfo) {
                 // TODO: traer toda la data de la etiqueta de una vez
                 setEtiquetaField(getEtiquetaFields(labelInfo.category, labelInfo.sex));
@@ -114,7 +116,7 @@ export const PrintLabelsPro = () => {
             audioPlay('success');
             iptControl.current.focus();
 
-            
+
         }
 
     }, [data]);
@@ -125,17 +127,17 @@ export const PrintLabelsPro = () => {
             // const labelInfo = findLabelInfo(sku);
             const ean13 = Object.keys(ean13Ean128Map)[0];
             const divain_number = sku.split('-')[1];
-            const  labelInfo = findLabelInfo(ean13) || findLabelInfo(divain_number);
-            
+            const labelInfo = findLabelInfo(ean13) || findLabelInfo(divain_number);
+
             if (labelInfo) {
                 console.log({ labelInfo });
                 const labelInfoToPrint = {
                     "CopiesNumber": data.labels_to_print,
-                    "tscLabel": 'bottle', 
+                    "tscLabel": 'bottle',
                     "zdLabel": 'destination_group',
-                    "label_destination": 'UE',
-                    "eanBotella": labelInfo.supplier_references_eans[0], 
-                    "loteBotella": batch, 
+                    "label_destination": labelDestination,
+                    "eanBotella": labelInfo.supplier_references_eans[0],
+                    "loteBotella": batch,
                     "ean_botes": labelInfo.ean_bottle,
                     "ean_muestras": labelInfo.ean_sample,
                     "numero_divain": labelInfo.divain_number,
@@ -143,12 +145,12 @@ export const PrintLabelsPro = () => {
                     "sku": labelInfo.sku_divain,
                     "categoria": labelInfo.category,
                     "ingredientes": labelInfo.ingredients
-                  };
+                };
 
                 setFetchMethod('POST');
                 setFetchBody(labelInfoToPrint);
                 setFetchUrl('/pro/print');
-                
+
 
             } else {
                 setError('No se encontró información de la etiqueta');
@@ -164,7 +166,7 @@ export const PrintLabelsPro = () => {
     }, [data]);
 
     React.useEffect(() => {
-        
+
         if (data && data.printed) {
             console.log({ data });
             window.location.href = '/pro';
@@ -193,7 +195,7 @@ export const PrintLabelsPro = () => {
         });
     }, [bottlesChecked]);
 
-    
+
     React.useEffect(() => {
         if (hasError || error) {
             setTimeout(() => {
@@ -226,7 +228,7 @@ export const PrintLabelsPro = () => {
             if (!drawer) {
                 console.log({ codeInput });
                 setFetchUrl(apiProductionOrder + codeInput);
-            
+
             } else if (drawer && bottlesChecked < bottles) {
                 const ean128 = codeInput;
                 const currentBottle = ean13s.find(ean13 => ean13 === getEan13(ean128));
@@ -254,7 +256,7 @@ export const PrintLabelsPro = () => {
                     console.log({ ean13Ean128Map });
                     console.log({ bottlesChecked });
                     console.log({ bottles });
-                    if (bottlesChecked + 1  === bottles) {
+                    if (bottlesChecked + 1 === bottles) {
                         iptControl.current.setAttribute('placeholder', 'Confirme gaveta para imprimir etiquetas ');
                     }
                 } else {
@@ -307,6 +309,29 @@ export const PrintLabelsPro = () => {
                             <span className="sr-only">Loading...</span>
                         </div>
                     }
+                </div>
+            </div>
+            <div className="form-group row">
+                <div className="col-3">
+                    <label className="col-form-label">Tipo Etiquetas destino:</label>
+                </div>
+                <div className="col-7">
+                    <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" name="labelDestination" id="ue" value="UE" checked={labelDestination === 'UE'} onChange={(e) => setLabelDestination(e.target.value)} />
+                        <label className="form-check-label" htmlFor="ue">UE</label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" name="labelDestination" id="uk" value="UK" checked={labelDestination === 'UK'} onChange={(e) => setLabelDestination(e.target.value)} />
+                        <label className="form-check-label" htmlFor="uk">UK</label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" name="labelDestination" id="usa" value="USA" checked={labelDestination === 'USA'} onChange={(e) => setLabelDestination(e.target.value)} />
+                        <label className="form-check-label" htmlFor="usa">USA</label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                        <input className="form-check-input" type="radio" name="labelDestination" id="mx" value="MX" checked={labelDestination === 'MX'} onChange={(e) => setLabelDestination(e.target.value)} />
+                        <label className="form-check-label" htmlFor="mx">MX</label>
+                    </div>
                 </div>
             </div>
             <div className="form-group row">
