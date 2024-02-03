@@ -17,6 +17,6 @@ pywin32
 
 # Format and lifting
 # black
-# isortgit push
+# isort
 
-# flake8
+ruff

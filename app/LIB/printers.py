@@ -14,7 +14,7 @@ def get_printer_list():
 def printer_job(printer_name, printer_file):
     hPrinter = win32print.OpenPrinter(printer_name)
     try:
-      hJob = win32print.StartDocPrinter(hPrinter, 1, ("test of raw data", None, "RAW"))
+      hJob = win32print.StartDocPrinter(hPrinter, 1, ("test of raw data", None, "RAW"))  # noqa: F841
       try:
         win32print.StartPagePrinter(hPrinter)
         win32print.WritePrinter(hPrinter, printer_file)

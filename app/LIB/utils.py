@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from configparser import ConfigParser
-import os
 
 
 def get_copies_number():

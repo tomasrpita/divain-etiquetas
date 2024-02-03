@@ -1,9 +1,10 @@
 # coding: utf-8
 import os
-from flask import Flask
-from config import config
-from app.logger import configure_logging
 
+from flask import Flask
+
+from app.logger import configure_logging
+from config import config
 
 
 def create_app(config_name=(os.getenv("FLASK_CONFIG") or "default")):
