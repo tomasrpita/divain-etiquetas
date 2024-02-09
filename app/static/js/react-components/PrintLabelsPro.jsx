@@ -1,5 +1,12 @@
 import { useFetch2 as useFetch } from "./hooks/useFetch2"
 
+// TODO: move to a config file
+const codestMap = {
+    "MEX": "MX",
+    "USA": "USA",
+    "ESP": "UE",
+    "UK": "UK"
+}
 
 const getEtiquetaFields = (category, sex) => {
     const etiquetaField = {
@@ -75,9 +82,7 @@ export const PrintLabelsPro = () => {
         value: ''
     });
     const [labelDestination, setLabelDestination] = React.useState('UE');
-
-
-
+    const [codest, setCodest] = React.useState('');
 
 
     const iptControl = React.useRef();
@@ -100,7 +105,9 @@ export const PrintLabelsPro = () => {
             setEan13s(data.ean13_list);
             setBottles(data.ean13_list.length);
             setBatch(data.batch);
+            setCodest(data.codest_name);
             setDrawer(codeInput);
+            setLabelDestination(codestMap[data.codest_name]);
 
             // Se dan casos que no la reucpera por ean13
             // corregir como se cargan los datos, tal vez solo 
@@ -253,9 +260,9 @@ export const PrintLabelsPro = () => {
                     setBottlesChecked(bottlesChecked + 1);
                     setCodeInput('');
                     // audioPlay('success');
-                    console.log({ ean13Ean128Map });
-                    console.log({ bottlesChecked });
-                    console.log({ bottles });
+                    // console.log({ ean13Ean128Map });
+                    // console.log({ bottlesChecked });
+                    // console.log({ bottles });
                     if (bottlesChecked + 1 === bottles) {
                         iptControl.current.setAttribute('placeholder', 'Confirme gaveta para imprimir etiquetas ');
                     }
@@ -340,6 +347,14 @@ export const PrintLabelsPro = () => {
                 </div>
                 <div className="col-7">
                     <input type="text" className="form-control" value={drawer} readOnly />
+                </div>
+            </div>
+            <div className="form-group row">
+                <div className="col-3">
+                    <label className="col-form-label">CODEST:</label>
+                </div>
+                <div className="col-7">
+                    <input type="text" className="form-control" value={codest} readOnly />
                 </div>
             </div>
             <div className="form-group row">
