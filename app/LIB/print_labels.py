@@ -9,23 +9,23 @@ from app.LIB.utils import get_printers
 
 
 log = logging.getLogger(__name__)
-default_printer, codebar_printer = get_printers()
+default_printer, codebar_printer, black_printer = get_printers()
 
 # UE - UK - USA- MX
 destinations = {
     "UE": {
         "destination": "UE",
         "ingredient_lines": {
-            "start": 36,
-            "end": 45,
+            "start": 39,
+            "end": 46,
         },
-        "lote_bottle_line": 23,
-        "lote_box_line": 47,
-        "sku_box_line": 46,
-        "barcode_box_line": 48,
+        "lote_bottle_line": 24,
+        "lote_box_line": 48,
+        "sku_box_line": 26,
+        "barcode_box_line": 27,
         "ean_box_line": 49,
         "copies_number_line": 50,
-        "file": "ue-bottle-box-codebar.prn",
+        "file": "ue-bottle-box-codebar-QR.prn",
     },
     "UK": {
         "destination": "UK",
@@ -269,7 +269,11 @@ class PrinterLabels:
         self.printer_job(printer, s)
 
     def print_bottle_label_standard_new(self):
-        printer = default_printer
+        if self.sex == "H O M M E" or self.categoria == "black":
+            printer = black_printer
+        else:
+            printer = default_printer
+
         print("Bottle:", self.sku, self.categoria, self.fragance_name)
 
         if self.fragance_name == 'HOPE':
@@ -290,7 +294,8 @@ class PrinterLabels:
             label_file = "./labels/nueva-home-georgeous-sandalwood.prn"
         elif self.numero_divain in ('1001', '1002', '1003', '1004', '1005', '1006', '1007', '1008', '1009', '1010', '1011'):
             label_file = "./labels/nueva-zzzz.prn"
-
+        elif self.categoria == "black":
+            label_file = "./labels/nueva-black.prn"
         # Elige el archivo de plantilla basado en el sexo.
         elif self.sex == "K I D S":
             label_file = "./labels/nueva-kids.prn"
@@ -301,13 +306,14 @@ class PrinterLabels:
         with open(label_file, "rb") as f:
             s = f.read()
 
-        # Decide el texto basado en el sexo.
-        if self.sex == "F E M M E":
-            sex_text = "her"
+        if self.categoria == "black":
+            sex_text = "black edition"
+        elif self.sex == "F E M M E":
+            sex_text = "for her"
         elif self.sex == "H O M M E":
-            sex_text = "him"
+            sex_text = "for him"
         elif self.sex == "U N I S E X":
-            sex_text = "all"
+            sex_text = "for all"
         else: 
             sex_text = ""
         
@@ -316,7 +322,7 @@ class PrinterLabels:
         s = s.replace(b"ZZZ", bytes(self.sku.replace("DIVAIN-", ""), "utf-8"))
 
         # Reemplaza "XXX" con el valor de sexo correspondiente.
-        s = s.replace(b"XXX", bytes(sex_text, "utf-8"))
+        s = s.replace(b"for XXX", bytes(sex_text, "utf-8"))
 
         # Corrección en el nombre de la variable para número de copias
         s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber},1", "utf-8"))
