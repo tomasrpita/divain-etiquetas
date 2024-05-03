@@ -16,16 +16,16 @@ destinations = {
     "UE": {
         "destination": "UE",
         "ingredient_lines": {
-            "start": 39,
-            "end": 46,
+            "start": 36,
+            "end": 45,
         },
-        "lote_bottle_line": 24,
-        "lote_box_line": 48,
-        "sku_box_line": 26,
-        "barcode_box_line": 27,
+        "lote_bottle_line": 23,
+        "lote_box_line": 47,
+        "sku_box_line": 46,
+        "barcode_box_line": 48,
         "ean_box_line": 49,
         "copies_number_line": 50,
-        "file": "ue-bottle-box-codebar-QR.prn",
+        "file": "ue-bottle-box-codebar.prn",
     },
     "UK": {
         "destination": "UK",
@@ -60,8 +60,6 @@ destinations = {
         "file": "mx-bottle-box-codebar.prn",
     },
 }
-
-
 def split_text(text: str, max_line_chr: int) -> List[str]:
     """
     Split text in lines with max_line_chr characters
@@ -269,12 +267,14 @@ class PrinterLabels:
         self.printer_job(printer, s)
 
     def print_bottle_label_standard_new(self):
-        if self.sex == "H O M M E" or self.categoria == "black":
+        if (self.sex == "H O M M E" or self.categoria == "black") and self.categoria != "ken":
+            printer = black_printer
+        elif self.sex == "U N I S E X" and (("001" <= self.numero_divain <= "049") or ("200" <= self.numero_divain <= "499")):
             printer = black_printer
         else:
             printer = default_printer
 
-        print("Bottle:", self.sku, self.categoria, self.fragance_name)
+        print("Bottle:", self.sku, self.categoria)
 
         if self.fragance_name == 'HOPE':
             label_file = "./labels/nueva-home-hope.prn"
@@ -292,11 +292,15 @@ class PrinterLabels:
             label_file = "./labels/nueva-home-true-leather.prn"
         elif self.fragance_name == "GEORGEOUS SANDALWOOD":
             label_file = "./labels/nueva-home-georgeous-sandalwood.prn"
-        elif self.numero_divain in ('1001', '1002', '1003', '1004', '1005', '1006', '1007', '1008', '1009', '1010', '1011'):
-            label_file = "./labels/nueva-zzzz.prn"
+        elif self.categoria == 'oriental':
+            label_file = "./labels/nueva-zzzz-oriental.prn"
+        elif self.categoria == 'ken':
+            label_file = "./labels/nueva-ken.prn"
+
+        elif self.categoria == 'barbie':
+            label_file = "./labels/nueva-barbie.prn"
         elif self.categoria == "black":
             label_file = "./labels/nueva-black.prn"
-        # Elige el archivo de plantilla basado en el sexo.
         elif self.sex == "K I D S":
             label_file = "./labels/nueva-kids.prn"
         else:
@@ -508,8 +512,7 @@ class PrinterLabels:
         tipo_ean = self.ean_botes or self.ean_muestras
 
         avoid_print_bottle_skus = [
-            "-940",
-            "-941",
+        
             
         ]
 
