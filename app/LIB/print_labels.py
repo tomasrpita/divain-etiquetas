@@ -112,7 +112,7 @@ class PrinterLabels:
         )
 
         self.zd_label = formdata.get("zdLabel")
-        self.fragance_name  = formdata["fragance_name"]
+        self.fragance_name  = formdata.get("fragance_name")
 
         # GRupo de etiquetas destino
         self.label_destination = formdata.get("label_destination")
