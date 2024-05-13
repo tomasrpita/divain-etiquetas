@@ -25,5 +25,6 @@ def get_printers():
 
 	return (
 		parser.get("printers", "default_printer"),
-		parser.get("printers", "codebar_printer")
+		parser.get("printers", "codebar_printer"),
+		parser.get("printers", "black_printer")
 		)

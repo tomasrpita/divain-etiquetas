@@ -1,0 +1,13 @@
+<xpml><page quantity='0' pitch='28.0 mm'></xpml>SIZE 95.7 mm, 28 mm
+DIRECTION 0,0
+REFERENCE 0,0
+OFFSET 0 mm
+SET PEEL OFF
+SET CUTTER OFF
+SET PARTIAL_CUTTER OFF
+<xpml></page></xpml><xpml><page quantity='5' pitch='28.0 mm'></xpml>SET TEAR ON
+CLS
+TEXT 665,265,"COURIERR.TTF",270,12,12,"for home"
+TEXT 552,230,"OPENSANR.TTF",270,13,13,"REBEL"
+PRINT 1,1
+<xpml></page></xpml><xpml><end/></xpml>
