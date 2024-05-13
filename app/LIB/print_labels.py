@@ -6,7 +6,7 @@ from dataclasses import dataclass
 import logging
 from typing import Callable, List
 from app.LIB.utils import get_printers
-
+import json
 
 log = logging.getLogger(__name__)
 default_printer, codebar_printer, black_printer = get_printers()
@@ -16,16 +16,18 @@ destinations = {
     "UE": {
         "destination": "UE",
         "ingredient_lines": {
-            "start": 36,
-            "end": 45,
+            "start": 37,
+            "end": 46,
         },
-        "lote_bottle_line": 23,
-        "lote_box_line": 47,
-        "sku_box_line": 46,
-        "barcode_box_line": 48,
-        "ean_box_line": 49,
-        "copies_number_line": 50,
+        "lote_bottle_line": 22,
+        "lote_box_line": 48,
+        "sku_box_line": 47,
+        "barcode_box_line": 49,
+        "ean_box_line": 50,
+        "copies_number_line": 51,
         "file": "ue-bottle-box-codebar.prn",
+        "QR_box_line": 36,
+
     },
     "UK": {
         "destination": "UK",
@@ -33,13 +35,15 @@ destinations = {
             "start": 26,
             "end": 35,
         },
-        "lote_bottle_line": 18,
+        "lote_bottle_line": 16,
         "lote_box_line": 37,
         "sku_box_line": 36,
         "barcode_box_line": 38,
         "ean_box_line": 39,
         "copies_number_line": 40,
         "file": "uk-bottle-box-codebar.prn",
+        "QR_box_line": 25,
+
     },
     "USA": {
         "destination": "USA",
@@ -47,13 +51,14 @@ destinations = {
             "start": 36,
             "end": 45,
         },
-        "lote_bottle_line": 0,  # for no print
+        "lote_bottle_line": 21,  # for no print
         "lote_box_line": 47,
         "sku_box_line": 46,
         "barcode_box_line": 48,
         "ean_box_line": 49,
         "copies_number_line": 50,
         "file": "usa-bottle-box-codebar.prn",
+        "QR_box_line": 35,
     },
     "MX": {
         "destination": "MX",
@@ -114,7 +119,19 @@ class PrinterLabels:
         self.printer_job = printer_job
         self.pro = pro
 
+        self.fecha = self.extract_date_from_ean(formdata["eanBotella"])
+
         print(formdata)
+
+    def extract_date_from_ean(self, ean):
+        # Buscar el código de fecha que sigue a ')17='
+        try:
+            date_code = ean.split(')17=')[1][:6]  # Los primeros 6 caracteres después de ')17='
+            return date_code
+        except IndexError:
+            # Manejar el caso donde no se encuentra la fecha o el formato es incorrecto
+            print("Formato de fecha incorrecto o inexistente en eanBotella.")
+            return None
 
     def print_sample_label_test(self):
         printer = default_printer
@@ -296,7 +313,6 @@ class PrinterLabels:
             label_file = "./labels/nueva-zzzz-oriental.prn"
         elif self.categoria == 'ken':
             label_file = "./labels/nueva-ken.prn"
-
         elif self.categoria == 'barbie':
             label_file = "./labels/nueva-barbie.prn"
         elif self.categoria == "black":
@@ -421,6 +437,10 @@ class PrinterLabels:
                 b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8")
             )
 
+            qr_data = f"{self.lote},{self.ean_botes},{self.fecha}"
+            qr_bytes = bytes(qr_data, 'utf-8')
+            s = s.replace(b"YYYY", qr_bytes)
+
         else:
             f = open(os.path.join(base_dir, labels_info["file"]), "rb")
             s = f.read()
@@ -505,6 +525,11 @@ class PrinterLabels:
                                 )
                             ),
                         )
+
+                    elif line_number == labels_info["QR_box_line"]:
+                        qr_data = f"{self.lote},{self.ean_botes},{self.fecha}"
+                        qr_bytes = bytes(qr_data, 'utf-8')
+                        s = s.replace(line, line.replace(b"YYYY", qr_bytes))
 
         self.printer_job(printer, s)
 
