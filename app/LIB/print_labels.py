@@ -437,7 +437,7 @@ class PrinterLabels:
                 b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8")
             )
 
-            qr_data = f"(01){self.ean_botes}(10){self.lote}(15){self.fecha}"
+            qr_data = f"(01){self.ean_botes}(10){self.lote}(17){self.fecha}"
             qr_bytes = bytes(qr_data, 'utf-8')
             s = s.replace(b"YYYY", qr_bytes)
 
@@ -527,7 +527,7 @@ class PrinterLabels:
                         )
 
                     elif line_number == labels_info["QR_box_line"]:
-                        qr_data = f"(01){self.ean_botes}(10){self.lote}(15){self.fecha}"
+                        qr_data = f"(01){self.ean_botes}(10){self.lote}(17){self.fecha}"
                         qr_bytes = bytes(qr_data, 'utf-8')
                         s = s.replace(line, line.replace(b"YYYY", qr_bytes))
 
