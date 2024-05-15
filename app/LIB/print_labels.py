@@ -307,7 +307,7 @@ class PrinterLabels:
         else:
             printer = default_printer
 
-        print("Bottle:", self.sku, self.categoria)
+        print("Bottle:", self.sku, self.categoria, self.sex, printer)
 
         if self.fragance_name == "HOPE":
             label_file = "./labels/nueva-home-hope.prn"
@@ -337,6 +337,8 @@ class PrinterLabels:
             label_file = "./labels/nueva-kids.prn"
         else:
             label_file = "./labels/nueva.prn"
+
+        print("Archivo de la etiqueta:", label_file)
 
         # Abre el archivo PRN que contiene la plantilla de la etiqueta.
         with open(label_file, "rb") as f:
