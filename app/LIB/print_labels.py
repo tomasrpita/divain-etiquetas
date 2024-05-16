@@ -133,7 +133,7 @@ class PrinterLabels:
             return date_code
         except IndexError:
             # Manejar el caso donde no se encuentra la fecha o el formato es incorrecto
-            print("Formato de fecha incorrecto o inexistente en eanBotella.")
+            print("Formato de fecha incorrecto o inexistente en Botella.")
             return None
 
     def print_sample_label_test(self):
