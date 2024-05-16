@@ -1,0 +1,18 @@
+<xpml><page quantity='0' pitch='28.0 mm'></xpml>SIZE 95.7 mm, 28 mm
+GAP 4 mm, 0 mm
+SPEED 3
+DENSITY 14
+SET RIBBON ON
+DIRECTION 0,0
+REFERENCE 0,0
+OFFSET 0 mm
+SET PEEL OFF
+SET CUTTER OFF
+SET PARTIAL_CUTTER OFF
+<xpml></page></xpml><xpml><page quantity='1' pitch='28.0 mm'></xpml>SET TEAR ON
+CLS
+CODEPAGE 1252
+TEXT 665,295,"COURIERR.TTF",270,9,9,"for XXX"
+TEXT 512,220,"OPENSANR.TTF",270,18,18,"ZZZ"
+PRINT 1,1
+<xpml></page></xpml><xpml><end/></xpml>
