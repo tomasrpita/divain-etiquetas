@@ -122,20 +122,18 @@ class PrinterLabels:
         self.fecha = self.extract_date_from_ean(formdata["eanBotella"])
 
         print(formdata)
-
-    def extract_date_from_ean(self, ean):
-        # Buscar el código de fecha que sigue a ')17='
-        try:
-            if ')17=' in ean:
-                date_code = ean.split(')17=')[1][:6]  # Los primeros 6 caracteres después de ')17='
-            elif '(17)' in ean:
-                date_code = ean.split('(17)')[1][:6]  # Los primeros 6 caracteres después de '(17)'
-
-            return date_code
-        except IndexError:
-            # Manejar el caso donde no se encuentra la fecha o el formato es incorrecto
-            print("Formato de fecha incorrecto o inexistente en Botella.")
-            return None
+    # def extract_date_from_ean(self, ean):
+    #     # Buscar el código de fecha que sigue a ')17='
+    #     try:
+    #         if ')17=' in ean:
+    #             date_code = ean.split(')17=')[1][:6]  # Los primeros 6 caracteres después de ')17='
+    #         elif '(17)' in ean:
+    #             date_code = ean.split('(17)')[1][:6]  # Los primeros 6 caracteres después de '(17)'
+    #         return date_code
+    #     except IndexError:
+    #         # Manejar el caso donde no se encuentra la fecha o el formato es incorrecto
+    #         print("Formato de fecha incorrecto o inexistente en Botella.")
+    #         return None
 
     def print_sample_label_test(self):
         printer = default_printer
