@@ -151,7 +151,8 @@ export const PrintLabelsPro = () => {
                     "sexo": labelInfo.sex,
                     "sku": labelInfo.sku_divain,
                     "categoria": labelInfo.category,
-                    "ingredientes": labelInfo.ingredients
+                    "ingredientes": labelInfo.ingredients,
+                    "fragance_name": labelInfo.fragance_name
                 };
 
                 setFetchMethod('POST');
