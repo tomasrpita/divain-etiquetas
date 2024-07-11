@@ -12,6 +12,6 @@ SET PARTIAL_CUTTER OFF
 <xpml></page></xpml><xpml><page quantity='1' pitch='28.0 mm'></xpml>SET TEAR ON
 CLS
 CODEPAGE 1252
-TEXT 542,235,"OPENSANR.TTF",270,18,18,"ZZZ"
+TEXT 532,270,"OPENSANR.TTF",270,25,25,"ZZZ"
 PRINT 1,1
 <xpml></page></xpml><xpml><end/></xpml>

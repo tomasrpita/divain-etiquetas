@@ -8,6 +8,6 @@ SET PARTIAL_CUTTER OFF
 <xpml></page></xpml><xpml><page quantity='5' pitch='28.0 mm'></xpml>SET TEAR ON
 CLS
 TEXT 665,265,"COURIERR.TTF",270,12,12,"for kids"
-TEXT 512,220,"OPENSANR.TTF",270,18,18,"ZZZ"
+TEXT 532,245,"OPENSANR.TTF",270,25,25,"ZZZ"
 PRINT 1,1
 <xpml></page></xpml><xpml><end/></xpml>
