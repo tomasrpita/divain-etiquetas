@@ -1,0 +1,25 @@
+{% extends "tpt_base.html" %}
+{% block body %}
+<div class="content-section">
+    <div class="outer">
+        <div class="middle">
+            <div class="inner">
+                <div style="text-align: center">
+                    <h1> Error 404 </h1>
+                    <h3> Página no encontrada. </h3>
+                    <p>
+                        El servidor no ha podido encontrar el recurso solicitado.
+                        <br>
+                        El contenido ha sido borrado o el enlace es incorrecto.
+                    </p>
+                    <hr class="intro-divider">
+                    <a id="a-return-home" href="javascript:void(0)" onclick="goToURL(); return false;" class="btn btn-default btn-lg">
+                        <i class="fa fa-home"></i>
+                        Inicio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "tpt_base.html" %}
+{% block body %}
+<div class="content-section">
+    <div class="outer">
+        <div class="middle">
+            <div class="inner">
+                <div style="text-align: center">
+                    <h1> Error 502 </h1>
+                    <h3> Fallo de comunicaciones (bad gateway). </h3>
+                    <p>
+                        Fallo de comunicación del servidor web con alguno de los servidores que actúan de proxy.
+                    </p>
+
+                    <hr class="intro-divider">
+                    <a id="a-return-home" href="javascript:void(0)" onclick="goToURL(); return false;" class="btn btn-default btn-lg">
+                        <i class="fa fa-home"></i>
+                        Inicio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

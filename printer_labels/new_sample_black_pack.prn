@@ -1,0 +1,17 @@
+<xpml><page quantity='0' pitch='30.1 mm'></xpml>SIZE 41.5 mm, 30.1 mm
+SPEED 2
+DENSITY 11
+DIRECTION 0,0
+REFERENCE 0,0
+OFFSET 0 mm
+SET PEEL OFF
+SET CUTTER OFF
+SET PARTIAL_CUTTER OFF
+<xpml></page></xpml><xpml><page quantity='1' pitch='30.1 mm'></xpml>SET TEAR ON
+CLS
+CODEPAGE 1252
+TEXT 291,265,"FUTURALR.TTF",270,22,22,"ZZZ"
+BAR 367,107, 4, 166
+TEXT 378,274,"FUTURALR.TTF",270,10,10,"X X X X X"
+PRINT 1,1
+<xpml></page></xpml><xpml><end/></xpml>
