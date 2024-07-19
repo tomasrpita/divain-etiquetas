@@ -195,6 +195,32 @@ class PrinterLabels:
             label_file = "./labels/nueva-home-true-leather.prn"
         elif self.fragance_name == "GEORGEOUS SANDALWOOD":
             label_file = "./labels/nueva-home-georgeous-sandalwood.prn"
+        elif self.fragance_name == "PETAL POP":
+            label_file = "./labels/nueva-home-petal-pop.prn"
+        elif self.fragance_name == "MYSTIC":
+            label_file = "./labels/nueva-home-mystic.prn"
+        elif self.fragance_name == "SAKURA DREAM":
+            label_file = "./labels/nueva-home-sakura-dream.prn"
+        elif self.fragance_name == "ZEN":
+            label_file = "./labels/nueva-home-zen.prn"
+        elif self.fragance_name == "VANILLA BEAN":
+            label_file = "./labels/nueva-home-vanilla-bean.prn"
+        elif self.fragance_name == "VELVET CREAM":
+            label_file = "./labels/nueva-home-velvet-cream.prn"
+        elif self.fragance_name == "AMBER LUXE":
+            label_file = "./labels/nueva-home-amber-luxe.prn"
+        elif self.fragance_name == "OREGANIC":
+            label_file = "./labels/nueva-home-oreganic.prn"
+        elif self.fragance_name == "BEETROOT BLAST":
+            label_file = "./labels/nueva-home-beetroot-blast.prn"
+        elif self.fragance_name == "TOMATO KICK":
+            label_file = "./labels/nueva-home-tomato-kick.prn"
+        elif self.fragance_name == "HERBAL ELIXIR":
+            label_file = "./labels/nueva-home-herbal-elixir.prn"
+        elif self.fragance_name == "CARIBIC PIRATES":
+            label_file = "./labels/nueva-home-caribic-pirates.prn"
+        elif self.fragance_name == "BOLD SPIRIT":
+            label_file = "./labels/nueva-home-bold-spirit.prn"
         elif self.categoria == 'oriental':
             label_file = "./labels/nueva-zzzz-oriental.prn"
         elif self.categoria == 'ken':
