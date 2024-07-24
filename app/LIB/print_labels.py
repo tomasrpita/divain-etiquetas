@@ -3,9 +3,11 @@ from dataclasses import dataclass
 import logging
 from typing import Callable, List
 import win32print
+from app.LIB.printers import get_printer_list
 from app.LIB.utils import get_printers
 
 log = logging.getLogger(__name__)
+
 
 def get_printers():
     printers = win32print.EnumPrinters(
@@ -18,13 +20,14 @@ def get_printers():
             hPrinter = win32print.OpenPrinter(printer_name)
             try:
                 printer_info = win32print.GetPrinter(hPrinter, 2)
-                port_name = printer_info['pPortName']
+                port_name = printer_info["pPortName"]
                 port_to_printer[port_name] = printer_name
             finally:
                 win32print.ClosePrinter(hPrinter)
         except Exception as e:
             log.error(f"Failed to get printer info for {printer_name}: {e}")
     return port_to_printer
+
 
 port_to_printer = get_printers()
 
@@ -36,10 +39,12 @@ PUERTOS_IMPRESORAS = {
     "USB003": port_to_printer.get("USB003", "black_printer"),
 }
 
+
 def get_printer_by_port(port: str):
-    return PUERTOS_IMPRESORAS.get(port, "default_printer")
     print(f"Printer for port {port}: {printer}")
     log.debug(f"Printer for port {port}: {printer}")
+    return PUERTOS_IMPRESORAS.get(port, "default_printer")
+
 
 def printer_job(printer_name, printer_file):
     log.debug(f"Attempting to print on printer: {printer_name}")
@@ -55,6 +60,7 @@ def printer_job(printer_name, printer_file):
             win32print.EndDocPrinter(hPrinter)
     finally:
         win32print.ClosePrinter(hPrinter)
+
 
 # UE - UK - USA- MX
 destinations = {
@@ -72,7 +78,6 @@ destinations = {
         "copies_number_line": 51,
         "file": "ue-bottle-box-codebar.prn",
         "QR_box_line": 36,
-
     },
     "UK": {
         "destination": "UK",
@@ -88,7 +93,6 @@ destinations = {
         "copies_number_line": 40,
         "file": "uk-bottle-box-codebar.prn",
         "QR_box_line": 25,
-
     },
     "USA": {
         "destination": "USA",
@@ -111,6 +115,7 @@ destinations = {
     },
 }
 
+
 def split_text(text: str, max_line_chr: int) -> List[str]:
     """
     Split text in lines with max_line_chr characters
@@ -127,15 +132,19 @@ def split_text(text: str, max_line_chr: int) -> List[str]:
     lines.append(line.strip())
     return lines
 
+
 def index_exists(list: List, index: int) -> bool:
     """
     Check if index exists in list
     """
     return index < len(list) and index >= 0
 
+
 class PrinterLabels:
     def __init__(self, formdata, printer_job, pro=False) -> None:
-        self.copies_mumber = int(formdata["CopiesNumber"]) if formdata["CopiesNumber"] else 0
+        self.copies_mumber = (
+            int(formdata["CopiesNumber"]) if formdata["CopiesNumber"] else 0
+        )
         self.lote = formdata["loteBotella"]
         self.ean_botes = formdata["ean_botes"]
         self.ean_muestras = formdata["ean_muestras"]
@@ -146,7 +155,9 @@ class PrinterLabels:
         self.categoria = formdata["categoria"]
         self.ingredientes = formdata["ingredientes"]
         self.free_sample = formdata.get("free_sample")
-        self.tsc_label = formdata["tscLabel"] if formdata["tscLabel"] != "ninguna" else ""
+        self.tsc_label = (
+            formdata["tscLabel"] if formdata["tscLabel"] != "ninguna" else ""
+        )
         self.zd_label = formdata.get("zdLabel")
         self.fragance_name = formdata.get("fragance_name")
         self.label_destination = formdata.get("label_destination")
@@ -158,7 +169,9 @@ class PrinterLabels:
     def extract_date_from_ean(self, ean):
         # Buscar el código de fecha que sigue a ')17='
         try:
-            date_code = ean.split(')17=')[1][:6]  # Los primeros 6 caracteres después de ')17='
+            date_code = ean.split(")17=")[1][
+                :6
+            ]  # Los primeros 6 caracteres después de ')17='
             return date_code
         except IndexError:
             # Manejar el caso donde no se encuentra la fecha o el formato es incorrecto
@@ -166,9 +179,14 @@ class PrinterLabels:
             return None
 
     def print_bottle_label_standard_new(self):
-        if (self.sex == "H O M M E" or self.categoria == "black") and self.categoria != "ken":
+        if (
+            self.sex == "H O M M E" or self.categoria == "black"
+        ) and self.categoria != "ken":
             printer = get_printer_by_port("USB003")
-        elif self.sex == "U N I S E X" and (("001" <= self.numero_divain <= "049") or ("200" <= self.numero_divain <= "499")):
+        elif self.sex == "U N I S E X" and (
+            ("001" <= self.numero_divain <= "049")
+            or ("200" <= self.numero_divain <= "499")
+        ):
             printer = get_printer_by_port("USB003")
         else:
             printer = get_printer_by_port("USB001")
@@ -177,14 +195,18 @@ class PrinterLabels:
             log.error("No printer found for the specified port.")
             return
 
+        pl = get_printer_list()
+        for p in pl:
+            print(f"Printer: {p}")
+
         print(f"Printing bottle label on printer: {printer}")
-        
-        if self.fragance_name == 'HOPE':
+
+        if self.fragance_name == "HOPE":
             label_file = "./labels/nueva-home-hope.prn"
-        elif self.fragance_name == 'REBEL':
+        elif self.fragance_name == "REBEL":
             label_file = "./labels/nueva-home-rebel.prn"
-        elif self.fragance_name == 'FEELING':
-            label_file = "./labels/nueva-home-feeling.prn"   
+        elif self.fragance_name == "FEELING":
+            label_file = "./labels/nueva-home-feeling.prn"
         elif self.fragance_name == "PLEASURE":
             label_file = "./labels/nueva-home-pleasure.prn"
         elif self.fragance_name == "PALO SANTO":
@@ -221,11 +243,11 @@ class PrinterLabels:
             label_file = "./labels/nueva-home-caribic-pirates.prn"
         elif self.fragance_name == "BOLD SPIRIT":
             label_file = "./labels/nueva-home-bold-spirit.prn"
-        elif self.categoria == 'oriental':
+        elif self.categoria == "oriental":
             label_file = "./labels/nueva-zzzz-oriental.prn"
-        elif self.categoria == 'ken':
+        elif self.categoria == "ken":
             label_file = "./labels/nueva-ken.prn"
-        elif self.categoria == 'barbie':
+        elif self.categoria == "barbie":
             label_file = "./labels/nueva-barbie.prn"
         elif self.categoria == "black":
             label_file = "./labels/nueva-black.prn"
@@ -245,15 +267,15 @@ class PrinterLabels:
             sex_text = "for him"
         elif self.sex == "U N I S E X":
             sex_text = "for all"
-        else: 
+        else:
             sex_text = ""
-        
+
         s = s.replace(b"ZZZ", bytes(self.sku.replace("DIVAIN-", ""), "utf-8"))
         s = s.replace(b"for XXX", bytes(sex_text, "utf-8"))
         s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber},1", "utf-8"))
 
         try:
-            print_content = s.decode('utf-8')
+            print_content = s.decode("utf-8")
             print("Contenido enviado a la impresora:")
         except UnicodeDecodeError:
             print("Contenido en bytes; no se puede mostrar como texto.")
@@ -280,10 +302,12 @@ class PrinterLabels:
             ean_select = self.ean_botes[:-1] + "!100" + self.ean_botes[-1:]
             s = s.replace(b"123456789012!1003", bytes(ean_select, "utf-8"))
             s = s.replace(b"1234567890123", bytes(f"{self.ean_botes}", "utf-8"))
-            s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
+            s = s.replace(
+                b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8")
+            )
 
             qr_data = f"(01){self.ean_botes}(10){self.lote}(17){self.fecha}"
-            qr_bytes = bytes(qr_data, 'utf-8')
+            qr_bytes = bytes(qr_data, "utf-8")
             s = s.replace(b"YYYY", qr_bytes)
 
         else:
@@ -366,7 +390,7 @@ class PrinterLabels:
 
                     elif line_number == labels_info["QR_box_line"]:
                         qr_data = f"(01){self.ean_botes}(10){self.lote}(17){self.fecha}"
-                        qr_bytes = bytes(qr_data, 'utf-8')
+                        qr_bytes = bytes(qr_data, "utf-8")
                         s = s.replace(line, line.replace(b"YYYY", qr_bytes))
 
         self.printer_job(printer, s)
@@ -379,13 +403,18 @@ class PrinterLabels:
             pass
 
         elif self.tsc_label == "bottle":
-            if self.categoria == "divain" or "home" and self.sex in [
-                "F E M M E",
-                "H O M M E",
-                "U N I S E X",
-                "K I D S",
-                "H O M E",
-            ]:
+            if (
+                self.categoria == "divain"
+                or "home"
+                and self.sex
+                in [
+                    "F E M M E",
+                    "H O M M E",
+                    "U N I S E X",
+                    "K I D S",
+                    "H O M E",
+                ]
+            ):
                 self.print_bottle_label_standard_new()
 
         else:
@@ -398,6 +427,7 @@ class PrinterLabels:
                 log.error("Destino no válido")
         else:
             print("Ninguna: ", get_printer_by_port("USB002"))
+
 
 class PrintManager:
     def __init__(self, print_data: dict, printer: Callable) -> None:
@@ -451,15 +481,16 @@ class PrintManager:
                 else:
                     log.error(f"No printer found for port {port}")
 
+
 @dataclass
 class ReferenceLabelData:
     sku: str
     ean_botes: str
     ean_muestras: str
 
+
 @dataclass
 class PrintJobData:
     copies_number: int
     label_type: str or None
     print_barcode: bool
-
