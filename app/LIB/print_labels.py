@@ -34,16 +34,16 @@ port_to_printer = get_printers()
 log.debug(f"port_to_printer: {port_to_printer}")
 
 PUERTOS_IMPRESORAS = {
-    "USB001": port_to_printer.get("USB001", "default_printer"),
-    "USB002": port_to_printer.get("USB002", "codebar_printer"),
-    "USB003": port_to_printer.get("USB003", "black_printer"),
+    "USB001": port_to_printer.get("USB002", "default_printer"),
+    "USB002": port_to_printer.get("USB005", "codebar_printer"),
+    "USB003": port_to_printer.get("USB004", "black_printer"),
 }
 
 
 def get_printer_by_port(port: str):
+    return PUERTOS_IMPRESORAS.get(port, "default_printer")
     print(f"Printer for port {port}: {printer}")
     log.debug(f"Printer for port {port}: {printer}")
-    return PUERTOS_IMPRESORAS.get(port, "default_printer")
 
 
 def printer_job(printer_name, printer_file):
@@ -194,10 +194,6 @@ class PrinterLabels:
         if not printer:
             log.error("No printer found for the specified port.")
             return
-
-        pl = get_printer_list()
-        for p in pl:
-            print(f"Printer: {p}")
 
         print(f"Printing bottle label on printer: {printer}")
 
