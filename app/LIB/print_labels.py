@@ -358,11 +358,11 @@ class PrinterLabels:
         # Imprime el contenido final que se enviará a la impresora para depuración
         try:
             print_content = s.decode("utf-8")
-            print("Contenido enviado a la impresora:")
         except UnicodeDecodeError:
             print("Contenido en bytes; no se puede mostrar como texto.")
 
         # Envía la cadena modificada para impresión.
+        print(f"Contenido enviado a la impresora")
         self.printer_job(printer, s)
 
     # in testing phase
