@@ -623,6 +623,7 @@ class PrinterLabels:
         if self.zd_label == "destination_group":
             # Destinos UE UK USA MX
             if self.label_destination in destinations.keys():
+                print(f"fichero ingredientes: {self.label_destination['file']}")
                 self.print_destination_group_label(destinations[self.label_destination])
             else:
                 log.error("Destino no válido")
