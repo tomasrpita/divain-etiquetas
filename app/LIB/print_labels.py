@@ -27,7 +27,6 @@ destinations = {
         "copies_number_line": 51,
         "file": "ue-bottle-box-codebar.prn",
         "QR_box_line": 36,
-
     },
     "UK": {
         "destination": "UK",
@@ -43,7 +42,6 @@ destinations = {
         "copies_number_line": 40,
         "file": "uk-bottle-box-codebar.prn",
         "QR_box_line": 25,
-
     },
     "USA": {
         "destination": "USA",
@@ -65,6 +63,8 @@ destinations = {
         "file": "mx-bottle-box-codebar.prn",
     },
 }
+
+
 def split_text(text: str, max_line_chr: int) -> List[str]:
     """
     Split text in lines with max_line_chr characters
@@ -112,7 +112,7 @@ class PrinterLabels:
         )
 
         self.zd_label = formdata.get("zdLabel")
-        self.fragance_name  = formdata.get("fragance_name")
+        self.fragance_name = formdata.get("fragance_name")
 
         # GRupo de etiquetas destino
         self.label_destination = formdata.get("label_destination")
@@ -125,8 +125,10 @@ class PrinterLabels:
 
     def extract_date_from_ean(self, ean):
         # Buscar el código de fecha que sigue a ')17='
-        try:	
-            date_code = ean.split(')17=')[1][:6]  # Los primeros 6 caracteres después de ')17='
+        try:
+            date_code = ean.split(")17=")[1][
+                :6
+            ]  # Los primeros 6 caracteres después de ')17='
             return date_code
         except IndexError:
             # Manejar el caso donde no se encuentra la fecha o el formato es incorrecto
@@ -284,21 +286,26 @@ class PrinterLabels:
         self.printer_job(printer, s)
 
     def print_bottle_label_standard_new(self):
-        if (self.sex == "H O M M E" or self.categoria == "black") and self.categoria != "ken":
+        if (
+            self.sex == "H O M M E" or self.categoria == "black"
+        ) and self.categoria != "ken":
             printer = black_printer
-        elif self.sex == "U N I S E X" and (("001" <= self.numero_divain <= "049") or ("200" <= self.numero_divain <= "499")):
+        elif self.sex == "U N I S E X" and (
+            ("001" <= self.numero_divain <= "049")
+            or ("200" <= self.numero_divain <= "499")
+        ):
             printer = black_printer
         else:
             printer = default_printer
 
         print("Bottle:", self.sku, self.categoria)
 
-        if self.fragance_name == 'HOPE':
+        if self.fragance_name == "HOPE":
             label_file = "./labels/nueva-home-hope.prn"
-        elif self.fragance_name == 'REBEL':
+        elif self.fragance_name == "REBEL":
             label_file = "./labels/nueva-home-rebel.prn"
-        elif self.fragance_name == 'FEELING':
-            label_file = "./labels/nueva-home-feeling.prn"   
+        elif self.fragance_name == "FEELING":
+            label_file = "./labels/nueva-home-feeling.prn"
         elif self.fragance_name == "PLEASURE":
             label_file = "./labels/nueva-home-pleasure.prn"
         elif self.fragance_name == "PALO SANTO":
@@ -309,11 +316,11 @@ class PrinterLabels:
             label_file = "./labels/nueva-home-true-leather.prn"
         elif self.fragance_name == "GEORGEOUS SANDALWOOD":
             label_file = "./labels/nueva-home-georgeous-sandalwood.prn"
-        elif self.categoria == 'oriental':
+        elif self.categoria == "oriental":
             label_file = "./labels/nueva-zzzz-oriental.prn"
-        elif self.categoria == 'ken':
+        elif self.categoria == "ken":
             label_file = "./labels/nueva-ken.prn"
-        elif self.categoria == 'barbie':
+        elif self.categoria == "barbie":
             label_file = "./labels/nueva-barbie.prn"
         elif self.categoria == "black":
             label_file = "./labels/nueva-black.prn"
@@ -321,6 +328,8 @@ class PrinterLabels:
             label_file = "./labels/nueva-kids.prn"
         else:
             label_file = "./labels/nueva.prn"
+
+        print("Label file: ", label_file)
 
         # Abre el archivo PRN que contiene la plantilla de la etiqueta.
         with open(label_file, "rb") as f:
@@ -334,10 +343,9 @@ class PrinterLabels:
             sex_text = "for him"
         elif self.sex == "U N I S E X":
             sex_text = "for all"
-        else: 
+        else:
             sex_text = ""
-        
-    
+
         # Reemplaza "ZZZ" con el número SKU, excluyendo el prefijo "DIVAIN-".
         s = s.replace(b"ZZZ", bytes(self.sku.replace("DIVAIN-", ""), "utf-8"))
 
@@ -349,7 +357,7 @@ class PrinterLabels:
 
         # Imprime el contenido final que se enviará a la impresora para depuración
         try:
-            print_content = s.decode('utf-8')
+            print_content = s.decode("utf-8")
             print("Contenido enviado a la impresora:")
         except UnicodeDecodeError:
             print("Contenido en bytes; no se puede mostrar como texto.")
@@ -438,7 +446,7 @@ class PrinterLabels:
             )
 
             qr_data = f"(01){self.ean_botes}(10){self.lote}(17){self.fecha}"
-            qr_bytes = bytes(qr_data, 'utf-8')
+            qr_bytes = bytes(qr_data, "utf-8")
             s = s.replace(b"YYYY", qr_bytes)
 
         else:
@@ -528,7 +536,7 @@ class PrinterLabels:
 
                     elif line_number == labels_info["QR_box_line"]:
                         qr_data = f"(01){self.ean_botes}(10){self.lote}(17){self.fecha}"
-                        qr_bytes = bytes(qr_data, 'utf-8')
+                        qr_bytes = bytes(qr_data, "utf-8")
                         s = s.replace(line, line.replace(b"YYYY", qr_bytes))
 
         self.printer_job(printer, s)
@@ -536,10 +544,7 @@ class PrinterLabels:
     def print(self):
         tipo_ean = self.ean_botes or self.ean_muestras
 
-        avoid_print_bottle_skus = [
-        
-            
-        ]
+        avoid_print_bottle_skus = []
 
         # Bloque que se relaciona con lo marcado en le formulario como impresora 1
 
@@ -547,13 +552,18 @@ class PrinterLabels:
             pass
 
         elif self.tsc_label == "bottle":
-            if self.categoria == "divain" or "home" and self.sex in [
-                "F E M M E",
-                "H O M M E",
-                "U N I S E X",
-                "K I D S",
-                "H O M E",
-            ]:
+            if (
+                self.categoria == "divain"
+                or "home"
+                and self.sex
+                in [
+                    "F E M M E",
+                    "H O M M E",
+                    "U N I S E X",
+                    "K I D S",
+                    "H O M E",
+                ]
+            ):
                 self.print_bottle_label_standard_new()
 
             # Son preimpresas no se imprimen

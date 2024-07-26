@@ -1,7 +1,7 @@
 <xpml><page quantity='0' pitch='28.0 mm'></xpml>SIZE 95.7 mm, 28 mm
 GAP 4 mm, 0 mm
-SPEED 2
-DENSITY 18
+SPEED 1
+DENSITY 20
 SET RIBBON ON
 DIRECTION 0,0
 REFERENCE 0,0
