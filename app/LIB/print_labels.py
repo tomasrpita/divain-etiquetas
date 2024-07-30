@@ -442,8 +442,6 @@ class PrinterLabels:
         # Workaround for change number of copies
         self.copies_mumber = 45 if self.pro else self.copies_mumber
 
-        print(f"fichero ingredientes: {labels_info['file']}")
-
         if labels_info["destination"] == "MX":
             f = open(os.path.join(base_dir, labels_info["file"]), "rb")
             s = f.read()
