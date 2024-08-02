@@ -25,7 +25,7 @@ destinations = {
         "barcode_box_line": 49,
         "ean_box_line": 50,
         "copies_number_line": 51,
-        "file": "ue-bottle-box-codebar.prn",
+        "file": "ue-bottle-box-codebar-QR.prn",
         "QR_box_line": 36,
 
     },
@@ -157,6 +157,7 @@ class PrinterLabels:
 
         # copies number
         s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
+        s = s.replace(b"^PQ1", bytes(f"^PQ{self.copies_mumber}", "utf-8"))
 
         self.printer_job(printer, s)
 
@@ -202,6 +203,7 @@ class PrinterLabels:
 
         # copies number
         s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
+        s = s.replace(b"^PQ1", bytes(f"^PQ{self.copies_mumber}", "utf-8"))
 
         self.printer_job(printer, s)
 
@@ -280,6 +282,7 @@ class PrinterLabels:
 
         # copies number
         s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
+        s = s.replace(b"^PQ1", bytes(f"^PQ{self.copies_mumber}", "utf-8"))
 
         self.printer_job(printer, s)
 
@@ -309,6 +312,32 @@ class PrinterLabels:
             label_file = "./labels/nueva-home-true-leather.prn"
         elif self.fragance_name == "GEORGEOUS SANDALWOOD":
             label_file = "./labels/nueva-home-georgeous-sandalwood.prn"
+        elif self.fragance_name == "PETAL POP":
+            label_file = "./labels/nueva-home-petal-pop.prn"
+        elif self.fragance_name == "MYSTIC":
+            label_file = "./labels/nueva-home-mystic.prn"
+        elif self.fragance_name == "SAKURA DREAM":
+            label_file = "./labels/nueva-home-sakura-dream.prn"
+        elif self.fragance_name == "ZEN":
+            label_file = "./labels/nueva-home-zen.prn"
+        elif self.fragance_name == "VANILLA BEAN":
+            label_file = "./labels/nueva-home-vanilla-bean.prn"
+        elif self.fragance_name == "VELVET CREAM":
+            label_file = "./labels/nueva-home-velvet-cream.prn"
+        elif self.fragance_name == "AMBER LUXE":
+            label_file = "./labels/nueva-home-amber-luxe.prn"
+        elif self.fragance_name == "OREGANIC":
+            label_file = "./labels/nueva-home-oreganic.prn"
+        elif self.fragance_name == "BEETROOT BLAST":
+            label_file = "./labels/nueva-home-beetroot-blast.prn"
+        elif self.fragance_name == "TOMATO KICK":
+            label_file = "./labels/nueva-home-tomato-kick.prn"
+        elif self.fragance_name == "HERBAL ELIXIR":
+            label_file = "./labels/nueva-home-herbal-elixir.prn"
+        elif self.fragance_name == "CARIBIC PIRATES":
+            label_file = "./labels/nueva-home-caribic-pirates.prn"
+        elif self.fragance_name == "BOLD SPIRIT":
+            label_file = "./labels/nueva-home-bold-spirit.prn"
         elif self.categoria == 'oriental':
             label_file = "./labels/nueva-zzzz-oriental.prn"
         elif self.categoria == 'ken':
@@ -322,7 +351,6 @@ class PrinterLabels:
         else:
             label_file = "./labels/nueva.prn"
 
-        # Abre el archivo PRN que contiene la plantilla de la etiqueta.
         with open(label_file, "rb") as f:
             s = f.read()
 
@@ -337,17 +365,11 @@ class PrinterLabels:
         else: 
             sex_text = ""
         
-    
-        # Reemplaza "ZZZ" con el número SKU, excluyendo el prefijo "DIVAIN-".
         s = s.replace(b"ZZZ", bytes(self.sku.replace("DIVAIN-", ""), "utf-8"))
-
-        # Reemplaza "XXX" con el valor de sexo correspondiente.
         s = s.replace(b"for XXX", bytes(sex_text, "utf-8"))
-
-        # Corrección en el nombre de la variable para número de copias
         s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber},1", "utf-8"))
+        s = s.replace(b"^PQ1", bytes(f"^PQ{self.copies_mumber}", "utf-8"))
 
-        # Imprime el contenido final que se enviará a la impresora para depuración
         try:
             print_content = s.decode('utf-8')
             print("Contenido enviado a la impresora:")
@@ -372,6 +394,7 @@ class PrinterLabels:
 
         # copies number
         s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
+        s = s.replace(b"^PQ1", bytes(f"^PQ{self.copies_mumber}", "utf-8"))
 
         self.printer_job(printer, s)
 
@@ -399,6 +422,7 @@ class PrinterLabels:
 
         # copies number
         s = s.replace(b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8"))
+        s = s.replace(b"^PQ1", bytes(f"^PQ{self.copies_mumber}", "utf-8"))
 
         self.printer_job(printer, s)
 
@@ -436,6 +460,7 @@ class PrinterLabels:
             s = s.replace(
                 b"PRINT 1,1", bytes(f"PRINT {self.copies_mumber },1", "utf-8")
             )
+            s = s.replace(b"^PQ1", bytes(f"^PQ{self.copies_mumber}", "utf-8"))
 
             qr_data = f"(01){self.ean_botes}(10){self.lote}(17){self.fecha}"
             qr_bytes = bytes(qr_data, 'utf-8')
@@ -525,6 +550,7 @@ class PrinterLabels:
                                 )
                             ),
                         )
+                        s = s.replace(b"^PQ1", bytes(f"^PQ{self.copies_mumber}", "utf-8"))
 
                     elif line_number == labels_info["QR_box_line"]:
                         qr_data = f"(01){self.ean_botes}(10){self.lote}(17){self.fecha}"

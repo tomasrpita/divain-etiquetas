@@ -1,52 +1,53 @@
-<xpml><page quantity='0' pitch='168.3 mm'></xpml>SIZE 43.5 mm, 168.3 mm
-DIRECTION 0,0
-REFERENCE 0,0
-OFFSET 0 mm
-SET PEEL OFF
-SET CUTTER OFF
-SET PARTIAL_CUTTER OFF
-<xpml></page></xpml><xpml><page quantity='1' pitch='168.3 mm'></xpml>SET TEAR ON
-CLS
-CODEPAGE 1252
-TEXT 358,1761,"COURIERR.TTF",180,6,8,"Manufactured by:"
-TEXT 349,1743,"COURIERR.TTF",180,6,8,"DIVAIN TEAM SL"
-TEXT 373,1725,"COURIERR.TTF",180,6,8,"Ctra. Astorga-Pi 34"
-TEXT 413,1707,"COURIERR.TTF",180,6,8,"24710 San Justo de la Vega,"
-TEXT 304,1689,"COURIERR.TTF",180,6,8,"SPAIN"
-TEXT 344,1653,"COURIERR.TTF",180,6,8,"SPRAY PERFUME"
-TEXT 482,1617,"COURIERR.TTF",180,6,8,"Avoid direct exposure to the sun. Topical"
-TEXT 477,1599,"COURIERR.TTF",180,6,8,"use only. Avoid direct contact with eyes"
-TEXT 373,1581,"COURIERR.TTF",180,6,8,"and mucous membrane"
-TEXT 467,1545,"COURIERR.TTF",180,6,8,"Evitar exposici�n directa al sol. Solo"
-TEXT 477,1527,"COURIERR.TTF",180,6,8,"para uso t�pico. Evitar contacto directo"
-TEXT 438,1509,"COURIERR.TTF",180,6,8,"con los ojos y membranas mucosas"
-TEXT 339,1473,"COURIERR.TTF",180,6,8,"LOT: XXXXXX"
-TEXT 229,1473,"COURIERR.TTF",180,6,8,"."
-TEXT 406,402,"COURIERR.TTF",180,3,3,"DIVAIN-ZZZ"
-TEXT 406,180,"COURIERR.TTF",180,2,2,"Lote:xxxxxxxxxx"
-BARCODE 441,351,"128M",125,0,180,3,6,"!105123456789012!1003"
-TEXT 321,218,"COURIERR.TTF",180,6,8,"1234567890123"
-TEXT 479,1171,"COURIERR.TTF,180,6,8,"Avoid direct exposure to the sun. Topical use"
-TEXT 454,1153,"COURIERR.TTF,180,6,8,"only. Avoid direct contact with eyes and"
-TEXT 336,1135,"COURIERR.TTF,180,6,8,"mucous membranes"
-TEXT 261,1117,"COURIERR.TTF,180,6,8,"-"
-TEXT 469,1099,"COURIERR.TTF,180,6,8,"Evitar exposici�n directa al sol. Solo para"
-TEXT 469,1081,"COURIERR.TTF,180,6,8,"uso t�pico. Evitar contacto directo con los"
-TEXT 380,1063,"COURIERR.TTF,180,6,8,"ojos y membranas mucosas."
-TEXT 485,905,"COURIERR.TTF",180,6,8,"DIVAIN TEAM SL"
-TEXT 485,887,"COURIERR.TTF",180,6,8,"Ctra. Astorga-Pi 34 4710"
-TEXT 485,869,"COURIERR.TTF",180,6,8,"San Justo de la Vega "
-TEXT 485,851,"COURIERR.TTF",180,6,8,"SPAIN"
-TEXT 355,698,"COURIERR.TTF",180,6,8,"####################"
-TEXT 355,680,"COURIERR.TTF",180,6,8,"####################"
-TEXT 355,662,"COURIERR.TTF",180,6,8,"####################"
-TEXT 355,644,"COURIERR.TTF",180,6,8,"####################"
-TEXT 355,626,"COURIERR.TTF",180,6,8,"####################"
-TEXT 355,608,"COURIERR.TTF",180,6,8,"####################"
-TEXT 355,590,"COURIERR.TTF",180,6,8,"####################"
-TEXT 355,572,"COURIERR.TTF",180,6,8,"####################"
-QRCODE 193,949,L,6,A,180,M2,S7,"YYYY"
-TEXT 155,819,"COURIERR.TTF",180,1,1,"LOT :"
-TEXT 195,794,"COURIERR.TTF",180,3,3,"XXXX"
-PRINT 1,1
-<xpml></page></xpml><xpml><end/></xpml>
+^XA
+^CI28
+^CW1,E:COURIERR.TTF
+^PW700
+^LL2300
+^MD16
+^PR10
+^FO155,10^A1N,30,30^FDManufactured by:^FS
+^FO160,40^A1N,30,30^FDDIVAIN TEAM SL^FS
+^FO130,70^A1N,30,30^FDCtra. Astorga-Pi 34^FS
+^FO80,100^A1N,30,30^FD24710 San Justo de la Vega,^FS
+^FO205,130^A1N,30,30^FDSPAIN^FS
+^FO155,160^A1N,30,30^FDSPRAY PERFUME^FS
+^FO55,190^A1N,30,30^FDAvoid direct exposure to the sun.^FS
+^FO155,220^A1N,30,30^FDTopical use only.^FS
+^FO85,250^A1N,30,30^FDAvoid direct contact with^FS
+^FO70,280^A1N,30,30^FDEyes and mucous membranes.^FS
+^FO70,310^A1N,30,30^FDEvitar exposicion directa al sol.^FS
+^FO105,340^A1N,30,30^FDSolo para uso tópico.^FS
+^FO80,370^A1N,30,30^FDEvitar contacto con los ojos^FS
+^FO105,400^A1N,30,30^FDy membranas mucosas.^FS
+^FO160,450^A1N,40,40^FDLOT: XXXXXX^FS
+^FO80,740^A1N,30,30^FDAvoid direct exposure to the sun.^FS
+^FO140,770^A1N,30,30^FDTopical use only.^FS
+^FO80,800^A1N,30,30^FDAvoid direct contact with eyes^FS
+^FO90,830^A1N,30,30^FDand mucous membranes^FS
+^FO80,860^A1N,30,30^FDEvitar exposición directa al sol.^FS
+^FO140,890^A1N,30,30^FDSolo para uso tópico.^FS
+^FO80,920^A1N,30,30^FDEvitar contacto directo con los^FS
+^FO90,950^A1N,30,30^FDojos y membranas mucosas.^FS
+^FO40,1000^A1N,30,30^FDDIVAIN TEAM SL^FS
+^FO40,1030^A1N,30,30^FDCtra. Astorga-Pi^FS
+^FO40,1060^A1N,30,30^FDN34 24710^FS
+^FO40,1090^A1N,30,30^FDSan Justo de la Vega^FS
+^FO40,1120^A1N,30,30^FDSPAIN^FS
+^FO350,1000^BQN,2,5^FDYYYY^FS
+^FO50,1210^A1N,30,30^FD####################^FS
+^FO50,1240^A1N,30,30^FD####################^FS
+^FO50,1270^A1N,30,30^FD####################^FS
+^FO50,1300^A1N,30,30^FD####################^FS
+^FO50,1330^A1N,30,30^FD####################^FS
+^FO50,1360^A1N,30,30^FD####################^FS
+^FO50,1390^A1N,30,30^FD####################^FS
+^FO50,1420^A1N,30,30^FD####################^FS
+^FO50,1450^A1N,30,30^FD####################^FS
+^FO50,1480^A1N,30,30^FD####################^FS
+^FO150,1530^A1N,50,50^FDDIVAIN-ZZZ^FS
+^FO165,1800^A1N,50,50^FDLote:xxxxxxxxxx^FS
+^FO145,1600^BY1,2^BCN,150,N,N,N^FD!105123456789012!1003^FS
+^FO200,1765^A1N,25,25^FD1234567890123^FS
+^PQ1
+^MMT
+^XZ
