@@ -25,24 +25,24 @@ destinations = {
         "barcode_box_line": 49,
         "ean_box_line": 50,
         "copies_number_line": 51,
-        "file": "ue-bottle-box-codebar-QR.prn",
+        "file": "ue-bottle-box-codebar-sato.prn",
         "QR_box_line": 36,
 
     },
     "UK": {
         "destination": "UK",
         "ingredient_lines": {
-            "start": 26,
-            "end": 35,
+            "start": 25,
+            "end": 34,
         },
-        "lote_bottle_line": 16,
-        "lote_box_line": 37,
-        "sku_box_line": 36,
-        "barcode_box_line": 38,
-        "ean_box_line": 39,
-        "copies_number_line": 40,
-        "file": "uk-bottle-box-codebar.prn",
-        "QR_box_line": 25,
+        "lote_bottle_line": 15,
+        "lote_box_line": 36,
+        "sku_box_line": 35,
+        "barcode_box_line": 37,
+        "ean_box_line": 38,
+        "copies_number_line": 39,
+        "file": "uk-bottle-box-codebar-sato.prn",
+        "QR_box_line": 24,
 
     },
     "USA": {
@@ -57,7 +57,7 @@ destinations = {
         "barcode_box_line": 48,
         "ean_box_line": 49,
         "copies_number_line": 50,
-        "file": "usa-bottle-box-codebar-QR.prn",
+        "file": "usa-bottle-box-codebar-sato.prn",
         "QR_box_line": 35,
     },
     "MX": {
@@ -248,7 +248,7 @@ class PrinterLabels:
                     s = s.replace(line, (line.replace("xxxxxxxxxx", self.lote)))
                 # BAR CODE
                 elif line_number == 25:
-                    ean_select = tipo_ean[:-1] + "!100" + tipo_ean[-1:]
+                    ean_select = tipo_ean
                     s = s.replace(line, (line.replace("123456789012!1003", ean_select)))
                 # Núnmero código de barras
                 elif line_number == 26:
@@ -450,11 +450,11 @@ class PrinterLabels:
             s = s.replace(b"xxxxxxxxxx", bytes(f"{self.lote}", "utf-8"))
 
             # bar code
-            ean_select = self.ean_botes[:-1] + "!100" + self.ean_botes[-1:]
+            ean_select = self.ean_botes
             s = s.replace(b"123456789012", bytes(ean_select, "utf-8"))
 
             # ean number
-            s = s.replace(b"1234567890123", bytes(f"{self.ean_botes}", "utf-8"))
+            s = s.replace(b"123456789012", bytes(f"{self.ean_botes}", "utf-8"))
 
             # Copies number
             s = s.replace(
@@ -462,9 +462,12 @@ class PrinterLabels:
             )
             s = s.replace(b"^PQ1", bytes(f"^PQ{self.copies_mumber}", "utf-8"))
 
-            qr_data = f"(01){self.ean_botes}(10){self.lote}(17){self.fecha}"
-            qr_bytes = bytes(qr_data, 'utf-8')
+            qr_data = f"  ((01){self.ean_botes}(10){self.lote}(17){self.fecha}"
+            qr_bytes = qr_data.encode('utf-8')  # Convierte la cadena a bytes sin escapar
             s = s.replace(b"YYYY", qr_bytes)
+
+            print(f"AAAAAADatos QR Generados: {qr_data}")
+
 
         else:
             f = open(os.path.join(base_dir, labels_info["file"]), "rb")
@@ -513,15 +516,8 @@ class PrinterLabels:
 
                     elif line_number == labels_info["barcode_box_line"]:
                         # Codebar box
-                        ean_select = self.ean_botes[:-1] + "!100" + self.ean_botes[-1:]
-                        s = s.replace(
-                            line,
-                            (
-                                line.replace(
-                                    b"123456789012", bytes(ean_select, "utf-8")
-                                )
-                            ),
-                        )
+                        ean_select = self.ean_botes
+                        s = s.replace(b"123456789012", bytes(ean_select, "utf-8"))
 
                     elif line_number == labels_info["ean_box_line"]:
                         # Ean box
@@ -529,7 +525,7 @@ class PrinterLabels:
                             line,
                             (
                                 line.replace(
-                                    b"1234567890123", bytes(self.ean_botes, "utf-8")
+                                    b"123456789012", bytes(self.ean_botes, "utf-8")
                                 )
                             ),
                         )
@@ -553,9 +549,12 @@ class PrinterLabels:
                         s = s.replace(b"^PQ1", bytes(f"^PQ{self.copies_mumber}", "utf-8"))
 
                     elif line_number == labels_info["QR_box_line"]:
-                        qr_data = f"(01){self.ean_botes}(10){self.lote}(17){self.fecha}"
-                        qr_bytes = bytes(qr_data, 'utf-8')
-                        s = s.replace(line, line.replace(b"YYYY", qr_bytes))
+                        qr_data = f"  ((01){self.ean_botes}(10){self.lote}(17){self.fecha}"
+                        qr_bytes = qr_data.encode('utf-8')  # Convierte la cadena a bytes sin escapar
+                        s = s.replace(b"YYYY", qr_bytes)
+
+                        print(f"Datos QR Generados: {qr_data}")
+
 
         self.printer_job(printer, s)
 
