@@ -57,12 +57,12 @@ destinations = {
         "barcode_box_line": 48,
         "ean_box_line": 49,
         "copies_number_line": 50,
-        "file": "usa-bottle-box-codebar.prn",
+        "file": "usa-bottle-box-codebar-QR.prn",
         "QR_box_line": 35,
     },
     "MX": {
         "destination": "MX",
-        "file": "mx-bottle-box-codebar.prn",
+        "file": "mx-bottle-box-codebar-sato.prn",
     },
 }
 def split_text(text: str, max_line_chr: int) -> List[str]:
@@ -451,7 +451,7 @@ class PrinterLabels:
 
             # bar code
             ean_select = self.ean_botes[:-1] + "!100" + self.ean_botes[-1:]
-            s = s.replace(b"123456789012!1003", bytes(ean_select, "utf-8"))
+            s = s.replace(b"123456789012", bytes(ean_select, "utf-8"))
 
             # ean number
             s = s.replace(b"1234567890123", bytes(f"{self.ean_botes}", "utf-8"))
@@ -518,7 +518,7 @@ class PrinterLabels:
                             line,
                             (
                                 line.replace(
-                                    b"123456789012!1003", bytes(ean_select, "utf-8")
+                                    b"123456789012", bytes(ean_select, "utf-8")
                                 )
                             ),
                         )
