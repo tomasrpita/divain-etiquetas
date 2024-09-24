@@ -1,0 +1,52 @@
+^XA
+^CI28
+^CW1,E:COU000.FNT
+^PW700
+^LL2300
+^MD30
+^PR2
+^FO115,30^A1N,30,25^FDTopical use only^FS
+^FO115,60^A1N,30,25^FDManufactured by:^FS
+^FO130,90^A1N,30,25^FDDIVAIN TEAM SL^FS
+^FO100,120^A1N,30,25^FDCtra. Astorga-Pi 34^FS
+^FO40,150^A1N,30,25^FD24710 San Justo de la Vega,^FS
+^FO205,180^A1N,30,25^FDSPAIN^FS
+^FO85,210^A1N,30,25^FDhelp@divainparfums.us^FS
+^FO135,240^A1N,30,25^FD+1360-564-8417^FS
+^FO20,270^A1N,30,25^FDWarning-Avoid spraying in eyes.^FS
+^FO10,300^A1N,30,25^FDContents under pressure. Do not ^FS
+^FO5,330^A1N,30,25^FDbreak or incinerate.Do not store^FS
+^FO45,360^A1N,30,25^FDat temperature above 120F.^FS
+^FO20,390^A1N,30,25^FDKeep out of reach of children.^FS
+^FO120,460^A1N,40,40^FDLOT: XXXXXX^FS
+^FO130,810^A1N,30,25^FDTopical use only^FS
+^FO30,840^A1N,30,25^FDWarning-Avoid spraying in eyes.^FS
+^FO30,870^A1N,30,25^FDContents under pressure. Do not ^FS
+^FO20,900^A1N,30,25^FDbreak or incinerate. Do not store^FS
+^FO70,930^A1N,30,25^FDat temperature above 120F.^FS
+^FO40,960^A1N,30,25^FDKeep out of reach of children.^FS
+^FO10,1020^A1N,30,25^FDManufactured by:^FS
+^FO10,1050^A1N,30,25^FDDIVAIN TEAM SL^FS
+^FO10,1080^A1N,30,25^FDCtra. Astorga-Pi 3^FS
+^FO10,1110^A1N,30,25^FD24710 San Justo^FS
+^FO10,1140^A1N,30,25^FDde la Vega, SPAIN^FS
+^FO10,1170^A1N,30,25^FDhelp@divainparfums.us^FS
+^FO10,1200^A1N,30,25^FD+1 360-564-8417^FS
+^FO340,1070^BQN,2,6^FDYYYY^FS
+^FO50,1270^A1N,30,25^FD####################^FS
+^FO50,1300^A1N,30,25^FD####################^FS
+^FO50,1330^A1N,30,25^FD####################^FS
+^FO50,1360^A1N,30,25^FD####################^FS
+^FO50,1390^A1N,30,25^FD####################^FS
+^FO50,1420^A1N,30,25^FD####################^FS
+^FO50,1450^A1N,30,25^FD####################^FS
+^FO50,1480^A1N,30,25^FD####################^FS
+^FO50,1510^A1N,30,25^FD####################^FS
+^FO50,1540^A1N,30,25^FD####################^FS
+^FO130,1590^A1N,50,50^FDDIVAIN-ZZZ^FS
+^FO135,1840^A1N,50,50^FDLote:xxxxxxxxxx^FS
+^FO90,1660^BY2^BCN,120,N,N,N^FD123456789012^FS
+^FO180,1800^A1N,25,25^FD123456789012^FS
+^PQ1
+^MMT
+^XZ

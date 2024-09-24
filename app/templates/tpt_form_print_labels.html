@@ -22,8 +22,8 @@
       <div class="col-7">
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input show-bottle" type="radio" name="tscLabel" id="tscLabel1" value="bottle"
-          {% if not formdata or formdata['tscLabel']=='bottle' %} checked {% endif %}>
+          <input class="form-check-input show-bottle" type="radio" name="tscLabel" id="tscLabel1" value="bottle" {% if
+            not formdata or formdata['tscLabel']=='bottle' %} checked {% endif %}>
           {# {% if formdata and formdata['tscLabel']=='bottle' %} checked {% endif %}> #}
           <label class="form-check-label" for="tscLabel1">
             DIVAIN 100
@@ -40,9 +40,9 @@
         </div>
 
         <div class="form-check form-check-inline">
-          {# <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel2" value="sample" {% if #}
-          <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel_sample" value="sample" {% if
-            formdata and formdata['tscLabel']=='sample' %} checked {% endif %}>
+          {# <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel2" value="sample" {%
+            if #} <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel_sample"
+            value="sample" {% if formdata and formdata['tscLabel']=='sample' %} checked {% endif %}>
           <label class="form-check-label" for="tscLabel_sample">
             SAMPLE
           </label>
@@ -50,24 +50,24 @@
 
         {# QR LABELS #}
         <div class="form-check form-check-inline">
-          <input class="form-check-input show-bottle" type="radio" name="tscLabel" id="QR_QQ" value="QR_QQ"
-          {% if formdata and formdata['tscLabel']=='QR_QQ' %} checked {% endif %}>
+          <input class="form-check-input show-bottle" type="radio" name="tscLabel" id="QR_QQ" value="QR_QQ" {% if
+            formdata and formdata['tscLabel']=='QR_QQ' %} checked {% endif %}>
           <label class="form-check-label" for="QR_QQ">
             QR 100 Q
           </label>
         </div>
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input show-bottle" type="radio" name="tscLabel" id="QR_HQ" value="QR_HQ"
-          {% if formdata and formdata['tscLabel']=='QR_HQ' %} checked {% endif %}>
+          <input class="form-check-input show-bottle" type="radio" name="tscLabel" id="QR_HQ" value="QR_HQ" {% if
+            formdata and formdata['tscLabel']=='QR_HQ' %} checked {% endif %}>
           <label class="form-check-label" for="QR_HQ">
             QR 100 H
           </label>
         </div>
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel3" value="ninguna"
-          {% if formdata and formdata['tscLabel']=='ninguna' %} checked {% endif %}>
+          <input class="form-check-input hidde-bottle" type="radio" name="tscLabel" id="tscLabel3" value="ninguna" {% if
+            formdata and formdata['tscLabel']=='ninguna' %} checked {% endif %}>
           {# {% if not formdata or formdata['tscLabel']=='ninguna' %} checked {% endif %}> #}
           <label class="form-check-label" for="tscLabel3">
             Ninguna
@@ -76,7 +76,7 @@
       </div>
     </div>
 
-      <div class="form-group row ">
+    <div class="form-group row ">
       <label class="col-3  col-form-label">Tipo Etiqueta Sample</label>
       <div class="col-7">
 
@@ -103,8 +103,8 @@
       <label class="col-3  col-form-label">Impresora 2</label>
       <div class="col-7">
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="zdLabel" id="zdLabel1" value="destination_group" {% if not formdata or
-            formdata['zdLabel']=='destination_group' %} checked {% endif %}>
+          <input class="form-check-input" type="radio" name="zdLabel" id="zdLabel1" value="destination_group" {% if not
+            formdata or formdata['zdLabel']=='destination_group' %} checked {% endif %}>
           <label class="form-check-label" for="zdLabel1">
             Grupo destino
           </label>
@@ -144,45 +144,45 @@
       </div>
     </div> #}
 
-  <div class="form-group row ">
+    <div class="form-group row ">
       <label class="col-3  col-form-label">Tipo Etiquetas destino</label>
 
-     <div class="col-7">
+      <div class="col-7">
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input " type="radio" name="label_destination" id="label_destination_ue"
-            value="UE" {% if not formdata or formdata['label_destination']=='UE' %} checked {% endif %}>
+          <input class="form-check-input " type="radio" name="label_destination" id="label_destination_ue" value="UE" {%
+            if not formdata or formdata['label_destination']=='UE' %} checked {% endif %}>
           <label class="form-check-label" for="label_destination_ue">
             UE
           </label>
         </div>
 
-                <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="label_destination" id="label_destination_uk"
-            value="UK" {% if formdata and formdata['label_destination']=='UK' %} checked {% endif %}>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="label_destination" id="label_destination_uk" value="UK" {%
+            if formdata and formdata['label_destination']=='UK' %} checked {% endif %}>
           <label class="form-check-label" for="label_destination_uk">
             UK
           </label>
         </div>
 
-          <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="label_destination" id="label_destination_usa"
-            value="USA" {% if formdata and formdata['label_destination']=='USA' %} checked {% endif %}>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="label_destination" id="label_destination_usa" value="USA"
+            {% if formdata and formdata['label_destination']=='USA' %} checked {% endif %}>
           <label class="form-check-label" for="label_destination_usa">
             USA
           </label>
         </div>
 
-          <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="label_destination" id="label_destination_mx"
-            value="MX" {% if formdata and formdata['label_destination']=='MX' %} checked {% endif %}>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="label_destination" id="label_destination_mx" value="MX" {%
+            if formdata and formdata['label_destination']=='MX' %} checked {% endif %}>
           <label class="form-check-label" for="label_destination_mx">
             MX
           </label>
         </div>
 
         {#
-          <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline">
           <input class="form-check-input " type="radio" name="label_ingredients_type" id="label_ingredients_type_normal"
             value="normal" {% if not formdata or formdata['label_ingredients_type']=='normal' %} checked {% endif %}>
           <label class="form-check-label" for="zdLabel2">
@@ -197,11 +197,11 @@
             EEUU
           </label>
         </div>
-         #}
+        #}
 
       </div>
 
-  </div>
+    </div>
 
   </section>
   <hr>
@@ -265,7 +265,9 @@
   <hr>
   <!-- INPUTS OCULTOS - DATOS ADICIONALES -->
   <section>
-    <div class="d-none" id="hiddenInputs"></div>
+    <div class="d-none" id="hiddenInputs">
+      <input type="hidden" name="isHome" value="true">
+    </div>
   </section>
 
   <small id="smallEanBotella" class="form-text text-danger invisible ">Código invalido por favor intente nuevamente
@@ -280,35 +282,35 @@
 
   // Precarga de los datos de las etiquetas en el cliente
   function createFindLabelInfo(labelsInfo) {
-    
+
     // Devuelve una función que busca la información de una etiqueta
-    return function(userInput) {
-    // Primero buscar por 'supplier_references_eans'
-    for (const obj of labelsInfo) {
-      if (obj.supplier_references_eans.includes(userInput)) {
-        return obj;
+    return function (userInput) {
+      // Primero buscar por 'supplier_references_eans'
+      for (const obj of labelsInfo) {
+        if (obj.supplier_references_eans.includes(userInput)) {
+          return obj;
+        }
       }
-    }
-    // Segundo, buscar por 'ean_bottle'
-    for (const obj of labelsInfo) {
-      if (obj.ean_bottle === userInput) {
-        return obj;
+      // Segundo, buscar por 'ean_bottle'
+      for (const obj of labelsInfo) {
+        if (obj.ean_bottle === userInput) {
+          return obj;
+        }
       }
-    }
-    // Tercero, buscar por 'ean_sample'
-    for (const obj of labelsInfo) {
-      if (obj.ean_sample === userInput) {
-        return obj;
+      // Tercero, buscar por 'ean_sample'
+      for (const obj of labelsInfo) {
+        if (obj.ean_sample === userInput) {
+          return obj;
+        }
       }
-    }
-    // Cuarto, buscar por 'divain_number'
-    for (const obj of labelsInfo) {
-      if (obj.divain_number === userInput) {
-        return obj;
+      // Cuarto, buscar por 'divain_number'
+      for (const obj of labelsInfo) {
+        if (obj.divain_number === userInput) {
+          return obj;
+        }
       }
-    }
-    // Si no se encuentra nada
-    return null;
+      // Si no se encuentra nada
+      return null;
     };
   }
 

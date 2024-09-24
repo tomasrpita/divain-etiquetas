@@ -196,9 +196,10 @@ const postReferenceData = ({
 	<input type="text" name="categoria" value="${category}">
 	<input type="text" name="ingredientes" value="${ingredients}">
 	<input type="text" name="fragance_name" value="${fragance_name}">
+  <input type="hidden" name="isHome" value="true">
 
     `;
-
+  console.log(hiddenInputs);
   divHiddenInputs.innerHTML = hiddenInputs;
 };
 
