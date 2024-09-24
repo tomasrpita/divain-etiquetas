@@ -1,0 +1,53 @@
+^XA
+^CI28
+^CW1,E:COU000.FNT
+^PW700
+^LL2300
+^MD30
+^PR3
+^FO125,30^A1N,30,25,E,^FDManufactured by:^FS
+^FO135,60^A1N,30,25^FDDIVAIN TEAM SL^FS
+^FO100,90^A1N,30,25^FDCtra. Astorga-Pi 34^FS
+^FO40,120^A1N,30,25^FD24710 San Justo de la Vega,^FS
+^FO205,150^A1N,30,25^FDSPAIN^FS
+^FO145,180^A1N,30,25^FDSPRAY PERFUME^FS
+^FO15,210^A1N,30,23^FDAvoid direct exposure to the sun.^FS
+^FO115,240^A1N,30,25^FDTopical use only.^FS
+^FO55,270^A1N,30,25^FDAvoid direct contact with^FS
+^FO50,300^A1N,30,25^FDEyes and mucous membranes.^FS
+^FO15,330^A1N,30,23^FDEvitar exposicion directa al sol.^FS
+^FO75,360^A1N,30,25^FDSolo para uso tópico.^FS
+^FO30,390^A1N,30,25^FDEvitar contacto con los ojos^FS
+^FO95,420^A1N,30,25^FDy membranas mucosas.^FS
+^FO120,480^A1N,40,40^FDLOT: XXXXXX^FS
+^FO20,810^A1N,30,25^FDAvoid direct exposure to the sun.^FS
+^FO130,840^A1N,30,25^FDTopical use only.^FS
+^FO45,870^A1N,30,25^FDAvoid direct contact with eyes^FS
+^FO110,900^A1N,30,25^FDand mucous membranes^FS
+^FO25,930^A1N,30,25^FDEvitar exposición directa al sol.^FS
+^FO110,960^A1N,30,25^FDSolo para uso tópico.^FS
+^FO30,990^A1N,30,25^FDEvitar contacto directo con los^FS
+^FO70,1020^A1N,30,25^FDojos y membranas mucosas.^FS
+^FO20,1080^A1N,30,25^FDDIVAIN TEAM SL^FS
+^FO20,1110^A1N,30,25^FDCtra. Astorga-Pi^FS
+^FO20,1140^A1N,30,25^FDN34 24710^FS
+^FO20,1170^A1N,30,25^FDSan Justo de la Vega^FS
+^FO20,1200^A1N,30,25^FDSPAIN^FS
+^FO340,1070^BQN,2,6^FDYYYY^FS
+^FO40,1270^A1N,30,25,E^FD####################^FS
+^FO40,1300^A1N,30,25^FD####################^FS
+^FO40,1330^A1N,30,25^FD####################^FS
+^FO40,1360^A1N,30,25^FD####################^FS
+^FO40,1390^A1N,30,25^FD####################^FS
+^FO40,1420^A1N,30,25^FD####################^FS
+^FO40,1450^A1N,30,25^FD####################^FS
+^FO40,1480^A1N,30,25^FD####################^FS
+^FO40,1510^A1N,30,25^FD####################^FS
+^FO40,1540^A1N,30,25^FD####################^FS
+^FO115,1610^A1N,50,50^FDDIVAIN-ZZZ^FS
+^FO145,1840^A1N,50,50^FDLot:xxxxxxxxxx^FS
+^FO90,1670^BY2^BCN,120,N,N,N^FD123456789012^FS
+^FO180,1800^A1N,25,25^FD123456789012^FS
+^PQ1
+^MMT
+^XZ
